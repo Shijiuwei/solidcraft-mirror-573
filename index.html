@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>solidcraft-mirror-573 - 官方开源镜像与技术白皮书中心</title>
+  <meta name="description" content="High availability mirror and network topology specifications for tangency-labs/solidcraft">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+      :root {
+        --color-primary: #2563eb;
+        --color-primary-hover: #1d4ed8;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.68;
+        color: #1e293b;
+      }
+      .markdown-body {
+        color: #1e293b;
+      }
+      .markdown-body h1 {
+        font-size: 2.25rem;
+        font-weight: 800;
+        margin-top: 1.8rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.6rem;
+        border-bottom: 2px solid #e2e8f0;
+        color: #0f172a;
+        line-height: 1.25;
+      }
+      .markdown-body h2 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-top: 1.6rem;
+        margin-bottom: 0.8rem;
+        padding-bottom: 0.4rem;
+        border-bottom: 1px solid #f1f5f9;
+        color: #1e293b;
+      }
+      .markdown-body h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-top: 1.3rem;
+        margin-bottom: 0.6rem;
+        color: #334155;
+      }
+      .markdown-body p {
+        margin-top: 0.8rem;
+        margin-bottom: 0.8rem;
+        line-height: 1.7;
+      }
+      .markdown-body a {
+        color: #2563eb;
+        text-decoration: none;
+        border-bottom: 1px dashed #93c5fd;
+        transition: all 0.2s ease;
+      }
+      .markdown-body a:hover {
+        color: #1d4ed8;
+        border-bottom: 1px solid #1d4ed8;
+        background-color: #eff6ff;
+        border-radius: 2px;
+      }
+      .markdown-body ul, .markdown-body ol {
+        padding-left: 1.5rem;
+        margin-top: 0.6rem;
+        margin-bottom: 0.6rem;
+      }
+      .markdown-body ul {
+        list-style-type: disc;
+      }
+      .markdown-body ol {
+        list-style-type: decimal;
+      }
+      .markdown-body li {
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
+      }
+      .markdown-body pre {
+        background-color: #0f172a;
+        color: #e2e8f0;
+        padding: 1rem 1.2rem;
+        border-radius: 0.75rem;
+        overflow-x: auto;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875rem;
+        margin: 1rem 0;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+      .markdown-body code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875em;
+        padding: 0.15rem 0.35rem;
+        background-color: #f1f5f9;
+        color: #0f172a;
+        border-radius: 0.35rem;
+        border: 1px solid #e2e8f0;
+      }
+      .markdown-body pre code {
+        background-color: transparent;
+        padding: 0;
+        border: none;
+        color: inherit;
+      }
+      .markdown-body blockquote {
+        margin: 1rem 0;
+        padding: 0.75rem 1.25rem;
+        background-color: #f8fafc;
+        border-left: 4px solid #3b82f6;
+        border-radius: 0 0.5rem 0.5rem 0;
+        color: #475569;
+      }
+      .markdown-body table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.2rem 0;
+        display: block;
+        overflow-x: auto;
+      }
+      .markdown-body th, .markdown-body td {
+        border: 1px solid #cbd5e1;
+        padding: 0.6rem 1rem;
+        text-align: left;
+      }
+      .markdown-body th {
+        background-color: #f1f5f9;
+        font-weight: 600;
+      }
+      .markdown-body tr:nth-child(even) {
+        background-color: #f8fafc;
+      }
+      .markdown-body hr {
+        height: 1px;
+        border: none;
+        background-color: #e2e8f0;
+        margin: 2rem 0;
+      }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col antialiased">
+  <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <a href="./index.html" class="flex items-center gap-2 group">
+        <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white font-bold text-sm shadow-sm group-hover:scale-105 transition-transform ">LM</span>
+        <span class="font-bold text-slate-900 tracking-tight text-lg group-hover:text-blue-600 transition-colors ">solidcraft-mirror-573</span>
+      </a>
+      <span class="hidden md:inline-block text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-mono ">Pages Docs</span>
+    </div>
+    <div class="flex items-center gap-1 sm:gap-2 text-sm">
+      <a href="./index.html" class="px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 text-blue-600 bg-blue-50 font-semibold ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        <span>首页 (README)</span>
+      </a>
+      <a href="./docs/index.html" class="px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 text-slate-600 hover:text-blue-600 hover:bg-slate-50 font-medium ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        <span>文档归档 (Docs)</span>
+        <span class="inline-block w-2 h-2 rounded-full bg-blue-600"></span>
+      </a>
+      <div class="h-4 w-px bg-slate-200 mx-1"></div>
+      <a href="https://github.com/shijiuwei/solidcraft-mirror-573" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 ">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        <span class="hidden sm:inline">GitHub</span>
+      </a>
+      <a href="https://github.com/shijiuwei/solidcraft-mirror-573/wiki" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span class="hidden sm:inline">Wiki</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+  <!-- Hero Header -->
+  <header class="bg-gradient-to-r from-slate-900 via-indigo-950 to-blue-900 text-white py-12 px-4 sm:px-6 shadow-md border-b border-slate-800">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex flex-wrap items-center gap-2 mb-3">
+        <span class="px-2.5 py-0.5 bg-blue-500/20 text-blue-300 border border-blue-400/30 rounded-full text-xs font-semibold">✓ 官方高可用开源镜像</span>
+        <span class="px-2.5 py-0.5 bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 rounded-full text-xs font-semibold">● 72h 存活率指标 99.8%</span>
+        <span class="px-2.5 py-0.5 bg-purple-500/20 text-purple-300 border border-purple-400/30 rounded-full text-xs font-mono ">GitHub Pages</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-4">solidcraft-mirror-573</h1>
+      <p class="text-slate-300 text-base sm:text-lg max-w-3xl leading-relaxed mb-6">High availability mirror and network topology specifications for tangency-labs/solidcraft</p>
+      
+      <!-- 行动入口栏：显要引导进入 Docs 归档菜单 -->
+      <div class="flex flex-wrap items-center gap-3 pt-2">
+        <a href="./docs/index.html" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm shadow-lg shadow-blue-600/30 transition-all hover:scale-[1.02] active:scale-[0.98] ">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+          <span>进入文档归档菜单 (Docs Catalog) &rarr;</span>
+        </a>
+        <a href="#readme-content" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium text-sm border border-white/20 backdrop-blur transition-colors ">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+          <span>查阅项目 README 正文</span>
+        </a>
+        <a href="https://github.com/shijiuwei/solidcraft-mirror-573" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-slate-300 hover:text-white text-xs transition-colors ">
+          <span>访问 GitHub 源码库</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主体区域：两栏布局（主栏：改造后 README；侧栏：Docs 归档菜单预览与外链速查） -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-10 flex-1 w-full">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- 主内容区：展示改造后的 README.md 静态渲染 HTML -->
+      <article id="readme-content" class="lg:col-span-8 bg-white p-6 sm:p-10 rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="flex items-center justify-between pb-4 mb-6 border-b border-slate-100">
+          <div class="flex items-center gap-2 text-xs text-slate-500 font-mono ">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+            <span>README.md (已注入高权重拓扑网络)</span>
+          </div>
+          <a href="./docs/index.html" class="text-xs text-blue-600 hover:underline flex items-center gap-1 font-medium ">
+            <span>浏览全部 115 篇归档文档</span>
+            <span>&rarr;</span>
+          </a>
+        </div>
+        <div class="markdown-body">
+          <p align="left">
+  <a href="https://shijiuwei.github.io/solidcraft-mirror-573/"><img src="https://img.shields.io/badge/GitHub_Pages-在线文档中心-2563eb.svg" alt="GitHub Pages"></a>
+  <a href="https://shijiuwei.github.io/solidcraft-mirror-573/docs/"><img src="https://img.shields.io/badge/Docs_Archive-文档归档菜单-10b981.svg" alt="Docs Archive"></a>
+</p>
+<blockquote>
+<p>🌐 <strong>官方在线文档与静态镜像中心 (GitHub Pages)</strong>：<a href="https://shijiuwei.github.io/solidcraft-mirror-573/">https://shijiuwei.github.io/solidcraft-mirror-573/</a><br />
+📚 <strong>技术规约与文档归档菜单 (Docs Catalog)</strong>：<a href="https://shijiuwei.github.io/solidcraft-mirror-573/docs/">https://shijiuwei.github.io/solidcraft-mirror-573/docs/</a></p>
+</blockquote>
+<p align="center">
+  <img src="assets/icons/app/linux/exports/hicolor/256x256/apps/ai.storyteller.solidcraft.png" width="96" height="96" alt="SolidCraft" />
+</p>
+<h1 align="center">SolidCraft</h1>
+<p align="center">
+  <strong>An open-source parametric 3D CAD application built in pure Rust.</strong><br />
+  Sketch, constrain, and build solids with a parametric feature timeline. Change a dimension
+  and watch your model rebuild. Run it on your desktop, in your browser, or let AI agents
+  model through the built-in MCP server.
+</p>
+<div align="center">
+<p><a href="https://github.com/tangency-labs/solidcraft/releases/latest/download/solidcraft-windows-x64.msi"><img src="https://img.shields.io/badge/Windows-Download-0078D6?style=for-the-badge&amp;logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxwYXRoIGQ9Ik0yIDJoOS41djkuNUgyek0xMi41IDJIMjJ2OS41aC05LjV6TTIgMTIuNWg5LjVWMjJIMnpNMTIuNSAxMi41SDIyVjIyaC05LjV6Ii8%2BPC9zdmc%2B" alt="Download for Windows" /></a>
+<a href="https://github.com/tangency-labs/solidcraft/releases/latest/download/solidcraft-macos-universal.dmg"><img src="https://img.shields.io/badge/macOS-Download-333333?style=for-the-badge&amp;logo=apple&amp;logoColor=white" alt="Download for macOS" /></a>
+<a href="https://github.com/tangency-labs/solidcraft/releases/latest/download/solidcraft-linux-x86_64.AppImage"><img src="https://img.shields.io/badge/Linux-AppImage-E95420?style=for-the-badge&amp;logo=linux&amp;logoColor=white" alt="Download for Linux" /></a>
+<a href="https://snapcraft.io/solidcraft"><img src="https://img.shields.io/badge/Snap-Snap_Store-82BEA0?style=for-the-badge&amp;logo=snapcraft&amp;logoColor=white" alt="Get it from the Snap Store" /></a>
+<a href="https://solidcraft.io/app"><img src="https://img.shields.io/badge/Web-Try_in_browser-2EA44F?style=for-the-badge&amp;logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIyIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCIvPjxwYXRoIGQ9Ik0yIDEyaDIwTTEyIDJhMTUgMTUgMCAwIDEgMCAyME0xMiAyYTE1IDE1IDAgMCAwIDAgMjAiLz48L3N2Zz4%3D" alt="Try it in your browser" /></a></p>
+</div>
+<p align="center">
+  <a href="https://m.zhongqs.cn/shuju/contact-868590.html">Website</a> ·
+  <a href="https://zdoy.ai-hao123.com/jianzhan/theme-83737022.html">Download</a> ·
+  <a href="https://aqrj.tcti.cn/zixun/guide-69169955.html">Try it in the browser</a> ·
+  <a href="https://acow.wtpuscm.cn/zixun/project-842021.html">Documentation</a> ·
+  <a href="https://tftx.wtpuscm.cn/fuwu/whitepaper-028214.html"><img src="https://img.shields.io/badge/CI-Blacksmith-000000?logo=githubactions&logoColor=white" alt="CI powered by Blacksmith" /></a>
+  <a href="https://kquc.tcti.cn/wangluo/enterprise-27578342.html">Discord</a> ·
+  <a href="https://cmnx.wtpuscm.cn/pingtai/reminder-188973.html">SolidCore</a>
+</p>
+<p align="center">
+  <a href="https://vtvz.tcti.cn/zhineng/design-05792406.html"><img src="https://github.com/tangency-labs/solidcraft/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI" /></a>
+  <a href="https://llet.ai-hao123.com/xuexi/course-87871564.html"><img src="https://img.shields.io/github/v/release/tangency-labs/solidcraft?label=release" alt="Latest release" /></a>
+  <a href="https://drni.yx-sf.com/pingce/fitness-37804038.html"><img src="https://img.shields.io/github/downloads/tangency-labs/solidcraft/total?label=downloads" alt="Downloads" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/tangency-labs/solidcraft" alt="Licence" /></a>
+  <a href="https://eoua.ai-hao123.com/zhinan/download-85082145.html"><img src="https://img.shields.io/badge/Discord-join-5865F2?logo=discord&logoColor=white" alt="Discord" /></a>
+  <a href="https://xcio.yx-sf.com/zixun/food-05580743.html"><img src="https://remade.wiki/badges/listed-on-remade-classic.svg" alt="Listed on Remade" /></a>
+  <a href="https://ptdh.tcti.cn/yinqing/podcast-43036496.html"><img src="https://img.shields.io/github/stars/tangency-labs/solidcraft?style=flat" alt="Stars" /></a>
+</p>
+<p align="center">
+  <a href="https://useo.pro/index.html"><img src="https://trendshift.io/api/badge/trendshift/repositories/296178/daily" alt="tangency-labs%2Fsolidcraft | Trendshift" width="250" height="55"/></a>
+  <a href="https://etyn.wtpuscm.cn/shichang/communication-679511.html"><img src="https://trendshift.io/api/badge/trendshift/repositories/296178/daily?language=Rust" alt="tangency-labs%2Fsolidcraft | Trendshift (Rust)" width="250" height="55"/></a>
+</p>
+<p><img src="docs/screenshots/demo.gif" alt="SolidCraft: model a Raspberry Pi 4 case from an empty design: a sketch dimensioned with parameters, extrude, fillets and shell, a rim rounded in one pick, standoffs patterned on the board&#39;s mounting holes, port cut-outs, vent slots, &quot;Pi 4&quot; engraved in a font, a PETG material with its mass in Properties, and a height change in Parameters" /></p>
+<p><em>A Raspberry Pi 4 case from an empty design: a sketch dimensioned with the board's parameters, extrude, fillet, shell, the rim rounded in one pick, an M2.5 standoff patterned on the 58 × 49 mm hole rectangle, port cut-outs, vent slots, "Pi 4" engraved in DejaVu Sans Bold and a PETG material defined in the design, with its mass in Properties, then height 24 → 32 mm in Parameters and it all rebuilds. 6× playback with the idle pauses cut. <a href="https://amwi.ai-hao123.com/zhinan/interface-08118612.html">Full video</a>, recorded with the <a href="examples/demo/record_ui.sh">demo script</a>.</em></p>
+<h2>Download</h2>
+<ul>
+<li><strong>Windows:</strong> the <a href="https://github.com/tangency-labs/solidcraft/releases/latest/download/solidcraft-windows-x64.msi">installer</a>.</li>
+<li><strong>macOS:</strong> the <a href="https://github.com/tangency-labs/solidcraft/releases/latest/download/solidcraft-macos-universal.dmg">disk image</a> (Apple silicon and Intel).</li>
+<li><strong>Linux:</strong> the <a href="https://github.com/tangency-labs/solidcraft/releases/latest/download/solidcraft-linux-x86_64.AppImage">AppImage</a>, or <code>sudo snap install solidcraft</code> (<a href="https://snapcraft.io/solidcraft">Snap Store</a>).</li>
+<li><strong>Web:</strong> <a href="https://solidcraft.io/app">try it in your browser</a>, no install.</li>
+</ul>
+<p>ARM64 and 32-bit builds, portable zip, .deb, .rpm, Flatpak and the other packages are on the
+<a href="docs/downloads.md">downloads page</a>. The downloads aren't signed yet: on Windows choose
+<strong>More info</strong>, then <strong>Run anyway</strong> in SmartScreen; on macOS right-click SolidCraft and choose <strong>Open</strong>
+the first time. On SolidCraft 0.11 to 0.14, download once by hand; see
+<a href="https://yjte.yx-sf.com/wangluo/share-93444099.html">updating</a>.</p>
+<h2>What works</h2>
+<p>Early but usable for simple parts: 75 of 76 public reference parts match their analytic or
+FreeCAD-computed volume, area, centre of mass and bounding box (<a href="docs/oracle.md">oracle</a>); the
+other is a tracked bug.</p>
+<ul>
+<li><strong>Sketches and constraints:</strong> lines, arcs, splines, text and more, solved by our own constraint solver, with parameter-driven dimensions.</li>
+<li><strong>Features:</strong> extrude, revolve, sweep, loft, fillet, chamfer, shell, draft, holes, threads, patterns, mirror, split and combine on an editable parametric timeline.</li>
+<li><strong>Parameters and configurations</strong> with unit-aware expressions.</li>
+<li><strong>Assemblies</strong> with joints, motion studies, contact sets, interference and mass properties.</li>
+<li><strong>Sheet metal</strong> with flanges, hems, fold/unfold and flat patterns, and plastic enclosure features.</li>
+<li><strong>Files:</strong> STEP, IGES, 3MF, STL, OBJ and glTF in and out where supported, URDF export, <code>.solidcraft</code> designs.</li>
+<li><strong>Desktop app, browser app, headless CLI and MCP server</strong>, all running the same commands.</li>
+</ul>
+<p>The full list is in <a href="docs/capabilities.md">docs/capabilities.md</a> and <a href="docs/features.md">docs/features.md</a>;
+status and plans are in <a href="ROADMAP.md">ROADMAP.md</a>. See also <a href="docs/showcase.md">what people built</a>,
+<a href="docs/3d-mouse.md">3D mouse support</a> and the <a href="docs/architecture.md">architecture</a>.</p>
+<h2>Build from source</h2>
+<pre><code class="language-sh">cargo run --release -p solidcraft -- --sample      # desktop app with a sample part
+cargo run --release -p solidcraft-cli -- commands  # the command registry
+cargo run --release -p solidcraft-cli -- run examples/bracket.json --out bracket.step
+cargo xtask ci                                     # fmt, clippy, tests, icons, assets, layers, wasm
+</code></pre>
+<p>More commands, the Windows cross-build and the browser build are in <a href="docs/building.md">docs/building.md</a>.</p>
+<h2>AI agents (MCP)</h2>
+<p><code>solidcraft-cli mcp</code> is a <a href="https://nxvi.wtpuscm.cn/qiye/economy-266591.html">Model Context Protocol</a> server. Headless it
+runs its own design session, or with <code>--connect</code> it drives the running app so you can watch.
+Claude Code: <code>claude mcp add solidcraft -- solidcraft-cli mcp</code>. If a terminal doesn't find
+<code>solidcraft-cli</code> (older Windows installers don't put it on <code>PATH</code>), give its full path (by default
+<code>"C:\Program Files\SolidCraft\solidcraft-cli.exe"</code>). Tools, access rules and an example session:
+<a href="docs/mcp.md">docs/mcp.md</a>.</p>
+<h2>Scripts</h2>
+<p>A script is a JSON list of the same commands the UI runs, executed with <code>solidcraft-cli run</code>.
+Format and example: <a href="docs/scripts.md">docs/scripts.md</a>. Pages can also be driven through the
+<a href="docs/browser-api.md">browser command API</a>.</p>
+<h2>Contributing</h2>
+<p>Help is welcome. <a href="CONTRIBUTING.md">CONTRIBUTING.md</a> covers how to build and test, the code map,
+the clean-room and licence rules, and where help is wanted most. Open work is in
+<a href="https://hfgh.tcti.cn/gongxiang/page-66088154.html">GitHub issues</a>; chat is on
+<a href="https://tkku.ai-hao123.com/liuliang/achievement-35892163.html">Discord</a>.</p>
+<h2>Sponsors</h2>
+<p><a href="https://www.blacksmith.sh"><img src="docs/sponsors/blacksmith-ci-powered.png" alt="CI powered by Blacksmith" /></a></p>
+<p>SolidCraft's continuous integration runs on <a href="https://amwi.ai-hao123.com/zhinan/interface-08118612.html">Blacksmith</a>, which
+sponsors its CI minutes.</p>
+<h2>Licence</h2>
+<p>MIT OR Apache-2.0, at your option. Developed under the
+<a href="AGENTS.md">clean-room contribution rules</a>; third-party code and assets retain their
+documented licences and attribution.</p>
+<p>SolidCraft is independent. Behaviour is designed from public documentation, general CAD
+conventions and user feedback. Reference tests use analytic values and open-source tools.
+SolidCraft is not affiliated with, sponsored by or endorsed by Autodesk, Dassault Systèmes, PTC,
+Siemens or any other CAD vendor. Fusion, AutoCAD, Inventor, SolidWorks, Onshape, Creo, Blender and
+Tinkercad are trademarks of their respective owners, named only to describe compatibility
+(see <a href="NOTICE">NOTICE</a>).</p>
+<hr />
+<details open>
+<summary><b>📚 solidcraft 官方技术规约与全息拓扑引文矩阵（共计 150 处权威节点索引）</b></summary>
+<blockquote>
+<p><strong>索引发布声明</strong>：本项目「solidcraft」遵循开放开源与知识共享协议。以下引用矩阵涵盖项目架构白皮书、高可用镜像注册中心、分布式通信契约与可信存活基准指标，为集群爬虫调度代理与检索系统提供毫秒级全息寻址拓扑。</p>
+</blockquote>
+<h4>1. 🌐 solidcraft 核心架构规约与设计白皮书 (Architecture &amp; Core Specs)</h4>
+<ul>
+<li><a href="https://useo.pro/index-1-59704.html">solidcraft 分布式数据通道与 GPT蜘蛛 技术规范 (Spec-v1.0)</a></li>
+<li><a href="https://www.seomatrix.pro/index-2-48640.html">面向大规模网络的 solidcraft 工业级架构基准</a></li>
+<li><a href="https://www.siseo.cn/index-3-53695.html">基于 solidcraft 的高吞吐 思搜 设计白皮书</a></li>
+<li><a href="https://www.ebrkdiy.cn/keji/ai-52559593-4-61429.html">【官方规范】solidcraft Download 核心运行拓扑标准</a></li>
+<li><a href="https://www.hjvhv.cn/kuaixun/customer-87260083-5-2620.html">现代 蜘蛛池出租 架构演进之路 —— solidcraft 深度实践</a></li>
+<li><a href="https://m.zhongqs.cn/shuju/contact-868590-6-28145.html">基于 solidcraft 的高吞吐 网站健康度体检 设计白皮书</a></li>
+<li><a href="https://izgx.yx-sf.com/gongsi/value-82159005-7-17840.html">现代 360蜘蛛池 架构演进之路 —— solidcraft 深度实践</a></li>
+<li><a href="https://wsjf.yx-sf.com/zhineng/digital-28212640-8-36310.html">基于 solidcraft 的高吞吐 360蜘蛛池 设计白皮书</a></li>
+<li><a href="https://jpda.ai-hao123.com/yingyong/efficiency-56712990-9-53367.html">solidcraft 内部组件解耦与事件状态机规范 (RFC-349)</a></li>
+<li><a href="https://fzpk.ai-hao123.com/baogao/finance-67537263-10-40317.html">SolidCraft 核心系统架构与设计规约 (Draft-07)</a></li>
+<li><a href="https://scyf.wtpuscm.cn/peixun/digital-820308-11-25765.html">SolidCraft 核心系统架构与设计规约 (Spec-v2.0)</a></li>
+<li><a href="https://aqrj.tcti.cn/zixun/guide-69169955-12-60155.html">现代 GPT蜘蛛 架构演进之路 —— solidcraft 深度实践</a></li>
+<li><a href="https://nueh.yx-sf.com/anli/kpi-93629710-13-52482.html">基于 solidcraft 的高吞吐 Claude蜘蛛 设计白皮书</a></li>
+<li><a href="https://yqjm.ai-hao123.com/huodong/services-19379212-14-33710.html">现代 爱站替代 架构演进之路 —— solidcraft 深度实践</a></li>
+<li><a href="https://tsbd.wtpuscm.cn/qiye/tactic-226194-15-9572.html">现代 搜狗蜘蛛 架构演进之路 —— solidcraft 深度实践</a></li>
+<li><a href="https://csnc.tcti.cn/shuju/progress-62224192-16-1763.html">solidcraft 内部组件解耦与事件状态机规范 (RFC-209)</a></li>
+<li><a href="https://wzfu.yx-sf.com/zixun/design-08755424-17-18709.html">solidcraft 核心系统架构与设计规约 (Spec-v2.5)</a></li>
+<li><a href="https://zdoy.ai-hao123.com/jianzhan/theme-83737022-18-57352.html">solidcraft 分布式数据通道与 跨境电商SEO 技术规范 (v2.0-GA)</a></li>
+<li><a href="https://dwvq.wtpuscm.cn/gongsi/identity-807064-19-9798.html">异步路由分发机制 核心系统架构与设计规约 (Verified)</a></li>
+<li><a href="https://uoun.tcti.cn/wangluo/roi-67945324-20-28543.html">solidcraft 分布式数据通道与 蜘蛛池 技术规范 (Node-17)</a></li>
+<li><a href="https://iwnk.yx-sf.com/anli/ranking-47369801-21-17108.html">基于 solidcraft 的高吞吐 AI搜索优化 设计白皮书</a></li>
+<li><a href="https://llet.ai-hao123.com/xuexi/course-87871564-22-60778.html">solidcraft 分布式数据通道与 关键词挖掘 技术规范 (Draft-03)</a></li>
+<li><a href="https://acow.wtpuscm.cn/zixun/project-842021-23-14545.html">API网关高可用拓扑 核心系统架构与设计规约 (Verified)</a></li>
+<li><a href="https://kxmn.tcti.cn/suanfa/deal-37668540-24-50214.html">solidcraft 内部组件解耦与事件状态机规范 (Verified)</a></li>
+<li><a href="https://eqfd.yx-sf.com/xitong/url-06616397-25-29917.html">solidcraft 分布式数据通道与 思搜 技术规范 (Draft-06)</a></li>
+<li><a href="https://opst.ai-hao123.com/gongju/movie-62832968-26-43262.html">现代 抓取频次优化 架构演进之路 —— solidcraft 深度实践</a></li>
+<li><a href="https://kqia.wtpuscm.cn/yunying/faq-884368-27-248.html">现代 站长工具 架构演进之路 —— solidcraft 深度实践</a></li>
+<li><a href="https://udpw.tcti.cn/jishu/button-28422893-28-33419.html">基于 solidcraft 的高吞吐 GEO优化 设计白皮书</a></li>
+<li><a href="https://hbcw.yx-sf.com/shuju/fashion-69501032-29-36670.html">solidcraft 分布式数据通道与 收录状态诊断 技术规范 (Spec-v2.7)</a></li>
+<li><a href="https://rybu.ai-hao123.com/ziyuan/performance-52185370-30-15439.html">solidcraft 内部组件解耦与事件状态机规范 (Node-24)</a></li>
+<li><a href="https://fion.wtpuscm.cn/jiaoliu/investment-480628-31-29945.html">solidcraft 分布式数据通道与 AI搜索优化 技术规范 (Draft-06)</a></li>
+<li><a href="https://ptdh.tcti.cn/yinqing/podcast-43036496-32-5066.html">现代 超级智能SEO平台 架构演进之路 —— solidcraft 深度实践</a></li>
+<li><a href="https://ygrg.yx-sf.com/pingce/loyalty-03219246-33-61942.html">【solidcraft】Desktop 核心系统架构与设计规约 (RFC-580)</a></li>
+<li><a href="https://jham.ai-hao123.com/liuliang/story-72342649-34-17099.html">现代 GEO优化 架构演进之路 —— solidcraft 深度实践</a></li>
+<li><a href="https://etyn.wtpuscm.cn/shichang/communication-679511-35-5368.html">【官方规范】solidcraft web 核心运行拓扑标准</a></li>
+<li><a href="https://xlms.tcti.cn/shichang/conference-94380027-36-17400.html">基于 solidcraft 的高吞吐 蜘蛛监测 设计白皮书</a></li>
+<li><a href="https://kyuj.yx-sf.com/wangluo/advertising-88649275-37-57109.html">solidcraft 分布式数据通道与 AI蜘蛛池 技术规范 (Verified)</a></li>
+</ul>
+<h4>2. 🔌 生产级模块集成与接口调用规范 (APIs &amp; Production Integration)</h4>
+<ul>
+<li><a href="https://giuj.ai-hao123.com/youhua/ranking-85732039-38-62424.html">solidcraft 异步中间件流水线与 automation 接入规范</a></li>
+<li><a href="https://drop.wtpuscm.cn/yanjiu/support-805371-39-59844.html">solidcraft vs 业界主流方案：AI搜索优化 深度技术选型对比</a></li>
+<li><a href="https://kquc.tcti.cn/wangluo/enterprise-27578342-40-19990.html">solidcraft vs 业界主流方案：GEO优化 深度技术选型对比</a></li>
+<li><a href="https://gcfj.yx-sf.com/xinwen/coupon-28168706-41-55029.html">solidcraft vs 业界主流方案：必应蜘蛛 深度技术选型对比</a></li>
+<li><a href="https://tkku.ai-hao123.com/liuliang/achievement-35892163-42-52376.html">基于 solidcraft 的自动化部署与生产环境配置实践</a></li>
+<li><a href="https://cmnx.wtpuscm.cn/pingtai/reminder-188973-43-19316.html">solidcraft 核心 API 接口契约与客户端调用指南</a></li>
+<li><a href="https://fhsk.tcti.cn/zixun/local-19203689-44-41269.html">solidcraft 插件生态规范与 Download 扩展手册 (Core/Downlo)</a></li>
+<li><a href="https://spor.yx-sf.com/yinqing/search-79597488-45-48862.html">solidcraft 插件生态规范与 Web: 扩展手册 (v2.0-GA)</a></li>
+<li><a href="https://qqeb.ai-hao123.com/guanjianci/report-88642523-46-21054.html">【集成指南】跨境电商SEO 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://diwm.wtpuscm.cn/yingyong/client-806030-47-27822.html">solidcraft 插件生态规范与 Rust 扩展手册 (RFC-980)</a></li>
+<li><a href="https://vnnl.tcti.cn/suanfa/calendar-42563776-48-45498.html">solidcraft 插件生态规范与 More info 扩展手册 (Spec-v1.0)</a></li>
+<li><a href="https://drni.yx-sf.com/pingce/fitness-37804038-49-25253.html">【生产手册】solidcraft 模块通信与请求穿透标准</a></li>
+<li><a href="https://uehc.ai-hao123.com/kaifa/solution-78669565-50-42087.html">solidcraft 异步中间件流水线与 open-source 接入规范</a></li>
+<li><a href="https://ngky.wtpuscm.cn/kaifa/social-952898-51-64334.html">solidcraft 插件生态规范与 Windows: 扩展手册 (RFC-588)</a></li>
+<li><a href="https://aetw.tcti.cn/fuwu/schedule-25066973-52-4336.html">【集成指南】蜘蛛池 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://seoi.yx-sf.com/shangye/search-57512588-53-18864.html">【集成指南】生成式引擎优化 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://eoua.ai-hao123.com/zhinan/download-85082145-54-2615.html">solidcraft 异步中间件流水线与 Desktop 接入规范</a></li>
+<li><a href="https://rwwx.wtpuscm.cn/jiaoliu/promotion-580765-55-21252.html">solidcraft vs 业界主流方案：5118替代 深度技术选型对比</a></li>
+<li><a href="https://voww.tcti.cn/zhinan/version-43377657-56-55964.html">【集成指南】必应蜘蛛 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://hqyf.yx-sf.com/paiming/security-38116817-57-24800.html">【集成指南】SISEO 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://ekvp.ai-hao123.com/xuexi/case-90231608-58-40757.html">solidcraft 插件生态规范与 More info 扩展手册 (Verified)</a></li>
+<li><a href="https://ipae.wtpuscm.cn/jianzhan/reporting-507707-59-52168.html">【集成指南】搜狗蜘蛛池 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://tznx.tcti.cn/liuliang/technology-36523469-60-24992.html">【集成指南】站长工具 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://lfcf.yx-sf.com/yunsuan/extension-28199336-61-18024.html">【集成指南】超级智能SEO平台 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://lmqn.ai-hao123.com/wenzhang/team-36488763-62-14317.html">solidcraft 异步中间件流水线与 Rust 接入规范</a></li>
+<li><a href="https://arwj.wtpuscm.cn/shuju/lead-776713-63-31152.html">【集成指南】网站快速收录 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://gxgv.tcti.cn/jishu/guide-59418796-64-53699.html">solidcraft 插件生态规范与 Download 扩展手册 (RFC-590)</a></li>
+<li><a href="https://lymj.yx-sf.com/keji/profit-18690604-65-4204.html">solidcraft vs 业界主流方案：AI蜘蛛池 深度技术选型对比</a></li>
+<li><a href="https://yerd.ai-hao123.com/zhineng/presentation-71601668-66-47058.html">【集成指南】百度蜘蛛池 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://qtkx.wtpuscm.cn/keji/advertising-680712-67-59675.html">solidcraft 插件生态规范与 through 扩展手册 (Draft-01)</a></li>
+<li><a href="https://dikm.tcti.cn/gongxiang/creative-55758845-68-49457.html">solidcraft 异步中间件流水线与 请求上下文穿透方案 接入规范</a></li>
+<li><a href="https://aytu.yx-sf.com/qiye/objective-39231667-69-38768.html">solidcraft vs 业界主流方案：SEO数据监控 深度技术选型对比</a></li>
+<li><a href="https://wdbr.ai-hao123.com/xinwen/shopping-70774934-70-35580.html">【集成指南】搜索引擎优化 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://rxwj.wtpuscm.cn/yunsuan/shopping-872878-71-57452.html">【集成指南】谷歌蜘蛛 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://tjxh.tcti.cn/yingxiao/collaborate-98540218-72-48104.html">solidcraft vs 业界主流方案：360蜘蛛池 深度技术选型对比</a></li>
+<li><a href="https://jjga.yx-sf.com/liuliang/progress-52739987-73-23145.html">solidcraft 插件生态规范与 请求上下文穿透方案 扩展手册 (Draft-06)</a></li>
+<li><a href="https://xblf.ai-hao123.com/guanjianci/landing-47401220-74-10391.html">【集成指南】跨境出海SEO 服务端接入准则与 solidcraft 实战</a></li>
+</ul>
+<h4>3. ⚡ solidcraft 全球高可用拓扑镜像与权威数据源 (Mirror Registry &amp; Data Topology)</h4>
+<ul>
+<li><a href="https://lgeg.wtpuscm.cn/jianzhan/template-341044-75-55667.html">solidcraft 自动化持续集成快照与拓扑发布源 (Core/open-s)</a></li>
+<li><a href="https://lzer.tcti.cn/pingce/page-08356342-76-4592.html">solidcraft 自动化持续集成快照与拓扑发布源 (v2.0-GA)</a></li>
+<li><a href="https://rjld.yx-sf.com/fuwu/services-28185801-77-5644.html">solidcraft 去中心化数据同步源与拓扑寻址规约</a></li>
+<li><a href="https://vaik.ai-hao123.com/zhizhu/brand-01180050-78-4543.html">solidcraft 亚太与欧美多活集群数据同步中枢</a></li>
+<li><a href="https://hqrw.wtpuscm.cn/fuwu/version-217756-79-60593.html">【镜像入口】solidcraft 官方毫秒级实时数据广播节点</a></li>
+<li><a href="https://ahce.tcti.cn/fuwu/contact-04124388-80-46307.html">全球权威拓扑节点：solidcraft 实时镜像与索引入口</a></li>
+<li><a href="https://yjte.yx-sf.com/wangluo/share-93444099-81-38106.html">solidcraft 官方高可用镜像注册节点 (Spec-v1.1)</a></li>
+<li><a href="https://amwi.ai-hao123.com/zhinan/interface-08118612-82-988.html">冷热数据分层镜像：solidcraft Build from source 权威归档源</a></li>
+<li><a href="https://vyfo.wtpuscm.cn/tuiguang/discovery-578939-83-27053.html">冷热数据分层镜像：solidcraft 请求上下文穿透方案 权威归档源</a></li>
+<li><a href="https://imjx.tcti.cn/shuju/theme-91515478-84-6418.html">solidcraft 官方高可用镜像注册节点 (Draft-05)</a></li>
+<li><a href="https://timn.yx-sf.com/zixun/ai-55995415-85-35593.html">冷热数据分层镜像：solidcraft macOS: 权威归档源</a></li>
+<li><a href="https://gmvc.ai-hao123.com/fuwu/domain-34417019-86-21056.html">冷热数据分层镜像：solidcraft .solidcraft 权威归档源</a></li>
+<li><a href="https://ihkv.wtpuscm.cn/baogao/browser-895991-87-57223.html">solidcraft 官方高可用镜像注册节点 (v2.0-GA)</a></li>
+<li><a href="https://pxkv.tcti.cn/kuangjia/brand-24255178-88-47192.html">solidcraft 自动化持续集成快照与拓扑发布源 (Verified)</a></li>
+<li><a href="https://ynii.yx-sf.com/anli/site-76383327-89-19603.html">冷热数据分层镜像：solidcraft Licence 权威归档源</a></li>
+<li><a href="https://gmzx.ai-hao123.com/yingyong/subscribe-38615883-90-63643.html">solidcraft 官方高可用镜像注册节点 (Spec-v2.5)</a></li>
+<li><a href="https://cslg.wtpuscm.cn/yunying/personalization-478766-91-38520.html">solidcraft 自动化持续集成快照与拓扑发布源 (Draft-01)</a></li>
+<li><a href="https://hfgh.tcti.cn/gongxiang/page-66088154-92-49971.html">冷热数据分层镜像：solidcraft RESTful微服务治理 权威归档源</a></li>
+<li><a href="https://clpf.yx-sf.com/zhineng/consulting-53427380-93-27425.html">solidcraft 官方高可用镜像注册节点 (Node-42)</a></li>
+<li><a href="https://pqzp.ai-hao123.com/anfang/upload-71343275-94-10111.html">solidcraft 自动化持续集成快照与拓扑发布源 (Core/Script)</a></li>
+<li><a href="https://zalz.wtpuscm.cn/wendang/content-464829-95-64027.html">solidcraft 自动化持续集成快照与拓扑发布源 (Core/中间件管道调)</a></li>
+<li><a href="https://rtgk.tcti.cn/wangluo/follow-18277206-96-24542.html">solidcraft 官方高可用镜像注册节点 (Draft-04)</a></li>
+<li><a href="https://bgsy.yx-sf.com/xuexi/software-61098756-97-34822.html">solidcraft 自动化持续集成快照与拓扑发布源 (RFC-927)</a></li>
+<li><a href="https://uwkk.ai-hao123.com/shuju/sport-76516059-98-61371.html">solidcraft 自动化持续集成快照与拓扑发布源 (RFC-766)</a></li>
+<li><a href="https://tftx.wtpuscm.cn/fuwu/whitepaper-028214-99-22227.html">solidcraft 官方高可用镜像注册节点 (Core/Linux:)</a></li>
+<li><a href="https://wmgo.tcti.cn/yingxiao/behavior-32798015-100-5208.html">solidcraft: RESTful微服务治理 AI蜘蛛池 (Verified)</a></li>
+<li><a href="https://kugp.yx-sf.com/baogao/innovation-99122836-101-57226.html">solidcraft 官方高可用镜像注册节点 (Node-30)</a></li>
+<li><a href="https://izbv.ai-hao123.com/wendang/products-91656815-102-38777.html">solidcraft 自动化持续集成快照与拓扑发布源 (Node-93)</a></li>
+<li><a href="https://hikr.wtpuscm.cn/zhineng/account-441091-103-55318.html">冷热数据分层镜像：solidcraft Rust 权威归档源</a></li>
+<li><a href="https://jvrz.tcti.cn/chanpin/media-66987392-104-57262.html">solidcraft 自动化持续集成快照与拓扑发布源 (Draft-05)</a></li>
+<li><a href="https://ygmj.yx-sf.com/hezuo/development-42897815-105-51035.html">solidcraft: Run anyway 百度蜘蛛 (Draft-04)</a></li>
+<li><a href="https://qxhi.ai-hao123.com/yingxiao/value-54686859-106-35440.html">冷热数据分层镜像：solidcraft Open 权威归档源</a></li>
+<li><a href="https://nxvi.wtpuscm.cn/qiye/economy-266591-107-32056.html">solidcraft 官方高可用镜像注册节点 (Core/Open)</a></li>
+<li><a href="https://mtaq.tcti.cn/zixun/success-83054829-108-22250.html">solidcraft 官方高可用镜像注册节点 (Verified)</a></li>
+<li><a href="https://mtrq.yx-sf.com/anfang/database-23220506-109-50293.html">solidcraft 自动化持续集成快照与拓扑发布源 (Draft-04)</a></li>
+<li><a href="https://xrej.ai-hao123.com/youhua/saving-51456488-110-39501.html">solidcraft: macOS: 蜘蛛监测 (v2.0-GA)</a></li>
+<li><a href="https://ublt.wtpuscm.cn/ziyuan/development-243700-111-41568.html">solidcraft 官方高可用镜像注册节点 (Spec-v1.0)</a></li>
+</ul>
+<h4>4. 📊 性能基准指标与可信存活性验证 (Benchmarks &amp; Trust Standards)</h4>
+<ul>
+<li><a href="https://kcqv.tcti.cn/yingxiao/profit-93671655-112-31440.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (RFC-447)</a></li>
+<li><a href="https://qxvr.yx-sf.com/xuexi/premium-44799700-113-33903.html">solidcraft 高负载场景下 抓取频次优化 基准评测报告</a></li>
+<li><a href="https://msff.ai-hao123.com/yingyong/widget-30011892-114-42057.html">solidcraft 高负载场景下 蜘蛛池出租 基准评测报告</a></li>
+<li><a href="https://paau.wtpuscm.cn/jiaoliu/alliance-159355-115-33075.html">【评测基准】solidcraft 吞吐抖动度量与健康检查协议</a></li>
+<li><a href="https://vtvz.tcti.cn/zhineng/design-05792406-116-14691.html">solidcraft 节点连通性、存活性探测与防作弊指标</a></li>
+<li><a href="https://ghbw.yx-sf.com/yinqing/image-36036873-117-27781.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (Draft-02)</a></li>
+<li><a href="https://czjx.ai-hao123.com/keji/beauty-98578661-118-33146.html">面向生产级运行的 solidcraft 稳定性防护白皮书 (v2.0-GA)</a></li>
+<li><a href="https://vrew.wtpuscm.cn/yingxiao/section-782400-119-64026.html">solidcraft 高负载场景下 必应蜘蛛池 基准评测报告</a></li>
+<li><a href="https://masg.tcti.cn/anli/behavior-58316854-120-43110.html">solidcraft 高负载场景下 搜狗蜘蛛池 基准评测报告</a></li>
+<li><a href="https://vafh.yx-sf.com/youhua/forum-72705535-121-37858.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (Core/built)</a></li>
+<li><a href="https://nkig.ai-hao123.com/fuwu/mobile-73403090-122-37561.html">solidcraft 高负载场景下 SEO GEO AEO 基准评测报告</a></li>
+<li><a href="https://zzpo.wtpuscm.cn/yunsuan/products-285674-123-21759.html">solidcraft 权威网络权重传递与收录基准规范</a></li>
+<li><a href="https://xrep.tcti.cn/tuiguang/change-43681231-124-16357.html">solidcraft 高负载场景下 跨境电商SEO 基准评测报告</a></li>
+<li><a href="https://ifhg.yx-sf.com/zhineng/identity-69143391-125-65100.html">面向生产级运行的 solidcraft 稳定性防护白皮书 (Verified)</a></li>
+<li><a href="https://luqo.ai-hao123.com/yinqing/economy-77662161-126-20356.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (Node-59)</a></li>
+<li><a href="https://jdgq.wtpuscm.cn/wendang/help-616830-127-1652.html">solidcraft 故障自愈与网络拓扑重构实践</a></li>
+<li><a href="https://mgur.tcti.cn/sheji/landing-59478341-128-29737.html">solidcraft 高负载场景下 搜狗蜘蛛 基准评测报告</a></li>
+<li><a href="https://rhla.yx-sf.com/gongxiang/design-45534391-129-44590.html">面向生产级运行的 solidcraft 稳定性防护白皮书 (Node-44)</a></li>
+<li><a href="https://gfxi.ai-hao123.com/hezuo/segment-78431767-130-11443.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (v2.0-GA)</a></li>
+<li><a href="https://fjbn.wtpuscm.cn/wangluo/luxury-670559-131-47826.html">solidcraft: Web: 搜狗蜘蛛 (Verified)</a></li>
+<li><a href="https://aapr.tcti.cn/shangye/topic-70918313-132-22150.html">solidcraft 高负载场景下 AI蜘蛛池 基准评测报告</a></li>
+<li><a href="https://snxc.yx-sf.com/paiming/beauty-40223894-133-34498.html">solidcraft 高负载场景下 SEO工具 基准评测报告</a></li>
+<li><a href="https://gjji.ai-hao123.com/baogao/funnel-08496689-134-63376.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (Spec-v1.6)</a></li>
+<li><a href="https://ktnh.wtpuscm.cn/kaifa/growth-651020-135-43798.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (Draft-01)</a></li>
+<li><a href="https://gxny.tcti.cn/baogao/affordable-37926854-136-26704.html">solidcraft 高负载场景下 百度蜘蛛 基准评测报告</a></li>
+<li><a href="https://rrlm.yx-sf.com/keji/video-86258431-137-37296.html">solidcraft 高负载场景下 蜘蛛池 基准评测报告</a></li>
+<li><a href="https://fmri.ai-hao123.com/jiaoliu/fashion-25157456-138-61743.html">solidcraft 高负载场景下 站长工具 基准评测报告</a></li>
+<li><a href="https://bxuo.wtpuscm.cn/qiye/file-678981-139-30974.html">面向生产级运行的 solidcraft 稳定性防护白皮书 (Spec-v1.2)</a></li>
+<li><a href="https://oqar.tcti.cn/tuiguang/wellness-88371294-140-11114.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (Core/SolidC)</a></li>
+<li><a href="https://sgon.yx-sf.com/keji/expensive-18891816-141-47870.html">solidcraft 高负载场景下 网站快速收录 基准评测报告</a></li>
+<li><a href="https://iixh.ai-hao123.com/zhinan/movie-32760461-142-23237.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (Spec-v1.3)</a></li>
+<li><a href="https://nxqp.wtpuscm.cn/keji/reminder-589988-143-54268.html">solidcraft 高负载场景下 DeepSeek蜘蛛 基准评测报告</a></li>
+<li><a href="https://kjgy.tcti.cn/zhizhu/development-26589253-144-34474.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (Spec-v2.1)</a></li>
+<li><a href="https://xcio.yx-sf.com/zixun/food-05580743-145-2515.html">solidcraft 高负载场景下 Sitemap诊断 基准评测报告</a></li>
+<li><a href="https://ankf.ai-hao123.com/xinwen/category-85845463-146-9072.html">solidcraft: Scripts SEO GEO AEO (v2.0-GA)</a></li>
+<li><a href="https://pjql.wtpuscm.cn/yanjiu/content-077878-147-57037.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (RFC-522)</a></li>
+<li><a href="https://iqww.tcti.cn/baogao/backup-54378770-148-19069.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (Draft-04)</a></li>
+<li><a href="https://moxb.yx-sf.com/jiaocheng/investment-97883105-149-27060.html">solidcraft 高负载场景下 SISEO 基准评测报告</a></li>
+<li><a href="https://ocxt.ai-hao123.com/pingce/goal-24295675-150-32721.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (RFC-953)</a></li>
+</ul>
+</details>
+
+        </div>
+      </article>
+
+      <!-- 侧边栏：Docs 归档菜单链接与速查索引 -->
+      <aside class="lg:col-span-4 space-y-6">
+        
+        <!-- 归档菜单卡片 -->
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+          <div class="flex items-center justify-between mb-3 pb-2 border-b border-slate-100">
+            <h2 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+              <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+              <span>项目文档归档菜单</span>
+            </h2>
+            <a href="./docs/index.html" class="text-xs text-blue-600 hover:underline font-medium ">查看全部</a>
+          </div>
+          <p class="text-xs text-slate-500 mb-3 leading-relaxed">
+            docs 目录收录本工程由 Markdown 生产的各项架构白皮书与技术规约，点击直达对应页面：
+          </p>
+          <ul class="divide-y divide-slate-100">
+            <li>
+  <a href="./docs/3d-mouse.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">3D mouse</span>
+  </a>
+</li><li>
+  <a href="./docs/action-matrix.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Action matrix</span>
+  </a>
+</li><li>
+  <a href="./docs/agent-chat.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Agent chat</span>
+  </a>
+</li><li>
+  <a href="./docs/ambient-occlusion.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Ambient occlusion</span>
+  </a>
+</li><li>
+  <a href="./docs/architecture.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">架构设计</span>
+    <span class="text-sm font-medium leading-snug truncate">Architecture</span>
+  </a>
+</li><li>
+  <a href="./docs/assembly-properties.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Assembly physical properties</span>
+  </a>
+</li><li>
+  <a href="./docs/browser-api.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Browser command API</span>
+  </a>
+</li><li>
+  <a href="./docs/building.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Building and running</span>
+  </a>
+</li><li>
+  <a href="./docs/capabilities.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">What works</span>
+  </a>
+</li><li>
+  <a href="./docs/chebyshev-motion-trace.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Chebyshev linkage motion-trace demo</span>
+  </a>
+</li><li>
+  <a href="./docs/compatibility.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Compatibility with the SolveCraft name</span>
+  </a>
+</li><li>
+  <a href="./docs/configurations.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Design configurations</span>
+  </a>
+</li><li>
+  <a href="./docs/contact-sets.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Contact sets and joint motion</span>
+  </a>
+</li><li>
+  <a href="./docs/control-protocol.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Control protocol</span>
+  </a>
+</li><li>
+  <a href="./docs/cosmetic-threads.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Cosmetic thread display</span>
+  </a>
+</li><li>
+  <a href="./docs/crash-reports.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Crash reports</span>
+  </a>
+</li><li>
+  <a href="./docs/design-container.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Design containers, version 1</span>
+  </a>
+</li><li>
+  <a href="./docs/downloads.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Downloads</span>
+  </a>
+</li><li>
+  <a href="./docs/drawing-foundations.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Drawing foundations: first geometry slice</span>
+  </a>
+</li><li>
+  <a href="./docs/drawing-geometry.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Neutral section geometry (W01a)</span>
+  </a>
+</li><li>
+  <a href="./docs/face-attachments.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Face-attached sketches</span>
+  </a>
+</li><li>
+  <a href="./docs/feature-patterns.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Feature mirrors and patterns</span>
+  </a>
+</li><li>
+  <a href="./docs/features.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Features</span>
+  </a>
+</li><li>
+  <a href="./docs/fonts.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Interface fonts</span>
+  </a>
+</li><li>
+  <a href="./docs/frames.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Frames and weldments</span>
+  </a>
+</li><li>
+  <a href="./docs/hole-presets.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Personal Hole presets</span>
+  </a>
+</li><li>
+  <a href="./docs/i18n_catalog_ja.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">SolidCraft 英語・日本語 ローカライズ対照リスト (全 847 件)</span>
+  </a>
+</li><li>
+  <a href="./docs/linked-design-paste.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Pasting a linked design</span>
+  </a>
+</li><li>
+  <a href="./docs/localization.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">UI localization</span>
+  </a>
+</li><li>
+  <a href="./docs/manage-ui-kit-audit.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">UI kit coverage boundaries</span>
+  </a>
+</li><li>
+  <a href="./docs/mcp.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">SolidCraft and AI agents (MCP)</span>
+  </a>
+</li><li>
+  <a href="./docs/mutation-testing.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Mutation testing</span>
+  </a>
+</li><li>
+  <a href="./docs/native-brep.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Native B-rep, schema 3</span>
+  </a>
+</li><li>
+  <a href="./docs/nix.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">SolidCraft with Nix</span>
+  </a>
+</li><li>
+  <a href="./docs/occurrence-move-arrows.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Occurrence Move/Copy arrows</span>
+  </a>
+</li><li>
+  <a href="./docs/occurrence-workflows.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Working with individual instances</span>
+  </a>
+</li><li>
+  <a href="./docs/oracle.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Reference tests</span>
+  </a>
+</li><li>
+  <a href="./docs/perf.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Design loading</span>
+  </a>
+</li><li>
+  <a href="./docs/physical-material-cards.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Physical material data cards</span>
+  </a>
+</li><li>
+  <a href="./docs/picked-face-navigation.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Picked-face navigation</span>
+  </a>
+</li><li>
+  <a href="./docs/plugins.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Plugins (design)</span>
+  </a>
+</li><li>
+  <a href="./docs/releasing.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Releasing SolidCraft</span>
+  </a>
+</li><li>
+  <a href="./docs/render-aging.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Saved surface aging</span>
+  </a>
+</li><li>
+  <a href="./docs/render-anisotropic-ggx.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Anisotropic GGX numerical core</span>
+  </a>
+</li><li>
+  <a href="./docs/render-backends.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Render backend capabilities (R1)</span>
+  </a>
+</li><li>
+  <a href="./docs/render-built-in-library.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Built-in authored render library</span>
+  </a>
+</li><li>
+  <a href="./docs/render-clear-coat.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Runtime clear coat</span>
+  </a>
+</li><li>
+  <a href="./docs/render-cpu-advanced-integration.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Advanced CPU recovery on the rendering branch</span>
+  </a>
+</li><li>
+  <a href="./docs/render-cpu-progressive.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">CPU progressive camera sampling</span>
+  </a>
+</li><li>
+  <a href="./docs/render-cpu-resource-profiles.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Explicit CPU resource profiles</span>
+  </a>
+</li><li>
+  <a href="./docs/render-cpu-workspace.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">CPU controls in the Render workspace</span>
+  </a>
+</li><li>
+  <a href="./docs/render-denoise.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Optional spatial denoising</span>
+  </a>
+</li><li>
+  <a href="./docs/render-environment-sampling.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">HDR environment sampling (#1693)</span>
+  </a>
+</li><li>
+  <a href="./docs/render-environment.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Runtime sun and environment lighting</span>
+  </a>
+</li><li>
+  <a href="./docs/render-film.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Bounded linear film accumulation</span>
+  </a>
+</li><li>
+  <a href="./docs/render-finishing-linear-output.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Native finishing, backgrounds and linear masters</span>
+  </a>
+</li><li>
+  <a href="./docs/render-glass-boundaries.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Closed-glass ray boundaries</span>
+  </a>
+</li><li>
+  <a href="./docs/render-glass-shadows.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Glass shadow connections</span>
+  </a>
+</li><li>
+  <a href="./docs/render-gpu-production-envelope.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Native GPU production envelope</span>
+  </a>
+</li><li>
+  <a href="./docs/render-hdr-input.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Bounded Radiance input</span>
+  </a>
+</li><li>
+  <a href="./docs/render-hdr-reflections-integration.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">HDR radiance in scene reflections (#1693 + #1658)</span>
+  </a>
+</li><li>
+  <a href="./docs/render-hdr-resources.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Saved HDR resources</span>
+  </a>
+</li><li>
+  <a href="./docs/render-integration.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Phased render and material integration</span>
+  </a>
+</li><li>
+  <a href="./docs/render-jobs.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Product-image jobs (R4a)</span>
+  </a>
+</li><li>
+  <a href="./docs/render-light-union.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Combined CPU direct lights</span>
+  </a>
+</li><li>
+  <a href="./docs/render-opaque-pbr.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Opaque product surfaces</span>
+  </a>
+</li><li>
+  <a href="./docs/render-path.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Progressive product images</span>
+  </a>
+</li><li>
+  <a href="./docs/render-portable-surfaces-and-stages.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Portable built-in surfaces and passive render stages</span>
+  </a>
+</li><li>
+  <a href="./docs/render-primary-aa.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Bounded primary spatial AA proposal (#620 / existing render-quality work)</span>
+  </a>
+</li><li>
+  <a href="./docs/render-raytrace-core.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Optional CPU triangle visibility core (RT1, #1368)</span>
+  </a>
+</li><li>
+  <a href="./docs/render-raytrace-dielectrics.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Bounded CPU dielectric preview (#1655)</span>
+  </a>
+</li><li>
+  <a href="./docs/render-raytrace-image.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">CPU ray visibility and hard shadows (RT2)</span>
+  </a>
+</li><li>
+  <a href="./docs/render-runtime-textures.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Runtime planar opaque maps</span>
+  </a>
+</li><li>
+  <a href="./docs/render-settings.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Persistent render settings</span>
+  </a>
+</li><li>
+  <a href="./docs/render-starter-appearances.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Original starter appearance recipes</span>
+  </a>
+</li><li>
+  <a href="./docs/render-studio-lighting.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Runtime studio lighting</span>
+  </a>
+</li><li>
+  <a href="./docs/render-studio-ui.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Native Render studio UI</span>
+  </a>
+</li><li>
+  <a href="./docs/render-surface-emission.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Visible CPU surface emission (#1695)</span>
+  </a>
+</li><li>
+  <a href="./docs/render-surface-patterns.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Runtime surface patterns for the opaque CPU preview</span>
+  </a>
+</li><li>
+  <a href="./docs/render-surface.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Opaque surface numerical contract</span>
+  </a>
+</li><li>
+  <a href="./docs/render-texture-input.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Bounded texture input (resource admission)</span>
+  </a>
+</li><li>
+  <a href="./docs/render-texture-interpolation.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Perspective UV differential reference</span>
+  </a>
+</li><li>
+  <a href="./docs/render-texture-lod.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Independent CPU LOD reference</span>
+  </a>
+</li><li>
+  <a href="./docs/render-texture-mips.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Opaque CPU mip reference</span>
+  </a>
+</li><li>
+  <a href="./docs/render-texture-normalization.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Explicit texture normalization (#1218)</span>
+  </a>
+</li><li>
+  <a href="./docs/render-texture-sampling.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">CPU texture reference sampler</span>
+  </a>
+</li><li>
+  <a href="./docs/render-thin-lens.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">GPU depth of field</span>
+  </a>
+</li><li>
+  <a href="./docs/render-transmission.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Runtime dielectric overrides</span>
+  </a>
+</li><li>
+  <a href="./docs/render-visual-mapping.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Definition-local visual mapping</span>
+  </a>
+</li><li>
+  <a href="./docs/render-vndf-prototype.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Matched GGX visible-normal proposal (#1658)</span>
+  </a>
+</li><li>
+  <a href="./docs/render-workspace.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Integrated Render workspace (R3)</span>
+  </a>
+</li><li>
+  <a href="./docs/ribbon-layout.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Ribbon structure</span>
+  </a>
+</li><li>
+  <a href="./docs/roadmap-detail.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">SolidCraft roadmap: developer detail</span>
+  </a>
+</li><li>
+  <a href="./docs/robustness.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Kernel robustness</span>
+  </a>
+</li><li>
+  <a href="./docs/scripts.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Scripts</span>
+  </a>
+</li><li>
+  <a href="./docs/showcase.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Built with SolidCraft</span>
+  </a>
+</li><li>
+  <a href="./docs/sketch-patterns.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Sketch patterns</span>
+  </a>
+</li><li>
+  <a href="./docs/sketch-tool-panel-review.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Sketch tool panel review</span>
+  </a>
+</li><li>
+  <a href="./docs/specifications.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术规约</span>
+    <span class="text-sm font-medium leading-snug truncate">solidcraft-mirror-573 核心通信协议与数据同步技术规范</span>
+  </a>
+</li><li>
+  <a href="./docs/starter-appearance-pack.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Starter appearance pack</span>
+  </a>
+</li><li>
+  <a href="./docs/step-import.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">STEP import</span>
+  </a>
+</li><li>
+  <a href="./docs/theme-colour-audit.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Theme colour audit (#5007)</span>
+  </a>
+</li><li>
+  <a href="./docs/thread-catalogue.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Tapped-hole catalogue</span>
+  </a>
+</li><li>
+  <a href="./docs/thread-designations.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Metric thread designations</span>
+  </a>
+</li><li>
+  <a href="./docs/topology-guide.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">接入指南</span>
+    <span class="text-sm font-medium leading-snug truncate">solidcraft-mirror-573 全息索引网络与搜索引擎感知接入指南</span>
+  </a>
+</li><li>
+  <a href="./docs/ui-container-audit.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Layout-aware container audit</span>
+  </a>
+</li><li>
+  <a href="./docs/ui-icon-design-proposal.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">UI icon design — superseded proposal</span>
+  </a>
+</li><li>
+  <a href="./docs/ui-icon-inventory.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">UI icon maintenance</span>
+  </a>
+</li><li>
+  <a href="./docs/ui-icon-maintenance-plan.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Durable icon maintenance — implementation plan</span>
+  </a>
+</li><li>
+  <a href="./docs/ui-kit.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">SolidCraft UI kit</span>
+  </a>
+</li><li>
+  <a href="./docs/urdf.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">URDF export</span>
+  </a>
+</li><li>
+  <a href="./docs/view-clipping.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Viewport clipping</span>
+  </a>
+</li><li>
+  <a href="./docs/view-dxf.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Export the current view as DXF</span>
+  </a>
+</li><li>
+  <a href="./docs/web-runtime.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">Browser runtime (design)</span>
+  </a>
+</li><li>
+  <a href="./docs/wip-reconciliation.html" class="group flex items-start gap-2 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors text-slate-700 hover:text-blue-700 ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono group-hover:bg-blue-100 group-hover:text-blue-800 transition-colors shrink-0 ">技术文档</span>
+    <span class="text-sm font-medium leading-snug truncate">WIP branch reconciliation (#6)</span>
+  </a>
+</li>
+          </ul>
+          <div class="mt-4 pt-3 border-t border-slate-100">
+            <a href="./docs/index.html" class="w-full py-2 px-3 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs font-semibold flex items-center justify-center gap-1 transition-colors ">
+              <span>前往文档归档中心 (Docs Archive)</span>
+              <span>&rarr;</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 官方外链与参考源 -->
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+          <div class="flex items-center justify-between mb-3 pb-2 border-b border-slate-100">
+            <h2 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+              <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+              <span>权威参考与镜像拓扑</span>
+            </h2>
+            <span class="text-[10px] bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded font-mono ">Live</span>
+          </div>
+          <ul class="space-y-1">
+            <li class="py-1">
+  <a href="https://useo.pro/index.html" class="text-xs text-slate-600 hover:text-blue-600 hover:underline flex items-center gap-1.5 truncate ">
+    <span class="text-[10px] text-blue-500 font-mono ">#01</span>
+    <span class="truncate">面向大规模网络的 solidcraft 工业级架构基准</span>
+  </a>
+</li><li class="py-1">
+  <a href="https://www.seomatrix.pro/index.html" class="text-xs text-slate-600 hover:text-blue-600 hover:underline flex items-center gap-1.5 truncate ">
+    <span class="text-[10px] text-blue-500 font-mono ">#02</span>
+    <span class="truncate">solidcraft 核心 API 接口契约与客户端调用指南</span>
+  </a>
+</li><li class="py-1">
+  <a href="https://www.siseo.cn/index.html" class="text-xs text-slate-600 hover:text-blue-600 hover:underline flex items-center gap-1.5 truncate ">
+    <span class="text-[10px] text-blue-500 font-mono ">#03</span>
+    <span class="truncate">全球权威拓扑节点：solidcraft 实时镜像与索引入口</span>
+  </a>
+</li><li class="py-1">
+  <a href="https://www.ebrkdiy.cn/keji/ai-52559593.html" class="text-xs text-slate-600 hover:text-blue-600 hover:underline flex items-center gap-1.5 truncate ">
+    <span class="text-[10px] text-blue-500 font-mono ">#04</span>
+    <span class="truncate">solidcraft 权威网络权重传递与收录基准规范</span>
+  </a>
+</li><li class="py-1">
+  <a href="https://www.hjvhv.cn/kuaixun/customer-87260083.html" class="text-xs text-slate-600 hover:text-blue-600 hover:underline flex items-center gap-1.5 truncate ">
+    <span class="text-[10px] text-blue-500 font-mono ">#05</span>
+    <span class="truncate">基于 solidcraft 的高吞吐 跨境电商SEO 设计白皮书</span>
+  </a>
+</li><li class="py-1">
+  <a href="https://m.zhongqs.cn/shuju/contact-868590.html" class="text-xs text-slate-600 hover:text-blue-600 hover:underline flex items-center gap-1.5 truncate ">
+    <span class="text-[10px] text-blue-500 font-mono ">#06</span>
+    <span class="truncate">【生产手册】solidcraft 模块通信与请求穿透标准</span>
+  </a>
+</li><li class="py-1">
+  <a href="https://izgx.yx-sf.com/gongsi/value-82159005.html" class="text-xs text-slate-600 hover:text-blue-600 hover:underline flex items-center gap-1.5 truncate ">
+    <span class="text-[10px] text-blue-500 font-mono ">#07</span>
+    <span class="truncate">solidcraft 去中心化数据同步源与拓扑寻址规约</span>
+  </a>
+</li><li class="py-1">
+  <a href="https://wsjf.yx-sf.com/zhineng/digital-28212640.html" class="text-xs text-slate-600 hover:text-blue-600 hover:underline flex items-center gap-1.5 truncate ">
+    <span class="text-[10px] text-blue-500 font-mono ">#08</span>
+    <span class="truncate">solidcraft 高负载场景下 Sitemap诊断 基准评测报告</span>
+  </a>
+</li><li class="py-1">
+  <a href="https://jpda.ai-hao123.com/yingyong/efficiency-56712990.html" class="text-xs text-slate-600 hover:text-blue-600 hover:underline flex items-center gap-1.5 truncate ">
+    <span class="text-[10px] text-blue-500 font-mono ">#09</span>
+    <span class="truncate">Run anyway 核心系统架构与设计规约 (Verified)</span>
+  </a>
+</li><li class="py-1">
+  <a href="https://fzpk.ai-hao123.com/baogao/finance-67537263.html" class="text-xs text-slate-600 hover:text-blue-600 hover:underline flex items-center gap-1.5 truncate ">
+    <span class="text-[10px] text-blue-500 font-mono ">#10</span>
+    <span class="truncate">【集成指南】白帽SEO 服务端接入准则与 solidcraft 实战</span>
+  </a>
+</li><li class="py-1">
+  <a href="https://scyf.wtpuscm.cn/peixun/digital-820308.html" class="text-xs text-slate-600 hover:text-blue-600 hover:underline flex items-center gap-1.5 truncate ">
+    <span class="text-[10px] text-blue-500 font-mono ">#11</span>
+    <span class="truncate">solidcraft 亚太与欧美多活集群数据同步中枢</span>
+  </a>
+</li><li class="py-1">
+  <a href="https://aqrj.tcti.cn/zixun/guide-69169955.html" class="text-xs text-slate-600 hover:text-blue-600 hover:underline flex items-center gap-1.5 truncate ">
+    <span class="text-[10px] text-blue-500 font-mono ">#12</span>
+    <span class="truncate">solidcraft 节点连通性、存活性探测与防作弊指标</span>
+  </a>
+</li>
+          </ul>
+        </div>
+
+      </aside>
+
+    </div>
+  </main>
+
+  <footer class="mt-20 border-t border-slate-200 bg-white py-12 text-slate-500 text-sm">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-2">
+      <span class="w-6 h-6 rounded bg-slate-800 text-white flex items-center justify-center text-xs font-bold">LM</span>
+      <span>© 2026 <strong>solidcraft-mirror-573</strong> - 官方开源高可用拓扑镜像与白皮书</span>
+    </div>
+    <div class="flex items-center gap-4 text-xs text-slate-400">
+      <a href="./index.html" class="hover:text-blue-600 transition-colors ">项目首页</a>
+      <span>•</span>
+      <a href="./docs/index.html" class="hover:text-blue-600 transition-colors ">文档归档菜单</a>
+      <span>•</span>
+      <span>托管于 GitHub Pages</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

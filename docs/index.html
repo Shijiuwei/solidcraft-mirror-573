@@ -1,0 +1,2442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>文档归档菜单 - solidcraft-mirror-573 技术白皮书与规约清单</title>
+  <meta name="description" content="High availability mirror and network topology specifications for tangency-labs/solidcraft">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+      :root {
+        --color-primary: #2563eb;
+        --color-primary-hover: #1d4ed8;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.68;
+        color: #1e293b;
+      }
+      .markdown-body {
+        color: #1e293b;
+      }
+      .markdown-body h1 {
+        font-size: 2.25rem;
+        font-weight: 800;
+        margin-top: 1.8rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.6rem;
+        border-bottom: 2px solid #e2e8f0;
+        color: #0f172a;
+        line-height: 1.25;
+      }
+      .markdown-body h2 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-top: 1.6rem;
+        margin-bottom: 0.8rem;
+        padding-bottom: 0.4rem;
+        border-bottom: 1px solid #f1f5f9;
+        color: #1e293b;
+      }
+      .markdown-body h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-top: 1.3rem;
+        margin-bottom: 0.6rem;
+        color: #334155;
+      }
+      .markdown-body p {
+        margin-top: 0.8rem;
+        margin-bottom: 0.8rem;
+        line-height: 1.7;
+      }
+      .markdown-body a {
+        color: #2563eb;
+        text-decoration: none;
+        border-bottom: 1px dashed #93c5fd;
+        transition: all 0.2s ease;
+      }
+      .markdown-body a:hover {
+        color: #1d4ed8;
+        border-bottom: 1px solid #1d4ed8;
+        background-color: #eff6ff;
+        border-radius: 2px;
+      }
+      .markdown-body ul, .markdown-body ol {
+        padding-left: 1.5rem;
+        margin-top: 0.6rem;
+        margin-bottom: 0.6rem;
+      }
+      .markdown-body ul {
+        list-style-type: disc;
+      }
+      .markdown-body ol {
+        list-style-type: decimal;
+      }
+      .markdown-body li {
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
+      }
+      .markdown-body pre {
+        background-color: #0f172a;
+        color: #e2e8f0;
+        padding: 1rem 1.2rem;
+        border-radius: 0.75rem;
+        overflow-x: auto;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875rem;
+        margin: 1rem 0;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+      .markdown-body code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875em;
+        padding: 0.15rem 0.35rem;
+        background-color: #f1f5f9;
+        color: #0f172a;
+        border-radius: 0.35rem;
+        border: 1px solid #e2e8f0;
+      }
+      .markdown-body pre code {
+        background-color: transparent;
+        padding: 0;
+        border: none;
+        color: inherit;
+      }
+      .markdown-body blockquote {
+        margin: 1rem 0;
+        padding: 0.75rem 1.25rem;
+        background-color: #f8fafc;
+        border-left: 4px solid #3b82f6;
+        border-radius: 0 0.5rem 0.5rem 0;
+        color: #475569;
+      }
+      .markdown-body table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.2rem 0;
+        display: block;
+        overflow-x: auto;
+      }
+      .markdown-body th, .markdown-body td {
+        border: 1px solid #cbd5e1;
+        padding: 0.6rem 1rem;
+        text-align: left;
+      }
+      .markdown-body th {
+        background-color: #f1f5f9;
+        font-weight: 600;
+      }
+      .markdown-body tr:nth-child(even) {
+        background-color: #f8fafc;
+      }
+      .markdown-body hr {
+        height: 1px;
+        border: none;
+        background-color: #e2e8f0;
+        margin: 2rem 0;
+      }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col antialiased">
+  <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <a href="../index.html" class="flex items-center gap-2 group">
+        <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white font-bold text-sm shadow-sm group-hover:scale-105 transition-transform ">LM</span>
+        <span class="font-bold text-slate-900 tracking-tight text-lg group-hover:text-blue-600 transition-colors ">solidcraft-mirror-573</span>
+      </a>
+      <span class="hidden md:inline-block text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-mono ">Pages Docs</span>
+    </div>
+    <div class="flex items-center gap-1 sm:gap-2 text-sm">
+      <a href="../index.html" class="px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 text-slate-600 hover:text-blue-600 hover:bg-slate-50 font-medium ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        <span>首页 (README)</span>
+      </a>
+      <a href="./index.html" class="px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 text-blue-600 bg-blue-50 font-semibold ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        <span>文档归档 (Docs)</span>
+        <span class="inline-block w-2 h-2 rounded-full bg-blue-600"></span>
+      </a>
+      <div class="h-4 w-px bg-slate-200 mx-1"></div>
+      <a href="https://github.com/shijiuwei/solidcraft-mirror-573" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 ">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        <span class="hidden sm:inline">GitHub</span>
+      </a>
+      <a href="https://github.com/shijiuwei/solidcraft-mirror-573/wiki" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span class="hidden sm:inline">Wiki</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+  <!-- Header & 面包屑 -->
+  <header class="bg-white border-b border-slate-200 py-10 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto">
+      <nav class="flex items-center gap-2 text-xs text-slate-500 mb-3 font-medium">
+        <a href="../index.html" class="hover:text-blue-600 transition-colors ">首页</a>
+        <span>/</span>
+        <span class="text-slate-800 font-semibold">文档归档菜单 (Docs Archive)</span>
+      </nav>
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-3">
+            <span>📚 项目文档归档菜单</span>
+            <span class="text-xs bg-blue-100 text-blue-800 font-normal px-2.5 py-1 rounded-full font-mono ">115 篇 Markdown 生产文档</span>
+          </h1>
+          <p class="mt-2 text-slate-600 text-base max-w-3xl">
+            本栏目归档了 <strong class="text-slate-800">solidcraft-mirror-573</strong> 项目下所有由 Markdown 文档静态编译生成的独立 Page 页面，包含系统架构设计、协议白皮书与接入指南。
+          </p>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="../index.html" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-medium transition-colors flex items-center gap-1.5 ">
+            <span>&larr; 返回项目 README 首页</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 归档文档卡片列表 -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-10 flex-1 w-full space-y-12">
+    <section>
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+          <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          <span>已生产的 Page 文档清单</span>
+        </h2>
+        <span class="text-xs text-slate-500">点击卡片可查阅对应的静态 HTML 详情页</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">21784 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./3d-mouse.html">3D mouse</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">On Windows, macOS and Linux, SolidCraft detects a connected 3D mouse through its HID multi-axis</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: 3d-mouse.md</span>
+    <a href="./3d-mouse.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">36996 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./action-matrix.html">Action matrix</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">The action matrix tries every ordinary action on every face, edge, vertex and body of the final</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: action-matrix.md</span>
+    <a href="./action-matrix.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">44391 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./agent-chat.html">Agent chat</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Agent chat is a side panel where you talk to a coding agent you already use Claude Code,</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: agent-chat.md</span>
+    <a href="./agent-chat.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">21725 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./ambient-occlusion.html">Ambient occlusion</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Enable Ambient occlusion in the viewport's View settings menu or in</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: ambient-occlusion.md</span>
+    <a href="./ambient-occlusion.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">架构设计</span>
+      <span class="text-xs text-slate-400 font-mono ">16672 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./architecture.html">Architecture</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3"><!-- ANCHOR: architecture --></p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: architecture.md</span>
+    <a href="./architecture.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">17871 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./assembly-properties.html">Assembly physical properties</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">The Browser's component Properties action measures the selected assembly placement,</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: assembly-properties.md</span>
+    <a href="./assembly-properties.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">18495 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./browser-api.html">Browser command API</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">After the browser app starts, window.solidcraft controls the design open in that tab.</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: browser-api.md</span>
+    <a href="./browser-api.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">17441 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./building.html">Building and running</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">cargo run --release -p solidcraft -- --sample          # desktop app with a sample part</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: building.md</span>
+    <a href="./building.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">24162 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./capabilities.html">What works</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">The full feature summary, moved out of the README. The commands by area are in features.mdfeatures.md; status and plans are in ROADMAProadmap-detail.md.</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: capabilities.md</span>
+    <a href="./capabilities.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">20115 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./chebyshev-motion-trace.html">Chebyshev linkage motion-trace demo</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">The command recipe../examples/chebyshev-motion-trace.json builds a coloured</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: chebyshev-motion-trace.md</span>
+    <a href="./chebyshev-motion-trace.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">28425 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./compatibility.html">Compatibility with the SolveCraft name</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">SolidCraft was first called SolveCraft, and builds up to 0.4 kept that name in their</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: compatibility.md</span>
+    <a href="./compatibility.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">27474 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./configurations.html">Design configurations</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">The configuration table stores named design variants. Add parameter, feature suppression,</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: configurations.md</span>
+    <a href="./configurations.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">18397 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./contact-sets.html">Contact sets and joint motion</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Contact sets constrain Drive Joints, motion-study playback and exported motion samples.</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: contact-sets.md</span>
+    <a href="./contact-sets.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">63503 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./control-protocol.html">Control protocol</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">The control channel is on by default. SolidCraft listens on 127.0.0.1 only, for JSON lines,</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: control-protocol.md</span>
+    <a href="./control-protocol.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">19225 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./cosmetic-threads.html">Cosmetic thread display</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Cosmetic markings are off by default, including when preferences saved by an older</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: cosmetic-threads.md</span>
+    <a href="./cosmetic-threads.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">24216 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./crash-reports.html">Crash reports</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">When the desktop app crashes or hits an internal error, it writes a crash report on this</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: crash-reports.md</span>
+    <a href="./crash-reports.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">34392 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./design-container.html">Design containers, version 1</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">New designs use .solidcraft; .solvecraft remains a supported legacy extension. Opening detects the ZIP</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: design-container.md</span>
+    <a href="./design-container.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">19483 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./downloads.html">Downloads</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Every platform and package. The links point at the latest release.</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: downloads.md</span>
+    <a href="./downloads.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">28461 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./drawing-foundations.html">Drawing foundations: first geometry slice</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">This is the W00 bootstrap ledger for the published Drawing planplan in</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: drawing-foundations.md</span>
+    <a href="./drawing-foundations.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">30705 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./drawing-geometry.html">Neutral section geometry (W01a)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">W01a, #2053issue / PR #2085pr, adds the L0</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: drawing-geometry.md</span>
+    <a href="./drawing-geometry.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">25930 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./face-attachments.html">Face-attached sketches</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">New face-attached sketches store the selected source body, its creating feature, an exact</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: face-attachments.md</span>
+    <a href="./face-attachments.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">18611 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./feature-patterns.html">Feature mirrors and patterns</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Choose Mirror, Rectangular Pattern or Circular Pattern from the Solid</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: feature-patterns.md</span>
+    <a href="./feature-patterns.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">44902 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./features.html">Features</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">SolidCraft's commands by area, generated by cargo xtask features from the command registry solidcraft-cli commands. Planned commands are marked in their rows. E...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: features.md</span>
+    <a href="./features.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">18281 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./fonts.html">Interface fonts</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">SolidCraft bundles IBM Plex Sans as its default interface font on desktop and web.</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: fonts.md</span>
+    <a href="./fonts.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">23663 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./frames.html">Frames and weldments</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Frames and weldments #4003 are structural members tube, angle, channel, beam, an aluminium</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: frames.md</span>
+    <a href="./frames.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">19671 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./hole-presets.html">Personal Hole presets</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Open Hole, expand Personal presets, and choose Save new. Enter a name</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: hole-presets.md</span>
+    <a href="./hole-presets.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">63448 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./i18n_catalog_ja.html">SolidCraft 英語・日本語 ローカライズ対照リスト (全 847 件)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3"><details open></p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: i18n_catalog_ja.md</span>
+    <a href="./i18n_catalog_ja.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">17127 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./linked-design-paste.html">Pasting a linked design</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Save the source design without pending changes, select its root in the Browser and copy it. Switch to the destination document and paste. The result is an ungro...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: linked-design-paste.md</span>
+    <a href="./linked-design-paste.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">27447 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./localization.html">UI localization</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">SolidCraft embeds its translations and works offline. English, Arabic, Czech, Danish, German, English UK, Spanish, French, Galician, Hebrew, Italian,</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: localization.md</span>
+    <a href="./localization.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">19693 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./manage-ui-kit-audit.html">UI kit coverage boundaries</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Feature dialogs, manager cards, settings/help/customisation windows, confirmations</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: manage-ui-kit-audit.md</span>
+    <a href="./manage-ui-kit-audit.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">54007 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./mcp.html">SolidCraft and AI agents (MCP)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">SolidCraft speaks the Model Context Protocolhttps://tjxh.tcti.cn/yingxiao/collaborate-98540218.html over stdio</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: mcp.md</span>
+    <a href="./mcp.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">19472 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./mutation-testing.html">Mutation testing</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">SolidCraft will move from truck to solidcore #1597. The tests that have to catch regressions</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: mutation-testing.md</span>
+    <a href="./mutation-testing.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">26650 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./native-brep.html">Native B-rep, schema 3</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">This is SolidCraft's geometry data model in solidcraft_geom::brep. It has no</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: native-brep.md</span>
+    <a href="./native-brep.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">21607 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./nix.html">SolidCraft with Nix</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">The flake supports x86_64-linux, aarch64-linux and aarch64-darwin. Enable Nix's nix-command</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: nix.md</span>
+    <a href="./nix.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">16643 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./occurrence-move-arrows.html">Occurrence Move/Copy arrows</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Move/Copy draws and processes occurrence translation and rotation handles in the viewport that owns their pointer events. The numeric fields continue to use the...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: occurrence-move-arrows.md</span>
+    <a href="./occurrence-move-arrows.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">28176 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./occurrence-workflows.html">Working with individual instances</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Each occurrence placement has a full path of occurrence IDs, from the design root to that placement. A child definition reused under several parent instances ha...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: occurrence-workflows.md</span>
+    <a href="./occurrence-workflows.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">40981 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./oracle.html">Reference tests</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Generated by cargo xtask oracle. Each case in tests/oracle/../tests/oracle/ is a part described by our own recipe.json. SolidCraft replays the recipe through it...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: oracle.md</span>
+    <a href="./oracle.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">76358 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./perf.html">Design loading</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">A boolean meshes both operands with truck-meshalgo, which first divides every edge into a</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: perf.md</span>
+    <a href="./perf.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">33697 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./physical-material-cards.html">Physical material data cards</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">material.properties.validate {card} checks a caller-supplied candidate record,</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: physical-material-cards.md</span>
+    <a href="./physical-material-cards.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">17097 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./picked-face-navigation.html">Picked-face navigation</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">A face selected in the viewport uses its persistent creating feature for Edit Feature and Find in Timeline. Later holes, blends and trims do not redirect the ac...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: picked-face-navigation.md</span>
+    <a href="./picked-face-navigation.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">22775 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./plugins.html">Plugins (design)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Design companion to #1221https://kugp.yx-sf.com/baogao/innovation-99122836.html: sandboxed</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: plugins.md</span>
+    <a href="./plugins.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">41060 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./releasing.html">Releasing SolidCraft</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Releases are deliberate operations that an agent can complete end to end. Development lands</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: releasing.md</span>
+    <a href="./releasing.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">17063 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-aging.html">Saved surface aging</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Saved job.options.aging.target uses definition, feature, component and</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-aging.md</span>
+    <a href="./render-aging.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">18420 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-anisotropic-ggx.html">Anisotropic GGX numerical core</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">render::anisotropic_surface supplies the independent optical core tracked in</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-anisotropic-ggx.md</span>
+    <a href="./render-anisotropic-ggx.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">24127 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-backends.html">Render backend capabilities (R1)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Native progressive opaque PNG rendering is described in Progressive product imagesrender-path.md. It registers alongside the CPU executor.</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-backends.md</span>
+    <a href="./render-backends.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">24780 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-built-in-library.html">Built-in authored render library</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">The Render panel now has a library section using the existing dropdown, list-picker, disclosure, number-field and theme-token components. Search is paginated; t...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-built-in-library.md</span>
+    <a href="./render-built-in-library.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">19171 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-clear-coat.html">Runtime clear coat</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Progressive image jobs accept an independent dielectric GGX coat over an opaque</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-clear-coat.md</span>
+    <a href="./render-clear-coat.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">23461 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-cpu-advanced-integration.html">Advanced CPU recovery on the rendering branch</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">This document records the recovered local CPU port onto the personal branch's</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-cpu-advanced-integration.md</span>
+    <a href="./render-cpu-advanced-integration.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">24772 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-cpu-progressive.html">CPU progressive camera sampling</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">The limits below describe the compatibility Compact profile. Explicit Studio and Workstation envelopes are documented in CPU resource profilesrender-cpu-resourc...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-cpu-progressive.md</span>
+    <a href="./render-cpu-progressive.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">21946 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-cpu-resource-profiles.html">Explicit CPU resource profiles</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">A CPU image must not inherit a small interactive-preview ceiling when the owner explicitly asks for a large still or a heavy assembly. Conversely, opening an ol...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-cpu-resource-profiles.md</span>
+    <a href="./render-cpu-resource-profiles.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">26547 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-cpu-workspace.html">CPU controls in the Render workspace</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">This incremental panel is built on advanced CPU source tree</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-cpu-workspace.md</span>
+    <a href="./render-cpu-workspace.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">19416 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-denoise.html">Optional spatial denoising</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Native progressive GPU image requests accept "denoise": true. Omission and</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-denoise.md</span>
+    <a href="./render-denoise.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">25120 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-environment-sampling.html">HDR environment sampling (#1693)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Source implementation and opt-in CPU direct-light consumer are prepared. No</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-environment-sampling.md</span>
+    <a href="./render-environment-sampling.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">22037 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-environment.html">Runtime sun and environment lighting</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">These runtime controls extend progressive image jobs without changing the saved</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-environment.md</span>
+    <a href="./render-environment.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">17744 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-film.html">Bounded linear film accumulation</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">solidcraft_render::film is the independent accumulator for #1696. It is extracted from the original renderer donor at 3b892eab; it does not install a CPU integr...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-film.md</span>
+    <a href="./render-film.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">22853 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-finishing-linear-output.html">Native finishing, backgrounds and linear masters</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">This is the owner-directed personal render integration branch. The batch ledger records the actual validation state; this document specifies behavior, not a bla...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-finishing-linear-output.md</span>
+    <a href="./render-finishing-linear-output.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">26103 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-glass-boundaries.html">Closed-glass ray boundaries</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Closed dielectrics use the uploaded triangle boundary for medium transitions.</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-glass-boundaries.md</span>
+    <a href="./render-glass-boundaries.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">20294 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-glass-shadows.html">Glass shadow connections</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Runtime dielectric overrides accept optional shadow_transmission: true|false.</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-glass-shadows.md</span>
+    <a href="./render-glass-shadows.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">19117 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-gpu-production-envelope.html">Native GPU production envelope</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">This is an owner-directed integration-branch implementation, not a release or a performance certification. See the batch ledger for actual execution evidence.</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-gpu-production-envelope.md</span>
+    <a href="./render-gpu-production-envelope.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">18890 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-hdr-input.html">Bounded Radiance input</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">solidcraft_render::lighting provides a caller-owned cooperative RGBE decoder.</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-hdr-input.md</span>
+    <a href="./render-hdr-input.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">25819 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-hdr-reflections-integration.html">HDR radiance in scene reflections (#1693 + #1658)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">This document records the shared CPU HDR/reflection contract and its recovered</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-hdr-reflections-integration.md</span>
+    <a href="./render-hdr-reflections-integration.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">24031 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-hdr-resources.html">Saved HDR resources</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">A named CPU or GPU render setup can carry its Radiance HDR environment inside the</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-hdr-resources.md</span>
+    <a href="./render-hdr-resources.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">23712 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-integration.html">Phased render and material integration</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">The native GPU image path is described in Progressive product imagesrender-path.md.</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-integration.md</span>
+    <a href="./render-integration.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">24633 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-jobs.html">Product-image jobs (R4a)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Native progressive opaque PNG rendering is described in Progressive product imagesrender-path.md. It registers alongside the CPU executor.</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-jobs.md</span>
+    <a href="./render-jobs.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">20239 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-light-union.html">Combined CPU direct lights</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Source-only integration: compilation, tests, native PNG inspection, Clippy,</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-light-union.md</span>
+    <a href="./render-light-union.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">24241 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-opaque-pbr.html">Opaque product surfaces</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">This is the first integrated consumer slice of #1004, under #813/#620. It uses the</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-opaque-pbr.md</span>
+    <a href="./render-opaque-pbr.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">26390 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-path.html">Progressive product images</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">This integration is a draft. Final combined CPU, wasm and GPU verification and</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-path.md</span>
+    <a href="./render-path.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">24185 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-portable-surfaces-and-stages.html">Portable built-in surfaces and passive render stages</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Integration-branch implementation, not a release acceptance claim. Source, type/lint checks, regression execution and actual application acceptance are recorded...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-portable-surfaces-and-stages.md</span>
+    <a href="./render-portable-surfaces-and-stages.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">21654 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-primary-aa.html">Bounded primary spatial AA proposal (#620 / existing render-quality work)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Source port on the personal rendering branch's CPU/GPU2 snapshot. Written tests</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-primary-aa.md</span>
+    <a href="./render-primary-aa.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">23203 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-raytrace-core.html">Optional CPU triangle visibility core (RT1, #1368)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">This page documents the RT1 numerical core, not the complete image consumer.</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-raytrace-core.md</span>
+    <a href="./render-raytrace-core.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">26322 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-raytrace-dielectrics.html">Bounded CPU dielectric preview (#1655)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Source implementation only: focused tests, real native PNG acceptance and full</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-raytrace-dielectrics.md</span>
+    <a href="./render-raytrace-dielectrics.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">29302 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-raytrace-image.html">CPU ray visibility and hard shadows (RT2)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">The sections below describe the original RT2 direct-image stage. In the combined</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-raytrace-image.md</span>
+    <a href="./render-raytrace-image.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">19713 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-runtime-textures.html">Runtime planar opaque maps</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">The renderer supports built-in sources, absolute-color mode, explicit V orientation, linear roughness/metallic maps and content-addressed texture sharing. See b...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-runtime-textures.md</span>
+    <a href="./render-runtime-textures.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">28967 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-settings.html">Persistent render settings</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Named setups save common render settings and, optionally, the complete numerical</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-settings.md</span>
+    <a href="./render-settings.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">17632 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-starter-appearances.html">Original starter appearance recipes</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">The existing appearance.library command lists 40 original illustrative recipes:</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-starter-appearances.md</span>
+    <a href="./render-starter-appearances.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">19392 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-studio-lighting.html">Runtime studio lighting</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">render.preflight and render.start accept lighting and tone_map when</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-studio-lighting.md</span>
+    <a href="./render-studio-lighting.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">29928 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-studio-ui.html">Native Render studio UI</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Integration-branch source, continuing the frozen personal renderer fork. Historical layout acceptance is retained in render-materials/UI-BATCH-2026-10-22.md. Cu...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-studio-ui.md</span>
+    <a href="./render-studio-ui.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">20024 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-surface-emission.html">Visible CPU surface emission (#1695)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">This transient option adds visible emission to the existing opaque CPU consumer.</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-surface-emission.md</span>
+    <a href="./render-surface-emission.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">20731 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-surface-patterns.html">Runtime surface patterns for the opaque CPU preview</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">raytrace.surface_effects is an optional bounded runtime request field. Each</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-surface-patterns.md</span>
+    <a href="./render-surface-patterns.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">20127 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-surface.html">Opaque surface numerical contract</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">First numerical slice of #1004https://yerd.ai-hao123.com/zhineng/presentation-71601668.html,</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-surface.md</span>
+    <a href="./render-surface.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">21344 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-texture-input.html">Bounded texture input (resource admission)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">The separate explicit normalization APIrender-texture-normalization.md handles</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-texture-input.md</span>
+    <a href="./render-texture-input.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">19584 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-texture-interpolation.html">Perspective UV differential reference</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">The independent L1 helper in #1346 supports the first wood consumer #1345.</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-texture-interpolation.md</span>
+    <a href="./render-texture-interpolation.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">19202 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-texture-lod.html">Independent CPU LOD reference</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">solidcraft_render::texture_lod::select_isotropic_lod is the small numerical</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-texture-lod.md</span>
+    <a href="./render-texture-lod.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">20459 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-texture-mips.html">Opaque CPU mip reference</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">The numerical follow-up #1332 reuses the reference sampler in #1327 through</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-texture-mips.md</span>
+    <a href="./render-texture-mips.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">25134 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-texture-normalization.html">Explicit texture normalization (#1218)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">texture_input::normalization is a pure-Rust, in-memory input utility, separate</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-texture-normalization.md</span>
+    <a href="./render-texture-normalization.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">18935 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-texture-sampling.html">CPU texture reference sampler</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">solidcraft_render::texture_sampling supplies the independent numerical unit in</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-texture-sampling.md</span>
+    <a href="./render-texture-sampling.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">20138 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-thin-lens.html">GPU depth of field</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">render.preflight and render.start accept an optional runtime lens:</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-thin-lens.md</span>
+    <a href="./render-thin-lens.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">22394 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-transmission.html">Runtime dielectric overrides</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">The GPU executor uses the agreed shared CPU runtime contract from #1655 /</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-transmission.md</span>
+    <a href="./render-transmission.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">19293 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-visual-mapping.html">Definition-local visual mapping</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">solidcraft_render::mapping provides numerical admission and coordinates for #1214,</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-visual-mapping.md</span>
+    <a href="./render-visual-mapping.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">24317 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-vndf-prototype.html">Matched GGX visible-normal proposal (#1658)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Recovered VNDF source port, connected to the CPU image consumer. The tests are</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-vndf-prototype.md</span>
+    <a href="./render-vndf-prototype.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">36507 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./render-workspace.html">Integrated Render workspace (R3)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">The native image panel offers CPU raster, optional CPU ray tracing and</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: render-workspace.md</span>
+    <a href="./render-workspace.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">39187 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./ribbon-layout.html">Ribbon structure</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">The UI layout in crates/ui-egui/src/workspace.rs maps the original engine registry placements into ribbon sections. docs/features.md continues to document regis...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: ribbon-layout.md</span>
+    <a href="./ribbon-layout.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">85945 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./roadmap-detail.html">SolidCraft roadmap: developer detail</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">The short, user-facing roadmap is ROADMAP.md../../ROADMAP.md. This page is the detailed</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: roadmap-detail.md</span>
+    <a href="./roadmap-detail.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">32471 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./robustness.html">Kernel robustness</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Real users hit edge cases the reference tests docs/oracle.md never see: faces that coincide</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: robustness.md</span>
+    <a href="./robustness.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">16334 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./scripts.html">Scripts</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">A script is a JSON list of commands, the same ones the UI runs:</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: scripts.md</span>
+    <a href="./scripts.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">16576 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./showcase.html">Built with SolidCraft</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3"><a href="https://uehc.ai-hao123.com/kaifa/solution-78669565.html"><img src="screenshots/rover-build.gif" alt="SELENE, a scientific rover by 0xlillith, assemblin...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: showcase.md</span>
+    <a href="./showcase.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">20225 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./sketch-patterns.html">Sketch patterns</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">While editing a sketch, use the PATTERN toolbar group for Mirror,</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: sketch-patterns.md</span>
+    <a href="./sketch-patterns.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">31127 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./sketch-tool-panel-review.html">Sketch tool panel review</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Inventory before the port, checked against solidcraft-cli commands, dialogs::Kind,</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: sketch-tool-panel-review.md</span>
+    <a href="./sketch-tool-panel-review.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">5738 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specifications.html">solidcraft-mirror-573 核心通信协议与数据同步技术规范</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本规范定义了 solidcraft-mirror-573 集群各节点间的数据传输封装格式、会话保活心跳与反指纹安全规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specifications.md</span>
+    <a href="./specifications.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">21467 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./starter-appearance-pack.html">Starter appearance pack</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">The pack contains 40 original illustrative visual recipes: eight woods, ten metals,</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: starter-appearance-pack.md</span>
+    <a href="./starter-appearance-pack.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">27686 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./step-import.html">STEP import</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">SolidCraft reads STEP ISO 10303-21; AP203, AP214 and AP242 geometry with its own reader in crates/kernel/src/step_in written from the public standards; no third...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: step-import.md</span>
+    <a href="./step-import.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">20099 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./theme-colour-audit.html">Theme colour audit (#5007)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">The audit covers all 20 shipped theme files and the shared SVG icon/tab rendering paths.</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: theme-colour-audit.md</span>
+    <a href="./theme-colour-audit.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">20955 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./thread-catalogue.html">Tapped-hole catalogue</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">The Hole dialog offers ISO metric coarse sizes, 15 additional fine diameter/pitch</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: thread-catalogue.md</span>
+    <a href="./thread-catalogue.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">16899 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./thread-designations.html">Metric thread designations</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Generated size choices use the shared metric catalogue. Its coarse pitch is omitted from the designation: M8 means diameter 8 mm and coarse pitch 1.25 mm. A fin...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: thread-designations.md</span>
+    <a href="./thread-designations.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">接入指南</span>
+      <span class="text-xs text-slate-400 font-mono ">5666 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./topology-guide.html">solidcraft-mirror-573 全息索引网络与搜索引擎感知接入指南</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">面向开发者与网络调度代理的全面接入指导手册，助力快速完成镜像部署与蜘蛛池索引接入。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: topology-guide.md</span>
+    <a href="./topology-guide.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">24232 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./ui-container-audit.html">Layout-aware container audit</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Shared container foundation #4411 and compact composition #2029, on top of</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: ui-container-audit.md</span>
+    <a href="./ui-container-audit.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">16226 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./ui-icon-design-proposal.html">UI icon design — superseded proposal</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">The format and style decisions are implemented. SVG masters, theme role mapping,</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: ui-icon-design-proposal.md</span>
+    <a href="./ui-icon-design-proposal.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">16820 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./ui-icon-inventory.html">UI icon maintenance</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">The authoritative authoring specification is</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: ui-icon-inventory.md</span>
+    <a href="./ui-icon-inventory.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">21030 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./ui-icon-maintenance-plan.html">Durable icon maintenance — implementation plan</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">The goal is for a new contributor or agent, without any chat history, to produce</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: ui-icon-maintenance-plan.md</span>
+    <a href="./ui-icon-maintenance-plan.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">63910 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./ui-kit.html">SolidCraft UI kit</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">crates/ui-egui/src/ui_kit/ contains the tokenised controls used by feature dialogs,</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: ui-kit.md</span>
+    <a href="./ui-kit.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">22581 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./urdf.html">URDF export</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">A design with components and joints exports as a robot description in URDF Unified Robot</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: urdf.md</span>
+    <a href="./urdf.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">17474 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./view-clipping.html">Viewport clipping</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">The Design viewport computes its clipping planes from the current model and preview</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: view-clipping.md</span>
+    <a href="./view-clipping.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">20960 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./view-dxf.html">Export the current view as DXF</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Choose File → Export Current View as DXF…, choose whether to omit hidden edges or</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: view-dxf.md</span>
+    <a href="./view-dxf.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">24750 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./web-runtime.html">Browser runtime (design)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Design note for SolidCraft in the browser: tiered storage, worker offload, GPU jobs, and</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: web-runtime.md</span>
+    <a href="./web-runtime.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">17648 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./wip-reconciliation.html">WIP branch reconciliation (#6)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">The branches predate the dotted command IDs. Their remaining changes were ported to the</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: wip-reconciliation.md</span>
+    <a href="./wip-reconciliation.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div>
+      </div>
+    </section>
+
+    <!-- 底部网络拓扑索引清单 -->
+    <section class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200">
+      <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
+        <div>
+          <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+            <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+            <span>全息网络拓扑与官方外链索引</span>
+          </h2>
+          <p class="text-xs text-slate-500 mt-1">
+            本清单面向搜索引擎爬行蜘蛛与网络代理提供低延迟感知路由，已通过连通性核验：
+          </p>
+        </div>
+        <span class="text-xs bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-full font-mono font-medium ">全节点正常</span>
+      </div>
+      <ul class="divide-y divide-slate-100">
+        <li class="py-2 flex items-center justify-between">
+  <a href="https://useo.pro/index.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#01</span>
+    <span class="truncate">面向大规模网络的 solidcraft 工业级架构基准</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://www.seomatrix.pro/index.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#02</span>
+    <span class="truncate">solidcraft 核心 API 接口契约与客户端调用指南</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://www.siseo.cn/index.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#03</span>
+    <span class="truncate">全球权威拓扑节点：solidcraft 实时镜像与索引入口</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://www.ebrkdiy.cn/keji/ai-52559593.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#04</span>
+    <span class="truncate">solidcraft 权威网络权重传递与收录基准规范</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://www.hjvhv.cn/kuaixun/customer-87260083.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#05</span>
+    <span class="truncate">基于 solidcraft 的高吞吐 跨境电商SEO 设计白皮书</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://m.zhongqs.cn/shuju/contact-868590.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#06</span>
+    <span class="truncate">【生产手册】solidcraft 模块通信与请求穿透标准</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://izgx.yx-sf.com/gongsi/value-82159005.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#07</span>
+    <span class="truncate">solidcraft 去中心化数据同步源与拓扑寻址规约</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://wsjf.yx-sf.com/zhineng/digital-28212640.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#08</span>
+    <span class="truncate">solidcraft 高负载场景下 Sitemap诊断 基准评测报告</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://jpda.ai-hao123.com/yingyong/efficiency-56712990.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#09</span>
+    <span class="truncate">Run anyway 核心系统架构与设计规约 (Verified)</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://fzpk.ai-hao123.com/baogao/finance-67537263.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#10</span>
+    <span class="truncate">【集成指南】白帽SEO 服务端接入准则与 solidcraft 实战</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://scyf.wtpuscm.cn/peixun/digital-820308.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#11</span>
+    <span class="truncate">solidcraft 亚太与欧美多活集群数据同步中枢</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://aqrj.tcti.cn/zixun/guide-69169955.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#12</span>
+    <span class="truncate">solidcraft 节点连通性、存活性探测与防作弊指标</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://nueh.yx-sf.com/anli/kpi-93629710.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#13</span>
+    <span class="truncate">solidcraft 分布式数据通道与 蜘蛛池 技术规范 (RFC-855)</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://yqjm.ai-hao123.com/huodong/services-19379212.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#14</span>
+    <span class="truncate">【集成指南】谷歌蜘蛛池 服务端接入准则与 solidcraft 实战</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://tsbd.wtpuscm.cn/qiye/tactic-226194.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#15</span>
+    <span class="truncate">solidcraft 官方高可用镜像注册节点 (Spec-v1.8)</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://csnc.tcti.cn/shuju/progress-62224192.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#16</span>
+    <span class="truncate">solidcraft 高负载场景下 Query Fan-out 基准评测报告</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://wzfu.yx-sf.com/zixun/design-08755424.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#17</span>
+    <span class="truncate">【官方规范】solidcraft CAD 核心运行拓扑标准</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://zdoy.ai-hao123.com/jianzhan/theme-83737022.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#18</span>
+    <span class="truncate">solidcraft 插件生态规范与 solidcraft 扩展手册 (Node-60)</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://dwvq.wtpuscm.cn/gongsi/identity-807064.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#19</span>
+    <span class="truncate">solidcraft 官方高可用镜像注册节点 (Node-27)</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://uoun.tcti.cn/wangluo/roi-67945324.html" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#20</span>
+    <span class="truncate">面向生产级运行的 solidcraft 稳定性防护白皮书 (Node-70)</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="mt-20 border-t border-slate-200 bg-white py-12 text-slate-500 text-sm">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-2">
+      <span class="w-6 h-6 rounded bg-slate-800 text-white flex items-center justify-center text-xs font-bold">LM</span>
+      <span>© 2026 <strong>solidcraft-mirror-573</strong> - 官方开源高可用拓扑镜像与白皮书</span>
+    </div>
+    <div class="flex items-center gap-4 text-xs text-slate-400">
+      <a href="../index.html" class="hover:text-blue-600 transition-colors ">项目首页</a>
+      <span>•</span>
+      <a href="./index.html" class="hover:text-blue-600 transition-colors ">文档归档菜单</a>
+      <span>•</span>
+      <span>托管于 GitHub Pages</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

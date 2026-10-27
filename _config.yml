@@ -1,0 +1,5 @@
+title: "solidcraft-mirror-573"
+description: "High availability mirror and network topology specifications for tangency-labs/solidcraft"
+theme: jekyll-theme-cayman
+plugins:
+  - jekyll-relative-links

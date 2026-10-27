@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Control protocol - solidcraft-mirror-573 文档归档</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+      :root {
+        --color-primary: #2563eb;
+        --color-primary-hover: #1d4ed8;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.68;
+        color: #1e293b;
+      }
+      .markdown-body {
+        color: #1e293b;
+      }
+      .markdown-body h1 {
+        font-size: 2.25rem;
+        font-weight: 800;
+        margin-top: 1.8rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.6rem;
+        border-bottom: 2px solid #e2e8f0;
+        color: #0f172a;
+        line-height: 1.25;
+      }
+      .markdown-body h2 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-top: 1.6rem;
+        margin-bottom: 0.8rem;
+        padding-bottom: 0.4rem;
+        border-bottom: 1px solid #f1f5f9;
+        color: #1e293b;
+      }
+      .markdown-body h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-top: 1.3rem;
+        margin-bottom: 0.6rem;
+        color: #334155;
+      }
+      .markdown-body p {
+        margin-top: 0.8rem;
+        margin-bottom: 0.8rem;
+        line-height: 1.7;
+      }
+      .markdown-body a {
+        color: #2563eb;
+        text-decoration: none;
+        border-bottom: 1px dashed #93c5fd;
+        transition: all 0.2s ease;
+      }
+      .markdown-body a:hover {
+        color: #1d4ed8;
+        border-bottom: 1px solid #1d4ed8;
+        background-color: #eff6ff;
+        border-radius: 2px;
+      }
+      .markdown-body ul, .markdown-body ol {
+        padding-left: 1.5rem;
+        margin-top: 0.6rem;
+        margin-bottom: 0.6rem;
+      }
+      .markdown-body ul {
+        list-style-type: disc;
+      }
+      .markdown-body ol {
+        list-style-type: decimal;
+      }
+      .markdown-body li {
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
+      }
+      .markdown-body pre {
+        background-color: #0f172a;
+        color: #e2e8f0;
+        padding: 1rem 1.2rem;
+        border-radius: 0.75rem;
+        overflow-x: auto;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875rem;
+        margin: 1rem 0;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+      .markdown-body code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875em;
+        padding: 0.15rem 0.35rem;
+        background-color: #f1f5f9;
+        color: #0f172a;
+        border-radius: 0.35rem;
+        border: 1px solid #e2e8f0;
+      }
+      .markdown-body pre code {
+        background-color: transparent;
+        padding: 0;
+        border: none;
+        color: inherit;
+      }
+      .markdown-body blockquote {
+        margin: 1rem 0;
+        padding: 0.75rem 1.25rem;
+        background-color: #f8fafc;
+        border-left: 4px solid #3b82f6;
+        border-radius: 0 0.5rem 0.5rem 0;
+        color: #475569;
+      }
+      .markdown-body table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.2rem 0;
+        display: block;
+        overflow-x: auto;
+      }
+      .markdown-body th, .markdown-body td {
+        border: 1px solid #cbd5e1;
+        padding: 0.6rem 1rem;
+        text-align: left;
+      }
+      .markdown-body th {
+        background-color: #f1f5f9;
+        font-weight: 600;
+      }
+      .markdown-body tr:nth-child(even) {
+        background-color: #f8fafc;
+      }
+      .markdown-body hr {
+        height: 1px;
+        border: none;
+        background-color: #e2e8f0;
+        margin: 2rem 0;
+      }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col antialiased">
+  <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <a href="../index.html" class="flex items-center gap-2 group">
+        <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white font-bold text-sm shadow-sm group-hover:scale-105 transition-transform ">LM</span>
+        <span class="font-bold text-slate-900 tracking-tight text-lg group-hover:text-blue-600 transition-colors ">solidcraft-mirror-573</span>
+      </a>
+      <span class="hidden md:inline-block text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-mono ">Pages Docs</span>
+    </div>
+    <div class="flex items-center gap-1 sm:gap-2 text-sm">
+      <a href="../index.html" class="px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 text-slate-600 hover:text-blue-600 hover:bg-slate-50 font-medium ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        <span>首页 (README)</span>
+      </a>
+      <a href="./index.html" class="px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 text-blue-600 bg-blue-50 font-semibold ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        <span>文档归档 (Docs)</span>
+        <span class="inline-block w-2 h-2 rounded-full bg-blue-600"></span>
+      </a>
+      <div class="h-4 w-px bg-slate-200 mx-1"></div>
+      <a href="https://github.com/shijiuwei/solidcraft-mirror-573" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 ">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        <span class="hidden sm:inline">GitHub</span>
+      </a>
+      <a href="https://github.com/shijiuwei/solidcraft-mirror-573/wiki" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span class="hidden sm:inline">Wiki</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+  <!-- 面包屑与顶部导航 -->
+  <header class="bg-white border-b border-slate-200 py-6 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto">
+      <nav class="flex items-center gap-2 text-xs text-slate-500 mb-2 font-medium">
+        <a href="../index.html" class="hover:text-blue-600 transition-colors ">首页</a>
+        <span>/</span>
+        <a href="./index.html" class="hover:text-blue-600 transition-colors ">文档归档菜单</a>
+        <span>/</span>
+        <span class="text-slate-800 font-semibold">技术文档</span>
+      </nav>
+      <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Control protocol</h1>
+        <a href="./index.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors ">
+          <span>&larr; 返回文档归档菜单</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主体正文区域 -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 flex-1 w-full">
+    <article class="bg-white p-6 sm:p-12 rounded-2xl shadow-sm border border-slate-200">
+      <div class="markdown-body">
+        <h1>Control protocol</h1>
+<p>The control channel is <strong>on by default</strong>. SolidCraft listens on <code>127.0.0.1</code> only, for JSON lines,
+so agents can drive the app without a launch flag. Every connection still needs this launch's
+token (below); nothing else on the machine, and nothing off it, can send a command.</p>
+<table><thead><tr><th>Launch</th><th>What listens</th></tr></thead><tbody>
+<tr><td><code>solidcraft --control PORT</code>, or <code>SOLIDCRAFT_CONTROL_PORT=PORT</code></td><td>exactly <code>127.0.0.1:PORT</code> (the flag wins over the variable), whatever the setting</td></tr>
+<tr><td>neither, and Preferences &gt; Assistant &gt; "Let AI agents connect (control channel / MCP)" on (the default)</td><td>the default port <strong>27878</strong>, or the next free one up to 27893 when it is taken (a second window, another program)</td></tr>
+<tr><td>neither, and the setting off</td><td>nothing</td></tr>
+</tbody></table>
+<p>The setting is read at start-up. Old preference files, which don't have it, load with it on. A
+launch with <code>--control</code> or the variable behaves as it always did (the start page stays hidden,
+the window doesn't ask for the foreground), because a scripted launch expects that; the default
+channel changes neither for a normal launch.</p>
+<h3>Finding the port</h3>
+<p>Each app that opens its channel writes the port to a discovery file beside the token files,
+<code>control/current.port</code> (same folders and permissions as below), and removes it at exit if no later
+app has replaced it. It holds only the port, never the token. <code>solidcraft-cli mcp</code> with no
+arguments reads it, checks that something listens there and bridges to that app; with no app
+running, or with <code>--headless</code>, it runs a session of its own. <code>--connect HOST:PORT</code> and the
+other arguments still decide first. With several windows open, the most recently started one is
+the one found; use <code>--connect</code> for another.</p>
+<p>Requests are one line <code>{"id": …, "method": "…", "params": {…}}</code>; replies are described below. Each request is one line <code>{"id": …, "method": "…", "params": {…}}</code>; each reply is one
+line <code>{"id": …, "ok": true, "result": …}</code> or <code>{"id": …, "ok": false, "error": "…"}</code>. Requests are
+handled on the UI thread between frames; pointer and keyboard input is injected as real egui
+events, one pointer event per frame. A connection that sent <code>control.subscribe</code> is also sent
+event lines <code>{"event": "…", "params": {…}}</code>, which have no <code>id</code>
+(<a href="#following-the-design">Following the design</a>).</p>
+<h3>Token</h3>
+<p>Every connection must authenticate. At start the app makes a random 256-bit token for this
+launch and writes it, as one line of hex, to a file only the user can read:</p>
+<table><thead><tr><th>System</th><th>Token file</th></tr></thead><tbody>
+<tr><td>Linux</td><td><code>$XDG_DATA_HOME/solidcraft/control/PORT.token</code> (<code>~/.local/share/solidcraft/control/PORT.token</code>)</td></tr>
+<tr><td>macOS</td><td><code>~/Library/Application Support/SolidCraft/control/PORT.token</code></td></tr>
+<tr><td>Windows</td><td><code>%LOCALAPPDATA%\SolidCraft\control\PORT.token</code></td></tr>
+</tbody></table>
+<p>On Unix the folder is <code>0700</code> and the file <code>0600</code>; on Windows the file's inherited permissions are
+replaced by a single entry for the user. <code>SOLIDCRAFT_CONTROL_DIR</code> moves the folder. The file is
+removed when the app exits, and the next launch writes a new token. The token file's path is
+printed to stderr at start-up. Beside it, <code>&lt;port&gt;.pid</code> holds the app's process id (and, on Linux,
+its start time).</p>
+<p>An app that is force-quit can't remove its files, so a later client may send that launch's token.
+When the app refuses it, <code>solidcraft-cli mcp</code> names the token file it read and when it was
+written, and says the file is stale when the process in <code>&lt;port&gt;.pid</code> has exited. Delete the file
+or restart SolidCraft. On Windows, an app or client started from inside an MSIX-packaged app (and
+the tools it launches) has its AppData redirected: it writes and reads
+<code>%LOCALAPPDATA%\Packages\&lt;package&gt;\LocalCache\Local\SolidCraft\control\</code> before the folder above.</p>
+<p>The first request on a connection must carry the token as a top-level <code>"token"</code> member
+(<code>{"id": 1, "method": "ui.inspect", "params": {}, "token": "…"}</code>); later requests on the same
+connection may leave it out. A first line without the right token is answered with
+<code>{"ok": false, "error": "unauthorized: …"}</code> and the connection is closed, without running
+anything. Tokens are compared in constant time.</p>
+<p><code>solidcraft-cli mcp --connect 127.0.0.1:PORT</code> reads the token file for that port by itself
+(<code>--token T</code> or <code>SOLIDCRAFT_CONTROL_TOKEN</code> give one explicitly). For a test harness, or a
+sandboxed package whose data folder the client can't see, start the app with
+<code>SOLIDCRAFT_CONTROL_TOKEN</code> set to at least 32 hex characters (for example
+<code>openssl rand -hex 32</code>) and the app uses that token instead of making one; the file is still
+written. A one-line client in Python:</p>
+<pre><code class="language-python">token = (Path.home() / ".local/share/solidcraft/control/7878.token").read_text().strip()
+sock.sendall((json.dumps({"id": 1, "method": "ui.inspect", "params": {}, "token": token}) + "\n").encode())
+</code></pre>
+<h3>Limits</h3>
+<p>The channel is untrusted input. A request line may be at most 16 MiB; a longer one is answered
+with <code>{"ok": false, "error": "request too large"}</code> and the connection is closed, as are
+connections that send eight lines that are not JSON. At most 16 connections are served at once
+(further ones get <code>{"ok": false, "error": "too many connections"}</code>), at most 64 queued requests
+run per frame so a flood cannot starve drawing, and a request that the UI thread has not
+answered within 60 seconds (3600 seconds for <code>engine.batch</code>) is replied to with
+<code>{"ok": false, "running": true, "error": "timeout: … is still running …"}</code>. The same 16 MiB line
+limit applies to the MCP server.</p>
+<p>A timed-out request has not failed: it is still running in the app, and a change still applies
+when it finishes (a long fillet, say), so don't simply send it again. The timeout's text says
+what it still does: a request that only reads (<code>ui.inspect</code>, <code>document.inspect</code>, an inspection
+command) "only reads: nothing changes"; one that only writes a file (<code>file.export</code>,
+<code>file.save</code>, <code>file.save_as</code>, <code>file.save_mesh</code>, another export given a <code>path</code>, <code>ui.render</code>, or
+<code>ui.screenshot</code> with a <code>path</code>) "will still write the file when it finishes" and leaves the design
+as it is; any other request "will still apply when it finishes". The connection keeps its reply (#1618). Ask for it
+with <code>control.pending</code>: <code>{"pending": &lt;id&gt;, "method": …, "done": false}</code> while it runs, then
+<code>{"pending": &lt;id&gt;, "method": …, "done": true, "reply": {…}}</code> (its own reply, once), and
+<code>{"pending": null}</code> when nothing is outstanding. Until it lands, any other request on that
+connection is refused at once with <code>{"ok": false, "busy": true, "error": "busy: …"}</code> and not
+run, so nothing is queued to apply unseen behind it. <code>control.pending</code> belongs to the
+connection: a new connection has nothing pending. The bridged MCP server does this itself
+(<a href="mcp.md#long-running-requests">mcp.md</a>).</p>
+<p><code>control.pending</code> answers only for its own connection. <code>control.running</code> answers for the whole
+app, the same on every connection, at once (it never waits behind a running request, and a
+connection may ask it while it is <code>busy</code>): every request the app has been sent and has not
+answered yet, oldest first, from any connection, including a timed-out one whose connection has
+since closed:</p>
+<pre><code class="language-text">{"id":1,"method":"control.running","token":"…"}
+→ {"id":1,"ok":true,"result":{"running":[
+    {"connection":3,"id":17,"method":"engine.execute","command":"file.export","running_s":312.4,"queued":false},
+    {"connection":5,"id":2,"method":"engine.batch","steps":12,"running_s":4.1,"queued":true,"self":true}]}}
+</code></pre>
+<p><code>running_s</code> counts seconds since the request arrived; <code>queued</code> is true while it still waits its
+turn behind another. <code>command</code> is the command id of <code>engine.execute</code> (a known one only) and
+<code>steps</code> the length of <code>engine.batch</code> or <code>engine.script</code>; parameters are never shown, so file
+paths and expressions stay with the connection that sent them. <code>self</code> marks the asking
+connection's own request. <code>{"running": []}</code> when the app is idle.</p>
+<p>Any request's <code>params</code> may carry <code>allow_paths: ["/abs/folder", …]</code>: every file that request
+reads, writes or deletes (command paths such as <code>file.export</code>'s <code>path</code> or <code>doc.recovery_*</code>'s
+<code>dir</code>, <code>ui.render</code>, <code>ui.screenshot</code>) must then lie inside one of those folders after <code>..</code> and
+symlinks are resolved, or the request fails with <code>… outside the folders this agent may use …</code>.
+The app adds its own recovery folder and, when it lies safely inside the home folder and not in
+a hidden folder, the open design's folder (whose hidden files stay out of reach). The bridged
+MCP server sends its folders this way on every request (<a href="mcp.md">mcp.md</a>). Without
+<code>allow_paths</code> file paths are not limited: a client holding the token can do what the user can.</p>
+<h2>Engine</h2>
+<table><thead><tr><th>Method</th><th>Params</th><th>Result</th></tr></thead><tbody>
+<tr><td><code>engine.execute</code></td><td><code>command</code>: command id, <code>params</code>: JSON object</td><td>the command's result</td></tr>
+<tr><td><code>engine.script</code></td><td><code>commands</code>: <code>[{command, params}, …]</code></td><td>results, stops at the first error</td></tr>
+<tr><td><code>engine.batch</code></td><td><code>commands</code>: <code>[{command, params}, …]</code> (at most 10 000), <code>rollback?</code>: bool (default true), <code>timings?</code>, <code>profile?</code>, <code>coalesce_parameters?</code>: bool (default false)</td><td><code>{completed, results, undone}</code>, plus <code>failed: {index, command, error}</code> when a step fails, and with <code>timings</code> <code>timings: [{index, command, ms}]</code> (the failing step included) and <code>total_ms</code>; <code>profile</code> adds each step's <code>profile: {boolean_ms, tessellate_ms, other_ms}</code>. Runs the steps in one request, so within one frame, each as <code>engine.execute</code> runs it. The first failure stops the batch, and with <code>rollback</code> the design goes back to how it was before it (<code>undone</code>: the steps taken back, <code>rolled_back</code>: whether the design is back as it was, <code>false</code> only when the checkpoint could not restore it). Refused before anything runs, with an error starting <code>engine.batch unavailable</code>, while the agent cursor is shown or when a step loads a file (<code>doc.open</code>, <code>file.insert_step</code>, <code>file.insert_mesh</code>). Send such steps one by one. A step the batch would certainly refuse at its turn is found before the first step runs (#5853): a step without a command, an unknown command id (with the closest ids) or, with strict parameter checking, a call that breaks its command's contract. The reply is then that step's failure with <code>completed: 0</code>, <code>undone: 0</code>, <code>not_run</code> listing every step and a <code>note</code>; nothing has run. With <code>coalesce_parameters</code>, each run of consecutive plain parameter edits (<code>parameters.change</code> with only a name and an expression, or with <code>changes</code>) is set as one <code>parameters.change {changes}</code>, so the design rebuilds once for the run. Every step still gets its own result (with <code>coalesced</code>: the run's length), and the run is one undo step. The run skips the states between its edits: an edit that would be refused on its own, but not once the run's later edits are in, goes through. A run whose combined edit is refused (a new parameter, a bad expression) runs step by step, so the refused step is named. Answered when done, for up to 3600 s</td></tr>
+<tr><td><code>engine.commands</code></td><td>—</td><td>every command: id, label, tab, panel, icon, shortcut, params doc, enabled</td></tr>
+<tr><td><code>document.revision</code></td><td>—</td><td><code>{document_id, revision}</code>: the active design's id and a number that moves whenever the design changes, for programs that follow it (<a href="#following-the-design">Following the design</a>)</td></tr>
+<tr><td><code>control.subscribe</code></td><td>—</td><td><code>{document_id, revision}</code>, as <code>document.revision</code>; the connection is then sent a <code>design.changed</code> line whenever they change (<a href="#following-the-design">Following the design</a>)</td></tr>
+<tr><td><code>document.inspect</code></td><td><code>measure?</code>: bool</td><td>parameters, timeline (errors, timings), bodies, sketches, selection (assembly joints: <code>engine.execute</code> <code>joint.inspect {joint?}</code>, which reads only: each joint's two origins with the occurrence, the snap as saved, the feature, face, edge or sketch curve its names refer to, and whether it resolves or why not; kind, offset, angle, flip, values, limits, expressions and motion links)</td></tr>
+</tbody></table>
+<p>Commands never open dialogs when run this way. <code>solidcraft-cli commands</code> prints the same registry.</p>
+<h3>Following the design</h3>
+<p>A program that follows the open design (a renderer kept in step, a live link) asks
+<code>document.revision</code>, which only reads and does not wait behind design changes (a slow command
+computing, a file loading, the agent cursor acting one out), and exports only when the answer
+changes (#6646):</p>
+<pre><code class="language-text">{"id":1,"method":"document.revision","token":"…"}
+→ {"id":1,"ok":true,"result":{"document_id":"18f3a0c2d4e5b6a7-1","revision":3}}
+</code></pre>
+<ul>
+<li><code>document_id</code> names the active design (its tab) while it stays open, through edits, saves and
+renames. Two open designs have different ids even with the same name, and each design started
+or opened gets a new one, also one opened or started in the same tab. Ids of one run never
+match those of another. Treat it as an opaque string.</li>
+<li><code>revision</code> moves whenever the design changes: an edit, a parameter, undo or redo, a design
+opened or started, what is hidden or shown (saved with the design), a component moved and not
+captured yet. It stays the same for reads, a selection, a camera move, a section or an analysis
+view. Revisions come from one counter for the whole run, so a revision never names two
+states, and it never goes back: changes undone before the next ask that end where the design
+was need no new one (its revision still names that design).</li>
+</ul>
+<p>Switching tabs changes <code>document_id</code>; back on a tab its revision is the one it had, if nothing
+changed it meanwhile. Compare both values, and export when either differs from the last
+answer. The same answer comes from <code>engine.execute</code> <code>document.revision</code> (and so from scripts and
+MCP <code>execute</code>), which waits its turn behind design changes like any command.</p>
+<p>A client need not ask again and again: after <code>control.subscribe</code> on its connection, the app
+sends it a line whenever the active design changes (#6985):</p>
+<pre><code class="language-text">{"id":1,"method":"control.subscribe","token":"…"}
+→ {"id":1,"ok":true,"result":{"document_id":"18f3a0c2d4e5b6a7-1","revision":3}}
+{"event":"design.changed","params":{"document_id":"18f3a0c2d4e5b6a7-1","revision":4}}
+{"event":"design.changed","params":{"document_id":"18f3a0c2d4e5b6a7-2","revision":5}}
+</code></pre>
+<ul>
+<li>The reply is what <code>document.revision</code> answers then (and, like it, does not wait behind design
+changes); no event comes before it. From there on, each <code>design.changed</code> line carries what
+<code>document.revision</code> would answer, sent when its <code>document_id</code> or <code>revision</code> differs from the
+last one this connection was told: an edit, undo or redo, a design opened or started, a tab
+switched.</li>
+<li>Lines are coalesced, not sent per frame: at most about ten a second, and changes made faster
+(a parameter dragged) are followed by one line with the latest. Once the design stops
+changing, the last line names it as it is.</li>
+<li>An event has <code>event</code> and <code>params</code> and no <code>id</code>; every reply still has its request's <code>id</code>. Each
+event is a whole line of its own, between replies, never inside one. Ignore events you don't
+know.</li>
+<li>Only connections that subscribed get events, until they close (or shut their sending side). A
+second <code>control.subscribe</code> on a subscribed connection is refused with <code>already subscribed</code>;
+ask <code>document.revision</code> for the design now. A <code>control.subscribe</code> that timed out or failed did
+not subscribe the connection: send it again.</li>
+</ul>
+<h3>Slow commands and the window (#1989)</h3>
+<p>With the preference <strong>Preferences &gt; AI &gt; Keep the window responsive while agents run commands</strong>
+on (<code>ui.prefs {"agent_off_thread": true}</code>; off by default), a design change in the desktop app
+that takes longer than about 150 ms (an <code>engine.execute</code> of a
+modelling command, an <code>engine.batch</code> of them) computes off the window thread, so the window keeps
+drawing and answering while it runs:</p>
+<ul>
+<li>The command is evaluated ahead on a copy of the design, which also makes the display meshes of
+the bodies it ends with. Then it runs for real on the window thread, reusing every feature the
+evaluation computed (kept for it, whatever the bounded evaluation cache dropped meanwhile), so
+the window waits only for the bookkeeping. Its reply, undo step, autosave and crash journal are
+the same as before. With the agent cursor shown, the evaluation runs while the pointer glides
+to the button, and the pointer waits there until it is done.</li>
+<li>Meanwhile <code>ui.*</code> requests, <code>document.inspect</code> and <code>engine.commands</code> are answered at once
+(inspection shows the design as it was), also while the agent cursor acts a command out. Later
+design changes, from any connection, wait their turn and run in the order they arrived.</li>
+<li>A person's edit made meanwhile goes first. The agent's command is then computed again for the
+design as it is and lands after that edit, never in the middle of it. If the design was replaced
+(another tab made active, a new file opened), the request fails with <code>… the design was  replaced … nothing was applied</code>.</li>
+<li>A chip in the view names the command, with <strong>Stop</strong>. Stop answers
+<code>{"ok": false, "stopped": true, "error": "stopped: …; nothing was applied"}</code> and the requests
+waiting behind it go on. The computation finishes unseen in the background.</li>
+<li><code>file.export</code> and <code>file.save_mesh</code> change nothing in the design. They run on a copy of the
+design as it was when they were asked for, and nothing waits behind them.</li>
+<li>Batches with <code>timings</code> or <code>profile</code> still run on the window thread, so the times they report
+measure the real work.</li>
+</ul>
+<p>Timeouts and <code>control.pending</code> work as described above. A slow command is still answered when it
+is done, from a later frame. With the preference off, commands run on the window thread, and the
+window waits for each one.</p>
+<p>Product images use <code>render.preflight/start/status/cancel/export</code> through <code>engine.execute</code>.
+Keep the returned session-scoped job ID for subsequent calls; status does not block or
+render. See <a href="render-jobs.md">render jobs</a> for capture, cancellation and export semantics.</p>
+<p>While an interactive native file picker is open, <code>ui.inspect</code> reports <code>file_picker_busy: true</code>.
+Engine commands, <code>ui.file</code> and <code>ui.home</code> requests wait for its answer; window resizing,
+inspection and screenshots remain available.</p>
+<p>Every <code>sketch.*</code> command that changes a sketch adds <code>created: {points, curves, constraints,  dimensions}</code> to its result (and <code>wires</code> for 3D curves): the ids of what it added, in creation
+order, next to whatever else the command returns (<code>curves</code>, <code>sides</code>, <code>corners</code>…). Sketch ids are
+stable and never reused, even after a delete (<code>l1</code>, <code>l2</code>, then <code>l3</code> once <code>l2</code> is gone; only undo
+rolls the numbering back with the design), so they can go straight into later commands:</p>
+<pre><code class="language-text">{"id":7,"method":"engine.execute","params":{"command":"sketch.line","params":{"points":[[0,0],[40,0]]}}}
+→ {"curves":["l1"],"created":{"points":["l1.start","l1.end"],"curves":["l1"],"constraints":["k1"],"dimensions":[]},…}
+{"id":8,"method":"engine.execute","params":{"command":"sketch.dimension","params":{"entities":["l1"],"value":50}}}
+</code></pre>
+<p>A bare numeric <code>value</code> given to <code>sketch.dimension</code> (from the control channel, scripts or MCP) is
+read in the design's units, exactly as if it were typed into the dimension box: in an inch design
+<code>"value": 2</code> makes the line 2 in (50.8 mm) long. Point coordinates stay in millimetres. To pin a
+unit regardless of the design, pass an expression with one: <code>"value": "50 mm"</code> or
+<code>"value": "0.5 in"</code>. Angles are degrees unless the expression says otherwise.</p>
+<p>The viewport also shows an X/Y/Z-aligned dimension chain between the endpoints of the
+currently shown distance (centre, minimum or maximum), with each world-axis distance
+labelled separately as an absolute value (including zero).
+It uses the design's units and length precision, independently of the view or sketch plane.
+Preferences → Graphics → <strong>Show X/Y/Z distances</strong> controls these extra lines and
+labels (default on, saved between runs). Set <code>ui.prefs {"measure_axis_distances": false}</code>
+to hide them while keeping the total distance and the dialog's ΔX/ΔY/ΔZ values. These
+overlays remain visible until Measure closes.
+Overlay handles <code>measure:label:x</code>, <code>measure:label:y</code> and <code>measure:label:z</code> identify the extra
+labels; <code>prefs:measure_axis_distances</code> identifies the checkbox.</p>
+<h2>UI</h2>
+<table><thead><tr><th>Method</th><th>Params</th><th>Notes</th></tr></thead><tbody>
+<tr><td><code>ui.inspect</code></td><td>—</td><td>UI state, pending file picker (<code>file_picker_busy</code>; compatibility alias <code>file_dialog_open</code>, no path), what is hidden (<code>visibility</code>: bodies, origin and construction items, sketches, joints (<code>hidden_joints</code>, joint ids); set it with the <code>browser.visibility</code> command), viewport rect, camera, active tool/dialog, the status line (<code>status</code>: text and whether it is an error), hover, renderer, timings, what the GPU drew last frame (<code>draw</code>: <code>draw_calls</code>, <code>triangles</code>, <code>line_segments</code>, <code>supersampled</code>; null without a GPU) and the graphics <code>adapter</code>, live preview (<code>active</code>, <code>busy</code>, <code>error</code>, <code>ms</code>, bodies it stands in for)</td></tr>
+<tr><td><code>ui.set</code></td><td>any <code>UiState</code> field (<code>tab</code>, <code>perspective</code>, <code>showGrid</code>, <code>dark</code>, <code>layout</code>, …), and the browser's view of the design, saved with it: <code>showOrigin</code> (the Origin folder's eye), <code>showSketches</code> (the design's Sketches folder, <code>c0/sketches</code> in <code>hiddenFolders</code>), <code>hiddenBodies</code>, <code>hiddenOrigin</code>, <code>hiddenSketches</code>, <code>shownSketches</code>, <code>hiddenJoints</code>, <code>hiddenFolders</code>, <code>hiddenProfiles</code>, <code>shownDims</code>, <code>lockedBodies</code> (whole lists; <code>browser.visibility</code> changes single items)</td><td><code>dark: false</code> switches to the light theme; <code>layout: "floating"</code> (default) or <code>"compact"</code> (<code>"docked"</code> is also accepted) selects the transient shell layout without saving a preference. Scenarios use <code>{"call":"ui.set","params":{"layout":"docked"}}</code></td></tr>
+<tr><td><code>ui.view</code></td><td><code>view</code>: <code>front</code>, <code>back</code>, <code>top</code>, <code>bottom</code>, <code>left</code>, <code>right</code>, <code>iso</code>, <code>home</code>, <code>fit</code>; <code>animate</code> (bool, default false: snap)</td><td></td></tr>
+<tr><td><code>ui.camera</code></td><td><code>target?</code>: <code>[x, y, z]</code> (mm), <code>yaw?</code>, <code>pitch?</code>, <code>roll?</code> (radians), <code>distance?</code> (mm), <code>fov?</code>, <code>up?</code>; <code>fit?</code>: <code>true</code>, <code>false</code> or <code>[occurrence id or name…]</code> (<code>root</code>: the bodies outside every component)</td><td>the viewport's orbit camera: it looks at <code>target</code> from <code>distance</code> away; <code>yaw</code> 0 looks along +Y (from the front), <code>pitch</code> is the elevation (±π/2: straight down or up), <code>roll</code> turns the image. Fields given are set first (the others keep their values), then <code>fit</code> frames the listed occurrences (or everything), keeping the direction. The reply, passed back, sets the same view again, so a framing can be stored and replayed. <code>fov</code> and <code>up</code> follow the perspective setting (<code>ui.set</code>) and the up axis preference (<code>ui.prefs</code>) and can't change here; a refused field changes nothing</td></tr>
+<tr><td><code>ui.start</code></td><td><code>command</code>, <code>params?</code></td><td>like a toolbar click: starts the sketch tool or dialog for the command. <code>params</code> sets what the dialog opens on, and nothing runs until OK: <code>joint.drive</code> takes <code>joint</code> (id or name; without it, the joint picked in the browser, else the first joint that moves) and <code>values</code> (numbers in degrees or millimetres, or expressions); <code>motion.study</code> takes <code>study</code> (id or name), which opens that study to edit and chart. A command that takes no params is refused before it starts; a param the dialog doesn't take is refused and the dialog closes</td></tr>
+<tr><td><code>ui.click</code></td><td><code>x</code>, <code>y</code> (screen points), <code>button?</code>: left/right/middle, <code>shift?</code>, <code>ctrl?</code>, <code>double?</code></td><td>real pointer input</td></tr>
+<tr><td><code>ui.move</code></td><td><code>x</code>, <code>y</code>, <code>shift?</code>, <code>alt?</code>, <code>ctrl?</code>, <code>cmd?</code></td><td>pointer movement without a button; modifiers apply until the next synthetic move/click; a move with omitted modifiers releases them. With <code>nav: "touchpad"</code>, Shift pans and Alt/Option orbits.</td></tr>
+<tr><td><code>ui.drag</code></td><td><code>x0</code>, <code>y0</code>, <code>x1</code>, <code>y1</code>, <code>button?</code>, <code>shift?</code>, <code>ctrl?</code>, <code>steps?</code>, <code>hold?</code>, <code>hold_end?</code></td><td>press, move, release; a left drag on the model is a box selection (left to right: window, right to left: crossing); with OpenSCAD navigation, plain left-drag on empty space orbits, Shift+left-drag box-selects, and drags starting on sketch geometry edit it; <code>hold</code> keeps the button down that many frames first (a right press-and-hold opens the marking menu, releasing over a direction picks it), <code>hold_end</code> that many frames at the end (a sketch drag shows its snap)</td></tr>
+<tr><td><code>ui.menu</code></td><td><code>x?</code>, <code>y?</code>, <code>target?</code>, <code>close?</code></td><td>with a point: open a context menu there as a right-click would (the viewport's marking menu, or a browser menu with <code>target: {"type": "body", "name"} | {"type": "sketch", "id"} | {"type": "component", "id"}</code>); without: the open menu (<code>radial</code> and <code>items</code>: id, label, shortcut, enabled, icon, placeholder; blank icons on headings/separators have <code>placeholder: false</code>)</td></tr>
+<tr><td><code>ui.icon_audit</code></td><td><code>reset?</code>, <code>stop?</code></td><td><code>reset: true</code> enables collection on the UI thread and clears previous requests; returns <code>{requested: [{name, master, placeholder}]}</code> sorted by requested id. Each read drains names collected since the previous read/reset. Collection stays enabled until <code>stop: true</code> (which returns pending names before disabling it). Includes aliases, variable/table ids and cached paints.</td></tr>
+<tr><td><code>ui.menuPick</code></td><td><code>item</code>: id or label</td><td>runs an item of the open menu, as clicking it does</td></tr>
+<tr><td><code>ui.selectOther</code></td><td><code>x?</code>, <code>y?</code>, <code>pick?</code>, <code>add?</code>, <code>hover?</code>, <code>close?</code></td><td>Select Other: with a point, list everything pickable there (as holding the left button does); <code>pick</code>: select row <code>pick</code> (<code>add</code>: as Shift-click; with a dialog open, into its active input); <code>hover</code>: light a row up; without: the open list (<code>open</code>, <code>at</code>, <code>total</code>: everything under the cursor, <code>rows</code>: label, icon, sel, at most 20 per kind, nearest first)</td></tr>
+<tr><td><code>ui.rename</code></td><td><code>text?</code>, <code>commit?</code> (default true)</td><td>finishes the rename box a Rename item opened</td></tr>
+<tr><td><code>ui.selection</code></td><td></td><td>the selection, the open dialog's inputs, the hovered item, and the active sketch's drawn dimensions (<code>dimensions</code>: id and text centre, <code>dimension_selected</code>, <code>dimension_editing</code>), and finished sketches' dimensions shown in the model view (<code>shown_dimensions</code>: sketch, id and text centre; a double-click there edits the value)</td></tr>
+<tr><td><code>ui.worldToScreen</code></td><td><code>points</code>: <code>[[x, y, z]…]</code> world points</td><td>their screen points</td></tr>
+<tr><td><code>ui.triad</code></td><td></td><td>screen points of the 3D sketch move triad's handles (<code>x</code>, <code>y</code>, <code>z</code>, <code>plane</code>)</td></tr>
+<tr><td><code>ui.sketchToScreen</code></td><td><code>points</code>: <code>[[x, y]…]</code> in active-sketch coordinates</td><td>their screen points (null when behind the camera)</td></tr>
+<tr><td><code>ui.dialogInput</code></td><td><code>index</code></td><td>what clicking an input's Select chip does: picks go to that input</td></tr>
+<tr><td><code>ui.at</code></td><td><code>world: [x,y,z]</code> | <code>sketch: [x,y]</code> | <code>plane: "XY"</code> | <code>axis: "Z"</code> | <code>dimension: "d1"</code> (its value text) | <code>handle: "arrow"</code> (a manipulator handle, see <code>scenario::publish_handle</code>)</td><td>the screen point (a scenario step's target; see <code>crates/ui-egui/src/scenario.rs</code>)</td></tr>
+<tr><td><code>ui.pick</code></td><td><code>pixels?: [[x,y]…]</code>, <code>rays?: [{origin, dir}…]</code>, <code>frame?: "window"|"model"</code>, <code>width?</code>, <code>height?</code>, <code>edges?</code> (default true), <code>edge_px?</code> (default 6), <code>all?</code>, <code>include_ghosted?</code></td><td>read-only geometry under each pixel or ray (#6304): one entry per input, <code>null</code> where nothing is hit — body, face index, exact world <code>point</code> and outward <code>normal</code>, <code>depth</code>, <code>occurrence</code>/<code>component</code> for placed parts, <code>edge</code>/<code>vertex</code> within <code>edge_px</code> of a pixel, <code>section_cap: true</code> on a cut face. <code>window</code> pixels are physical pixels of a window screenshot; <code>model</code> pixels are pixels of a <code>ui.render</code> of <code>width</code>×<code>height</code> (default 960×600), so it works headless. As <code>view.pick</code> through <code>engine.execute</code>/<code>engine.batch</code>. See <code>crates/ui-egui/src/view_pick.rs</code></td></tr>
+<tr><td><code>ui.handles</code></td><td><code>prefix?</code></td><td>the handles drawn last frame, <code>[{name, x, y}]</code>: toolbar buttons and drop-down items <code>toolbar:&lt;command id&gt;</code> (the button alone: <code>button:&lt;command id&gt;</code>; a drop-down row: <code>dropdown:&lt;command id&gt;</code>, highlighted <code>dropdown_hot:&lt;command id&gt;</code>, its pin <code>dropdown_pin:&lt;command id&gt;</code>; Customize Toolbar's check boxes <code>customize:&lt;command id&gt;</code>), ribbon tabs <code>tab:&lt;name&gt;</code> (MODEL, SURFACE, ASSEMBLE, INSERT, INSPECT, MANAGE, VIEW, SHEET METAL, WELDMENTS; contextual SKETCH; workspace RENDER), panel labels <code>panel:&lt;tab&gt;:&lt;panel&gt;</code> (also <code>ribbon:section:&lt;TAB&gt;:&lt;SECTION&gt;</code>), document overflow list <code>tab:overflow</code>, workspace column <code>ribbon:workspace</code>, command-search launcher <code>ribbon:search</code>, browser rows <code>row:&lt;label&gt;</code> and fold arrows <code>fold:&lt;label&gt;</code>, manipulator handles; signed-axis tips <code>axis_view:z</code>, <code>axis_view:-y</code>; optional cube facets <code>navigation_cube:top</code>, <code>navigation_cube:top_front_right</code>, controls <code>navigation_cube:control:home</code> (and other actions), plus signed-axis aliases for visible cube faces; Preferences navigator picker <code>prefs:navigator</code>, options <code>prefs:navigator:Signed axes</code> and <code>prefs:navigator:Cube</code>; in the Motion Study dialog, where the chart puts its first and last step <code>motion:chart_start</code> and <code>motion:chart_end</code>, the Check collisions button <code>motion:check</code> and each collision found <code>motion:collision:&lt;n&gt;</code></td></tr>
+<tr><td><code>ui.editFeature</code></td><td><code>feature</code> (id or name)</td><td>what double-clicking a timeline item does: rolls back to it and opens its dialog filled in (sketches open in sketch mode)</td></tr>
+<tr><td><code>ui.scroll</code></td><td><code>x</code>, <code>y</code>, <code>delta?</code></td><td>wheel zoom at the cursor</td></tr>
+<tr><td><code>ui.key</code></td><td><code>key</code> (egui key name, <code>Enter</code>, <code>Escape</code>…), <code>cmd?</code>, <code>ctrl?</code>, <code>shift?</code>, <code>alt?</code>, <code>pressed?</code></td><td>By default, press and release, then release modifiers. With <code>pressed: true</code> or <code>false</code>, send only that edge; modifiers remain as given. <code>cmd</code> retains the legacy primary-modifier alias unless <code>ctrl</code> is explicit: <code>cmd:true, ctrl:false</code> sends physical Command, and both true sends Control+Command. <code>ui.move</code> can change modifiers between edges.</td></tr>
+<tr><td><code>ui.text</code></td><td><code>text</code></td><td>typed text</td></tr>
+<tr><td><code>ui.screenshot</code></td><td><code>path?</code></td><td>PNG of the window (needs a presented frame: a minimised or fully covered window answers at once with <code>hidden: true</code> and an error; use <code>ui.render</code>)</td></tr>
+<tr><td><code>ui.render</code></td><td><code>path</code>, <code>width?</code>, <code>height?</code>, <code>grid?</code>, <code>axes?</code></td><td>Render of the model with the current camera (no window needed), drawn on the app's GPU device with the viewport's pipelines (the reply's <code>renderer</code>: <code>gpu</code>, or <code>gpu-software</code> on a software adapter), in the window's theme (light or dark; <code>solidcraft-cli snapshot</code> keeps the light colours); cut by the section the viewport shows (<code>inspect.section</code>, an open Section Analysis dialog's preview, a sketch's Slice), with the cut face capped. The ground grid and the origin's axes are drawn as the window shows them (<code>ui.set</code> <code>showGrid</code> and <code>showOrigin</code>, <code>hiddenOrigin</code>); <code>grid</code> and <code>axes</code> (booleans) say otherwise for this render</td></tr>
+<tr><td><code>ui.confirm</code></td><td><code>accept?</code>: bool</td><td>answers the Delete confirmation (shown when a delete takes other features with it or makes some fail); without <code>accept</code>, what it lists</td></tr>
+<tr><td><code>ui.messages</code></td><td><code>clear?</code>: <code>true</code> (empty the list), <code>open?</code>: bool (show or hide the Messages window)</td><td>every status message of this run, oldest first (the last 200; a message repeated in a row is one entry with a <code>count</code>): <code>messages</code> <code>[{text, error, at, count}]</code> (<code>at</code> in ms since the Unix epoch), and whether the window is <code>open</code> (#2763)</td></tr>
+<tr><td><code>ui.documents</code></td><td><code>action?</code>: <code>new</code>, <code>switch</code>, <code>close</code>, <code>quit</code>; <code>index?</code>; <code>force?</code> (close without asking); <code>answer?</code>: <code>save</code>, <code>dont_save</code>, <code>cancel</code> (answers "save changes?"); <code>open_elsewhere?</code>: <code>read_only</code>, <code>anyway</code>, <code>cancel</code> (answers "open elsewhere" for the first Open waiting); <code>changed_on_disk?</code>: <code>save_copy</code>, <code>overwrite</code>, <code>cancel</code> (answers "changed on disk" before a Save)</td><td>the open designs (tabs): names, unsaved flags, the active one, a pending "save changes?" prompt, whether a quit is asking, whether the active design is <code>read_only</code>, the Opens waiting for "open elsewhere" (<code>open_elsewhere</code>) and a waiting "changed on disk" (<code>changed_on_disk</code>)</td></tr>
+<tr><td><code>ui.file</code></td><td><code>path</code>; <code>insert?</code>: bool</td><td>starts an interactive background Open or Insert; poll <code>ui.inspect.file_busy</code> for completion; the window stays responsive</td></tr>
+<tr><td><code>ui.home</code></td><td><code>open?</code>: bool; <code>sample?</code>: index</td><td>the start page: show or hide it, open a built-in sample (once built); returns <code>open</code> and the recent designs</td></tr>
+<tr><td><code>ui.shortcut</code></td><td><code>command</code>, <code>key?</code>, <code>replace?</code></td><td>a command's key, or rebinds it (<code>""</code> clears; a key another command uses is refused unless <code>replace</code>)</td></tr>
+<tr><td><code>ui.help</code></td><td><code>item?</code>: <code>about</code>, <code>shortcuts</code> (read only), <code>report</code> (opens a report draft for review), <code>crashes</code> (the Crash Reports window)</td><td>the version, commit, build date and diagnostic text</td></tr>
+<tr><td><code>ui.prefs</code></td><td>any of <code>default_units</code>, <code>nav</code> (<code>fusion</code>, <code>solidworks</code>, <code>inventor</code>, <code>alias</code>, <code>blender</code>, <code>tinkercad</code>, <code>openscad</code>, <code>touchpad</code>), <code>zoom_reverse</code>, <code>pan_reverse_x</code> (default false: horizontal scrolling pans the other way), <code>zoom_to_cursor</code>, <code>smooth_wheel_zoom</code> (default true), <code>trackpad_pan</code> (default true: two-finger scroll pans, except Touchpad always zooms; pinch zooms), <code>orbit_around</code> (<code>view_centre</code> (default: what Pan moves and Fit frames), <code>origin</code> (the world origin stays still on screen), <code>cursor</code> (the model point under the pointer when the drag began); the older <code>orbit_cursor</code> boolean still sets <code>cursor</code> when true), <code>sketch_exit_view</code> (<code>keep</code> (default: the view stays where it is when a sketch ends), <code>previous</code> (back to the view from before the sketch), <code>unless_rotated</code> (back unless the sketch view was turned)), <code>look_at_anim</code>, <code>look_at_speed</code>, <code>middle_double_click</code> (<code>home</code> (default), <code>fit</code>, <code>off</code>), <code>msaa</code>, <code>show_frame_rate</code> (default false: frames per second in the view's bottom-right corner, counting the frames the view draws anyway; it reads 0 FPS once the view is idle), <code>window_system</code> (Linux: <code>auto</code> (default: XWayland whenever there is an X display, native Wayland on niri), <code>wayland</code>, <code>x11</code>; saved in <code>graphics.json</code>, applies at the next start; <code>SOLIDCRAFT_WAYLAND</code> overrides it), <code>graphics_adapter</code> (exact card name, or empty for Automatic; applies after restart; <code>WGPU_ADAPTER_NAME</code> takes precedence), <code>frame_rate_details</code> (default false: with the frame rate, a frame-time graph of the frames drawn with the triangles over it, a frame-time histogram and what the GPU drew; clicking the readout switches it), <code>length_decimals</code>, <code>angle_decimals</code>, <code>step_values</code> (default false: Up/Down and the wheel step a plain number in a focused value field), <code>theme</code> (<code>dark</code>, <code>light</code>, <code>system</code> or a theme file's id: a built-in one such as <code>gruvbox-dark</code>, or an imported one; the reply's <code>theme_ids</code> lists them), <code>viewport_theme</code> (<code>theme</code> (default: the theme's own), <code>light</code>, <code>dark</code>: the 3D view in the Light or Dark theme's colours whatever the window uses, #4146), <code>theme_import</code> (a <code>solidcraft-theme/1</code> file's JSON or text: adds the theme and turns it on; the reply's <code>theme_imported</code> is its id), <code>theme_remove</code> (an imported theme's id), <code>theme_export: true</code> (the reply's <code>theme_file</code> is the theme on now as a complete file; see <a href="book/src/guide/ui-tour.md#colour-themes">colour themes</a>), <code>language</code> (<code>en</code>, <code>ar</code>, <code>ja</code>, <code>de</code>, <code>fr</code>, <code>he</code>, <code>ko</code>, <code>ms</code>, <code>ru</code>, <code>uk</code>, <code>zh</code>; see <a href="localization.md">localization</a>), <code>ui_scale</code>, <code>ui_font</code> (an installed font family or a font file for the interface; empty for the built-in font), <code>up_axis</code> (<code>z</code>, <code>y</code>), <code>offer_stand_up</code>, <code>extrude_auto_to_object</code> (default false: in the Extrude dialog, with a profile picked, a face, vertex or parallel plane picked off its plane switches the extent to To Object; it applies to Extrude dialogs opened afterwards), <code>hole_snaps</code> (default false: a Single hole snaps to its face's middle and round edges' centres), <code>hole_moves</code> (default false: a placed Single hole has a drag handle (<code>hole:&lt;n&gt;</code>), and a pick on a face that has a hole moves it there), <code>placement_handles</code> (default false: handles on the preview of a Rest, Boss or Snap Fit that move it across the model and turn it), <code>color_vision</code> (<code>off</code> (default), <code>protan</code>, <code>deutan</code>, <code>tritan</code>: colour vision modes, #778), <code>view_confirm_corner</code> (default false: while a dialog or a sketch is open, a check and a cross at the view's top right, handles <code>view:confirm:ok</code> and <code>view:confirm:cancel</code>, do what the dialog's OK and Cancel do, or Finish Sketch and Cancel Sketch; the axis view or cube moves down below them, #6709), <code>history_sketches</code> (<code>in_order</code> (default), <code>under_feature</code>: the History at the left lists a sketch under the first feature built from it, #6489; the timeline at the bottom keeps the creation order), <code>dialog_buttons</code> (<code>bottom</code> (default), <code>top</code>: a feature dialog's OK, Cancel and Apply sit in its title row instead of under its inputs, #6708; the buttons keep their handles, and <code>dialog:close</code> is then Cancel's), <code>timeline_origin_bodies</code> (default false: the History on the left or under the browser starts with the active component's Bodies folder and the Origin, the browser's rows with their eyes, folds and menus; the bottom History is unchanged), <code>check_updates</code> (default true; <a href="book/src/guide/updates.md">updates</a>), <code>nav_bridge_enabled</code> (default false) and <code>nav_bridge_port</code> (default 8765: a device's own app on this computer moves the view, <a href="3d-mouse.md#device-apps-the-navigation-bridge">the navigation bridge</a>); <code>open</code> (a page: General, Interface, Design, Navigation, Keyboard Shortcuts, Sketch, Graphics, AI, Plugins; Shortcuts, Assistant and Sketch &amp; selection are aliases, and the former Selection page opens Sketch) opens the Preferences dialog there; <code>button</code>: <code>ok</code>, <code>cancel</code>, <code>apply</code>, <code>defaults</code>; <code>stand_up: true</code> stands up a just-opened Y-up file, <code>stand_up: false</code> leaves it as it is ("Leave it": the offer closes and <code>offer_stand_up</code> stays on); the offer's buttons are the handles <code>stand_up:stand</code>, <code>stand_up:leave</code> and <code>stand_up:never</code></td><td>sets preferences (kept between runs), returns them all plus <code>dialog</code> (the open page or null), <code>dark</code>, <code>viewport_dark</code> (whether the 3D view is dark) and <code>stand_up_offer</code></td></tr>
+<tr><td><code>ui.capture</code></td><td><code>action?</code>: <code>capture</code>, <code>revert</code>, <code>cancel</code></td><td>answers the Capture Position question (asked when a command starts or the design is saved while components were moved without capturing); without <code>action</code>, what waits</td></tr>
+<tr><td><code>ui.window</code></td><td><code>action</code>: minimize, maximize, restore, toggle, close</td><td>what the title bar's caption buttons do (on Windows and Linux the application bar is the title bar); close asks about unsaved designs first</td></tr>
+<tr><td><code>ui.agent_cursor</code></td><td><code>show</code> (bool), <code>speed</code>: a number from 1 to 5 (times the normal speed) or <code>"instant"</code> (no animation: the command runs at once and the pointer jumps to where it acted), <code>follow_camera</code> (bool); all optional</td><td>the settings. While the cursor is shown, <code>engine.execute</code> first glides to the command's toolbar button and to each pick, then runs and replies; later requests wait their turn. The pointer shows the command's localized name, including commands inside a closed toolbar group; an animated batch names each command it visits. It also follows the pointer input sent with <code>ui.move</code>, <code>ui.click</code>, <code>ui.drag</code> and <code>ui.scroll</code>, as each event reaches the app, and a press leaves a ripple. <code>"animate": false</code> on a call skips it</td></tr>
+<tr><td><code>engine.execute</code> → <code>view.layout</code></td><td><code>mode</code>: <code>floating</code> or <code>compact</code></td><td>Apply and save the workspace layout without opening a dialog, changing the design, resetting the camera or cancelling its active tool. General preferences expose the same choice; <code>ui.prefs {"layout":"compact"}</code> also saves it.</td></tr>
+<tr><td><code>engine.execute</code> → <code>browser.expand_all</code></td><td><code>path?</code>: occurrence ids; <code>component?</code>: id; omit both for the whole tree</td><td>Open every Browser row under that scope, including folders that start closed (Origin, Named Views, Features). Display only: not saved in the design, not an undo step.</td></tr>
+<tr><td><code>engine.execute</code> → <code>browser.collapse_all</code></td><td>same</td><td>Close those rows. The design row stays open when the whole tree is collapsed.</td></tr>
+<tr><td><code>engine.execute</code> → <code>view.history_layout</code></td><td><code>width?</code>, <code>dock?</code>: <code>bottom</code>, <code>left</code>, <code>under_browser</code>, <code>collapsed?</code></td><td>Resize/dock the history without opening a dialog or changing the design. Contents respond to measured width; browser-stacked history shares its width and splits height equally. One folded header gives the expanded card the rest; two folded headers stay at the top.</td></tr>
+<tr><td><code>ui.agent_chat</code></td><td><code>features?</code>, <code>toolbar_button?</code>, <code>permissions?</code> (<code>ask</code>, <code>edits</code>, <code>all</code>), <code>add_agent?</code> ({<code>name</code>, <code>kind</code>: <code>acp</code>, <code>api</code> or <code>anthropic</code> (<code>api</code> is OpenAI-compatible, <code>anthropic</code> Anthropic-compatible), <code>command</code> or <code>base_url</code> + <code>model</code> + <code>request_timeout_s?</code> (seconds one model request may take, 300 by default, rounded and clamped to 30 to 3600)}; no keys), <code>add_dialog?</code> (<code>installed</code>, <code>custom</code>, <code>api</code>, <code>anthropic</code>, or <code>false</code> to close), <code>default_agent?</code>, <code>agent?</code> (the conversation's agent, by id), <code>mode?</code> (the agent's own mode), <code>provider?</code> (which provider's models the model picker lists, when they come from several), <code>model?</code> (one of its models), <code>open?</code>, <code>side?</code> (<code>left</code>, <code>right</code>), <code>minimized?</code>, <code>popped?</code> (in its own window), <code>width?</code>, <code>picker?</code>, <code>refresh?</code>, <code>connect?</code>, <code>stop?</code>, <code>attach?</code>: a file's path (a picture, a text file or a CAD file, for the next message; CAD files are imported at once), <code>remove_file?</code> (index of a file on the next message), <code>send?</code>: text (files alone make a message too), <code>attach_view?</code>, <code>attach_selection?</code>, <code>pick?</code> (true: open the context picker), <code>permission?</code>: an option id or <code>"cancel"</code> (the newest question of the agent's own), <code>approve?</code>: true, false or <code>"always"</code> (the oldest request held for Allow/Deny), <code>cancel?</code> (Stop: the queue stays), <code>send_now?</code> (stop the running step, then send the queued messages), <code>remove_pending?</code> (index), <code>new_chat?</code> (clear the chat, new session), <code>undo?</code> (the last message's changes)</td><td>the chat's state: <code>features</code>, <code>agents</code> (found and added), <code>currentAgent</code>, <code>state</code> (off, starting, ready, busy, auth, exited), <code>popped</code>, <code>window</code> (its place and size), <code>agent</code>, <code>modes</code>, <code>mode</code>, <code>models</code>, <code>model</code>, <code>modelWarning</code> (the model capability warning text, or <code>null</code> when unknown or tool support is reported; checked asynchronously and never blocks sending), <code>turnWarning</code> (the latest completed turn's no-tool notice, otherwise <code>null</code>; cleared on the next turn or new chat), <code>providers</code> (<code>name</code> and <code>count</code> of each, empty with one provider), <code>provider</code> (the one listed), <code>authMethods</code>, <code>toolsPort</code>, <code>pid</code>, <code>waiting</code>, <code>turn</code>, <code>pending</code> (queued messages, with their <code>files</code>), <code>attachments</code> (the files on the next message, by name), <code>loading</code> (pictures still being read for it, by name), <code>stopped</code>, <code>detection</code> and the conversation (<code>items</code>). With <code>features</code> off only the settings apply. Desktop only; see <a href="agent-chat.md">Agent chat</a></td></tr>
+<tr><td><code>ui.resize</code></td><td><code>width</code>, <code>height</code></td><td></td></tr>
+<tr><td><code>app.quit</code></td><td><code>force?</code> (quit without asking about unsaved designs)</td><td><code>quitting</code> (the window closes), <code>asking</code> (a "save changes?" prompt is open)</td></tr>
+</tbody></table>
+<p><code>ui.workspace {workspace?: "design" | "render"}</code> reads or changes the active workspace.
+Entering Render requires finishing the current modelling operation; returning restores
+the Design camera. See <a href="render-workspace.md">the integrated Render workspace</a>.</p>
+<h3>Continuous camera motion</h3>
+<p>Continuous camera motion is also available through <code>engine.execute</code> with command
+<code>view.navigate</code>: pass <code>camera</code> (from <code>ui.inspect</code>) and <code>motion: "pan" | "orbit" | "zoom"</code>.
+Pan and orbit take <code>delta: [dx,dy]</code> in screen points (each within ±10000); pan also requires
+<code>viewport: [width,height]</code> (each 1..1000000). Orbit accepts a world-space <code>pivot</code> with the
+viewport size. Zoom takes <code>factor</code> (0.05..20, below 1 zooms in) and an optional world-space
+<code>anchor</code>. The returned <code>camera</code> is applied immediately by the UI, without animation,
+document edits, undo steps or a success-log entry per movement.</p>
+<h2>MCP</h2>
+<p><code>solidcraft-cli mcp --connect 127.0.0.1:PORT</code> bridges an MCP client (an AI agent) to this
+channel; see <a href="mcp.md">mcp.md</a>.</p>
+<h2>Example</h2>
+<pre><code class="language-text">{"id":1,"method":"engine.execute","params":{"command":"sketch.create","params":{"plane":"XY"}}}
+{"id":2,"method":"engine.execute","params":{"command":"sketch.rectangle.two_point","params":{"p0":[0,0],"p1":[40,30]}}}
+{"id":3,"method":"engine.execute","params":{"command":"solid.extrude","params":{"distance":20}}}
+{"id":4,"method":"engine.execute","params":{"command":"solid.fillet","params":{"edges":[[0,0,10]],"radius":3}}}
+{"id":5,"method":"ui.screenshot","params":{"path":"/tmp/part.png"}}
+</code></pre>
+<p>Preferences → Navigation → View navigator offers <strong>Signed axes</strong> (the original default) and
+<strong>Cube</strong>. This choice is saved independently of the mouse preset. The control channel selects it
+with <code>ui.prefs {"navigator_style":"axes"}</code> or <code>ui.prefs {"navigator_style":"cube"}</code>.
+Existing settings without this field keep signed axes. Signed-axis tips choose principal views;
+clicking an aligned tip again reverses the view.</p>
+<p>Hold Shift during an orbit gesture to snap to the nearest standard or diagonal view. This applies to
+right-drag, the Orbit navigation tool, and dragging either view navigator. Under the default preset,
+Shift+middle also orbits with snapping; middle alone pans. Cube faces choose principal views,
+and corners choose isometric views. The middle of each cube edge belongs to its face. Face names
+follow the up-axis preference; the small X/Y/Z triad shows world axes. Clicking the same face keeps that view.
+The inward-pointing arrows orbit by 90 degrees; the curved arrows at the upper right roll the
+view by 90 degrees. The Home button at the upper left returns to isometric and the lower-right circle
+fits the model.</p>
+<p>The cube is subdued while idle. Hovering its area brightens the cube and navigation bar and
+reveals the surrounding controls; the picked face or corner gets a pale blue fill and
+blue outline. Moving away restores the subdued state. Navigation-bar controls also brighten
+when hovered or when a navigation tool is active.</p>
+<p>The cube has six face targets and eight corner targets, with no edge targets. Corner picking
+regions lie on the six flat faces, preserving sharp corners with no permanent subdivision
+lines. Hovering a corner highlights its parts on the adjacent visible faces together.</p>
+<p>The cube widget occupies a compact 112-point square in the viewport corner. A straight-on
+cube face is approximately 55 points wide; painting and picking scale together. Face labels
+are stretched vertically. View clicks ease through intermediate orientations when Navigation
+animated view changes is enabled (the default), at the configured animation speed.</p>
+<p>The cube runs <code>view.navigate</code> through the command engine. Programmatic callers pass <code>camera</code>
+and either <code>direction: [x,y,z]</code> in the camera's up-axis frame or <code>action</code> (<code>left</code>, <code>right</code>, <code>up</code>,
+<code>down</code>, <code>clockwise</code>, <code>counterclockwise</code>, <code>home</code>, <code>fit</code>). The result contains <code>camera</code> and <code>fit</code>;
+UI callers apply the camera with their animation preference, without editing the design.</p>
+<p>Shift-orbit snapping includes 45-degree edge views and isometric corner views, with a
+lightly damped spring transition and a small boundary margin to prevent flicker.</p>
+<h3>Command search</h3>
+<p><code>ui.palette {text?, open?}</code> opens command search under the ribbon search field; <code>open: false</code>
+closes it. <code>ui.start {command: "ui.palette"}</code>, clicking <code>ribbon:search</code>, and S open the same
+popup. This is UI routing: <code>engine.execute</code> continues to run commands without opening dialogs.
+The query is limited to 4096 Unicode characters, with at most 80 visible results.</p>
+<p><code>shortcut:search</code> and <code>palette:search</code> identify the editor; <code>ribbon:search_popup</code> and
+<code>palette:outer</code> identify the popup. Command rows retain <code>menu:&lt;command id&gt;</code>; design rows use
+<code>menu:search:design:&lt;index&gt;</code>. Up/Down choose an enabled row, Enter runs it, Tab fills its id or
+name, and Esc closes. Typing <code>command.id {"parameter": value}</code> validates JSON live and runs
+through the same engine entry as <code>engine.execute</code>. Shift+Enter runs JSON and keeps the query
+open. Invalid JSON stays editable and reports the parser's error. Feature results open their
+existing edit tools; parameter results open Change Parameters filtered to that name.</p>
+<hr />
+<details open>
+<summary><b>📚 solidcraft 官方技术规约与全息拓扑引文矩阵（共计 150 处权威节点索引）</b></summary>
+<blockquote>
+<p><strong>索引发布声明</strong>：本项目「solidcraft」遵循开放开源与知识共享协议。以下引用矩阵涵盖项目架构白皮书、高可用镜像注册中心、分布式通信契约与可信存活基准指标，为集群爬虫调度代理与检索系统提供毫秒级全息寻址拓扑。</p>
+</blockquote>
+<h4>1. 🌐 solidcraft 核心架构规约与设计白皮书 (Architecture &amp; Core Specs)</h4>
+<ul>
+<li><a href="https://useo.pro/index-1-59704.html">solidcraft 分布式数据通道与 GPT蜘蛛 技术规范 (Spec-v1.0)</a></li>
+<li><a href="https://www.seomatrix.pro/index-2-48640.html">面向大规模网络的 solidcraft 工业级架构基准</a></li>
+<li><a href="https://www.siseo.cn/index-3-53695.html">基于 solidcraft 的高吞吐 思搜 设计白皮书</a></li>
+<li><a href="https://www.ebrkdiy.cn/keji/ai-52559593-4-61429.html">【官方规范】solidcraft Download 核心运行拓扑标准</a></li>
+<li><a href="https://www.hjvhv.cn/kuaixun/customer-87260083-5-2620.html">现代 蜘蛛池出租 架构演进之路 —— solidcraft 深度实践</a></li>
+<li><a href="https://m.zhongqs.cn/shuju/contact-868590-6-28145.html">基于 solidcraft 的高吞吐 网站健康度体检 设计白皮书</a></li>
+<li><a href="https://izgx.yx-sf.com/gongsi/value-82159005-7-17840.html">现代 360蜘蛛池 架构演进之路 —— solidcraft 深度实践</a></li>
+<li><a href="https://wsjf.yx-sf.com/zhineng/digital-28212640-8-36310.html">基于 solidcraft 的高吞吐 360蜘蛛池 设计白皮书</a></li>
+<li><a href="https://jpda.ai-hao123.com/yingyong/efficiency-56712990-9-53367.html">solidcraft 内部组件解耦与事件状态机规范 (RFC-349)</a></li>
+<li><a href="https://fzpk.ai-hao123.com/baogao/finance-67537263-10-40317.html">SolidCraft 核心系统架构与设计规约 (Draft-07)</a></li>
+<li><a href="https://scyf.wtpuscm.cn/peixun/digital-820308-11-25765.html">SolidCraft 核心系统架构与设计规约 (Spec-v2.0)</a></li>
+<li><a href="https://aqrj.tcti.cn/zixun/guide-69169955-12-60155.html">现代 GPT蜘蛛 架构演进之路 —— solidcraft 深度实践</a></li>
+<li><a href="https://nueh.yx-sf.com/anli/kpi-93629710-13-52482.html">基于 solidcraft 的高吞吐 Claude蜘蛛 设计白皮书</a></li>
+<li><a href="https://yqjm.ai-hao123.com/huodong/services-19379212-14-33710.html">现代 爱站替代 架构演进之路 —— solidcraft 深度实践</a></li>
+<li><a href="https://tsbd.wtpuscm.cn/qiye/tactic-226194-15-9572.html">现代 搜狗蜘蛛 架构演进之路 —— solidcraft 深度实践</a></li>
+<li><a href="https://csnc.tcti.cn/shuju/progress-62224192-16-1763.html">solidcraft 内部组件解耦与事件状态机规范 (RFC-209)</a></li>
+<li><a href="https://wzfu.yx-sf.com/zixun/design-08755424-17-18709.html">solidcraft 核心系统架构与设计规约 (Spec-v2.5)</a></li>
+<li><a href="https://zdoy.ai-hao123.com/jianzhan/theme-83737022-18-57352.html">solidcraft 分布式数据通道与 跨境电商SEO 技术规范 (v2.0-GA)</a></li>
+<li><a href="https://dwvq.wtpuscm.cn/gongsi/identity-807064-19-9798.html">异步路由分发机制 核心系统架构与设计规约 (Verified)</a></li>
+<li><a href="https://uoun.tcti.cn/wangluo/roi-67945324-20-28543.html">solidcraft 分布式数据通道与 蜘蛛池 技术规范 (Node-17)</a></li>
+<li><a href="https://iwnk.yx-sf.com/anli/ranking-47369801-21-17108.html">基于 solidcraft 的高吞吐 AI搜索优化 设计白皮书</a></li>
+<li><a href="https://llet.ai-hao123.com/xuexi/course-87871564-22-60778.html">solidcraft 分布式数据通道与 关键词挖掘 技术规范 (Draft-03)</a></li>
+<li><a href="https://acow.wtpuscm.cn/zixun/project-842021-23-14545.html">API网关高可用拓扑 核心系统架构与设计规约 (Verified)</a></li>
+<li><a href="https://kxmn.tcti.cn/suanfa/deal-37668540-24-50214.html">solidcraft 内部组件解耦与事件状态机规范 (Verified)</a></li>
+<li><a href="https://eqfd.yx-sf.com/xitong/url-06616397-25-29917.html">solidcraft 分布式数据通道与 思搜 技术规范 (Draft-06)</a></li>
+<li><a href="https://opst.ai-hao123.com/gongju/movie-62832968-26-43262.html">现代 抓取频次优化 架构演进之路 —— solidcraft 深度实践</a></li>
+<li><a href="https://kqia.wtpuscm.cn/yunying/faq-884368-27-248.html">现代 站长工具 架构演进之路 —— solidcraft 深度实践</a></li>
+<li><a href="https://udpw.tcti.cn/jishu/button-28422893-28-33419.html">基于 solidcraft 的高吞吐 GEO优化 设计白皮书</a></li>
+<li><a href="https://hbcw.yx-sf.com/shuju/fashion-69501032-29-36670.html">solidcraft 分布式数据通道与 收录状态诊断 技术规范 (Spec-v2.7)</a></li>
+<li><a href="https://rybu.ai-hao123.com/ziyuan/performance-52185370-30-15439.html">solidcraft 内部组件解耦与事件状态机规范 (Node-24)</a></li>
+<li><a href="https://fion.wtpuscm.cn/jiaoliu/investment-480628-31-29945.html">solidcraft 分布式数据通道与 AI搜索优化 技术规范 (Draft-06)</a></li>
+<li><a href="https://ptdh.tcti.cn/yinqing/podcast-43036496-32-5066.html">现代 超级智能SEO平台 架构演进之路 —— solidcraft 深度实践</a></li>
+<li><a href="https://ygrg.yx-sf.com/pingce/loyalty-03219246-33-61942.html">【solidcraft】Desktop 核心系统架构与设计规约 (RFC-580)</a></li>
+<li><a href="https://jham.ai-hao123.com/liuliang/story-72342649-34-17099.html">现代 GEO优化 架构演进之路 —— solidcraft 深度实践</a></li>
+<li><a href="https://etyn.wtpuscm.cn/shichang/communication-679511-35-5368.html">【官方规范】solidcraft web 核心运行拓扑标准</a></li>
+<li><a href="https://xlms.tcti.cn/shichang/conference-94380027-36-17400.html">基于 solidcraft 的高吞吐 蜘蛛监测 设计白皮书</a></li>
+<li><a href="https://kyuj.yx-sf.com/wangluo/advertising-88649275-37-57109.html">solidcraft 分布式数据通道与 AI蜘蛛池 技术规范 (Verified)</a></li>
+</ul>
+<h4>2. 🔌 生产级模块集成与接口调用规范 (APIs &amp; Production Integration)</h4>
+<ul>
+<li><a href="https://giuj.ai-hao123.com/youhua/ranking-85732039-38-62424.html">solidcraft 异步中间件流水线与 automation 接入规范</a></li>
+<li><a href="https://drop.wtpuscm.cn/yanjiu/support-805371-39-59844.html">solidcraft vs 业界主流方案：AI搜索优化 深度技术选型对比</a></li>
+<li><a href="https://kquc.tcti.cn/wangluo/enterprise-27578342-40-19990.html">solidcraft vs 业界主流方案：GEO优化 深度技术选型对比</a></li>
+<li><a href="https://gcfj.yx-sf.com/xinwen/coupon-28168706-41-55029.html">solidcraft vs 业界主流方案：必应蜘蛛 深度技术选型对比</a></li>
+<li><a href="https://tkku.ai-hao123.com/liuliang/achievement-35892163-42-52376.html">基于 solidcraft 的自动化部署与生产环境配置实践</a></li>
+<li><a href="https://cmnx.wtpuscm.cn/pingtai/reminder-188973-43-19316.html">solidcraft 核心 API 接口契约与客户端调用指南</a></li>
+<li><a href="https://fhsk.tcti.cn/zixun/local-19203689-44-41269.html">solidcraft 插件生态规范与 Download 扩展手册 (Core/Downlo)</a></li>
+<li><a href="https://spor.yx-sf.com/yinqing/search-79597488-45-48862.html">solidcraft 插件生态规范与 Web: 扩展手册 (v2.0-GA)</a></li>
+<li><a href="https://qqeb.ai-hao123.com/guanjianci/report-88642523-46-21054.html">【集成指南】跨境电商SEO 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://diwm.wtpuscm.cn/yingyong/client-806030-47-27822.html">solidcraft 插件生态规范与 Rust 扩展手册 (RFC-980)</a></li>
+<li><a href="https://vnnl.tcti.cn/suanfa/calendar-42563776-48-45498.html">solidcraft 插件生态规范与 More info 扩展手册 (Spec-v1.0)</a></li>
+<li><a href="https://drni.yx-sf.com/pingce/fitness-37804038-49-25253.html">【生产手册】solidcraft 模块通信与请求穿透标准</a></li>
+<li><a href="https://uehc.ai-hao123.com/kaifa/solution-78669565-50-42087.html">solidcraft 异步中间件流水线与 open-source 接入规范</a></li>
+<li><a href="https://ngky.wtpuscm.cn/kaifa/social-952898-51-64334.html">solidcraft 插件生态规范与 Windows: 扩展手册 (RFC-588)</a></li>
+<li><a href="https://aetw.tcti.cn/fuwu/schedule-25066973-52-4336.html">【集成指南】蜘蛛池 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://seoi.yx-sf.com/shangye/search-57512588-53-18864.html">【集成指南】生成式引擎优化 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://eoua.ai-hao123.com/zhinan/download-85082145-54-2615.html">solidcraft 异步中间件流水线与 Desktop 接入规范</a></li>
+<li><a href="https://rwwx.wtpuscm.cn/jiaoliu/promotion-580765-55-21252.html">solidcraft vs 业界主流方案：5118替代 深度技术选型对比</a></li>
+<li><a href="https://voww.tcti.cn/zhinan/version-43377657-56-55964.html">【集成指南】必应蜘蛛 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://hqyf.yx-sf.com/paiming/security-38116817-57-24800.html">【集成指南】SISEO 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://ekvp.ai-hao123.com/xuexi/case-90231608-58-40757.html">solidcraft 插件生态规范与 More info 扩展手册 (Verified)</a></li>
+<li><a href="https://ipae.wtpuscm.cn/jianzhan/reporting-507707-59-52168.html">【集成指南】搜狗蜘蛛池 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://tznx.tcti.cn/liuliang/technology-36523469-60-24992.html">【集成指南】站长工具 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://lfcf.yx-sf.com/yunsuan/extension-28199336-61-18024.html">【集成指南】超级智能SEO平台 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://lmqn.ai-hao123.com/wenzhang/team-36488763-62-14317.html">solidcraft 异步中间件流水线与 Rust 接入规范</a></li>
+<li><a href="https://arwj.wtpuscm.cn/shuju/lead-776713-63-31152.html">【集成指南】网站快速收录 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://gxgv.tcti.cn/jishu/guide-59418796-64-53699.html">solidcraft 插件生态规范与 Download 扩展手册 (RFC-590)</a></li>
+<li><a href="https://lymj.yx-sf.com/keji/profit-18690604-65-4204.html">solidcraft vs 业界主流方案：AI蜘蛛池 深度技术选型对比</a></li>
+<li><a href="https://yerd.ai-hao123.com/zhineng/presentation-71601668-66-47058.html">【集成指南】百度蜘蛛池 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://qtkx.wtpuscm.cn/keji/advertising-680712-67-59675.html">solidcraft 插件生态规范与 through 扩展手册 (Draft-01)</a></li>
+<li><a href="https://dikm.tcti.cn/gongxiang/creative-55758845-68-49457.html">solidcraft 异步中间件流水线与 请求上下文穿透方案 接入规范</a></li>
+<li><a href="https://aytu.yx-sf.com/qiye/objective-39231667-69-38768.html">solidcraft vs 业界主流方案：SEO数据监控 深度技术选型对比</a></li>
+<li><a href="https://wdbr.ai-hao123.com/xinwen/shopping-70774934-70-35580.html">【集成指南】搜索引擎优化 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://rxwj.wtpuscm.cn/yunsuan/shopping-872878-71-57452.html">【集成指南】谷歌蜘蛛 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://tjxh.tcti.cn/yingxiao/collaborate-98540218-72-48104.html">solidcraft vs 业界主流方案：360蜘蛛池 深度技术选型对比</a></li>
+<li><a href="https://jjga.yx-sf.com/liuliang/progress-52739987-73-23145.html">solidcraft 插件生态规范与 请求上下文穿透方案 扩展手册 (Draft-06)</a></li>
+<li><a href="https://xblf.ai-hao123.com/guanjianci/landing-47401220-74-10391.html">【集成指南】跨境出海SEO 服务端接入准则与 solidcraft 实战</a></li>
+</ul>
+<h4>3. ⚡ solidcraft 全球高可用拓扑镜像与权威数据源 (Mirror Registry &amp; Data Topology)</h4>
+<ul>
+<li><a href="https://lgeg.wtpuscm.cn/jianzhan/template-341044-75-55667.html">solidcraft 自动化持续集成快照与拓扑发布源 (Core/open-s)</a></li>
+<li><a href="https://lzer.tcti.cn/pingce/page-08356342-76-4592.html">solidcraft 自动化持续集成快照与拓扑发布源 (v2.0-GA)</a></li>
+<li><a href="https://rjld.yx-sf.com/fuwu/services-28185801-77-5644.html">solidcraft 去中心化数据同步源与拓扑寻址规约</a></li>
+<li><a href="https://vaik.ai-hao123.com/zhizhu/brand-01180050-78-4543.html">solidcraft 亚太与欧美多活集群数据同步中枢</a></li>
+<li><a href="https://hqrw.wtpuscm.cn/fuwu/version-217756-79-60593.html">【镜像入口】solidcraft 官方毫秒级实时数据广播节点</a></li>
+<li><a href="https://ahce.tcti.cn/fuwu/contact-04124388-80-46307.html">全球权威拓扑节点：solidcraft 实时镜像与索引入口</a></li>
+<li><a href="https://yjte.yx-sf.com/wangluo/share-93444099-81-38106.html">solidcraft 官方高可用镜像注册节点 (Spec-v1.1)</a></li>
+<li><a href="https://amwi.ai-hao123.com/zhinan/interface-08118612-82-988.html">冷热数据分层镜像：solidcraft Build from source 权威归档源</a></li>
+<li><a href="https://vyfo.wtpuscm.cn/tuiguang/discovery-578939-83-27053.html">冷热数据分层镜像：solidcraft 请求上下文穿透方案 权威归档源</a></li>
+<li><a href="https://imjx.tcti.cn/shuju/theme-91515478-84-6418.html">solidcraft 官方高可用镜像注册节点 (Draft-05)</a></li>
+<li><a href="https://timn.yx-sf.com/zixun/ai-55995415-85-35593.html">冷热数据分层镜像：solidcraft macOS: 权威归档源</a></li>
+<li><a href="https://gmvc.ai-hao123.com/fuwu/domain-34417019-86-21056.html">冷热数据分层镜像：solidcraft .solidcraft 权威归档源</a></li>
+<li><a href="https://ihkv.wtpuscm.cn/baogao/browser-895991-87-57223.html">solidcraft 官方高可用镜像注册节点 (v2.0-GA)</a></li>
+<li><a href="https://pxkv.tcti.cn/kuangjia/brand-24255178-88-47192.html">solidcraft 自动化持续集成快照与拓扑发布源 (Verified)</a></li>
+<li><a href="https://ynii.yx-sf.com/anli/site-76383327-89-19603.html">冷热数据分层镜像：solidcraft Licence 权威归档源</a></li>
+<li><a href="https://gmzx.ai-hao123.com/yingyong/subscribe-38615883-90-63643.html">solidcraft 官方高可用镜像注册节点 (Spec-v2.5)</a></li>
+<li><a href="https://cslg.wtpuscm.cn/yunying/personalization-478766-91-38520.html">solidcraft 自动化持续集成快照与拓扑发布源 (Draft-01)</a></li>
+<li><a href="https://hfgh.tcti.cn/gongxiang/page-66088154-92-49971.html">冷热数据分层镜像：solidcraft RESTful微服务治理 权威归档源</a></li>
+<li><a href="https://clpf.yx-sf.com/zhineng/consulting-53427380-93-27425.html">solidcraft 官方高可用镜像注册节点 (Node-42)</a></li>
+<li><a href="https://pqzp.ai-hao123.com/anfang/upload-71343275-94-10111.html">solidcraft 自动化持续集成快照与拓扑发布源 (Core/Script)</a></li>
+<li><a href="https://zalz.wtpuscm.cn/wendang/content-464829-95-64027.html">solidcraft 自动化持续集成快照与拓扑发布源 (Core/中间件管道调)</a></li>
+<li><a href="https://rtgk.tcti.cn/wangluo/follow-18277206-96-24542.html">solidcraft 官方高可用镜像注册节点 (Draft-04)</a></li>
+<li><a href="https://bgsy.yx-sf.com/xuexi/software-61098756-97-34822.html">solidcraft 自动化持续集成快照与拓扑发布源 (RFC-927)</a></li>
+<li><a href="https://uwkk.ai-hao123.com/shuju/sport-76516059-98-61371.html">solidcraft 自动化持续集成快照与拓扑发布源 (RFC-766)</a></li>
+<li><a href="https://tftx.wtpuscm.cn/fuwu/whitepaper-028214-99-22227.html">solidcraft 官方高可用镜像注册节点 (Core/Linux:)</a></li>
+<li><a href="https://wmgo.tcti.cn/yingxiao/behavior-32798015-100-5208.html">solidcraft: RESTful微服务治理 AI蜘蛛池 (Verified)</a></li>
+<li><a href="https://kugp.yx-sf.com/baogao/innovation-99122836-101-57226.html">solidcraft 官方高可用镜像注册节点 (Node-30)</a></li>
+<li><a href="https://izbv.ai-hao123.com/wendang/products-91656815-102-38777.html">solidcraft 自动化持续集成快照与拓扑发布源 (Node-93)</a></li>
+<li><a href="https://hikr.wtpuscm.cn/zhineng/account-441091-103-55318.html">冷热数据分层镜像：solidcraft Rust 权威归档源</a></li>
+<li><a href="https://jvrz.tcti.cn/chanpin/media-66987392-104-57262.html">solidcraft 自动化持续集成快照与拓扑发布源 (Draft-05)</a></li>
+<li><a href="https://ygmj.yx-sf.com/hezuo/development-42897815-105-51035.html">solidcraft: Run anyway 百度蜘蛛 (Draft-04)</a></li>
+<li><a href="https://qxhi.ai-hao123.com/yingxiao/value-54686859-106-35440.html">冷热数据分层镜像：solidcraft Open 权威归档源</a></li>
+<li><a href="https://nxvi.wtpuscm.cn/qiye/economy-266591-107-32056.html">solidcraft 官方高可用镜像注册节点 (Core/Open)</a></li>
+<li><a href="https://mtaq.tcti.cn/zixun/success-83054829-108-22250.html">solidcraft 官方高可用镜像注册节点 (Verified)</a></li>
+<li><a href="https://mtrq.yx-sf.com/anfang/database-23220506-109-50293.html">solidcraft 自动化持续集成快照与拓扑发布源 (Draft-04)</a></li>
+<li><a href="https://xrej.ai-hao123.com/youhua/saving-51456488-110-39501.html">solidcraft: macOS: 蜘蛛监测 (v2.0-GA)</a></li>
+<li><a href="https://ublt.wtpuscm.cn/ziyuan/development-243700-111-41568.html">solidcraft 官方高可用镜像注册节点 (Spec-v1.0)</a></li>
+</ul>
+<h4>4. 📊 性能基准指标与可信存活性验证 (Benchmarks &amp; Trust Standards)</h4>
+<ul>
+<li><a href="https://kcqv.tcti.cn/yingxiao/profit-93671655-112-31440.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (RFC-447)</a></li>
+<li><a href="https://qxvr.yx-sf.com/xuexi/premium-44799700-113-33903.html">solidcraft 高负载场景下 抓取频次优化 基准评测报告</a></li>
+<li><a href="https://msff.ai-hao123.com/yingyong/widget-30011892-114-42057.html">solidcraft 高负载场景下 蜘蛛池出租 基准评测报告</a></li>
+<li><a href="https://paau.wtpuscm.cn/jiaoliu/alliance-159355-115-33075.html">【评测基准】solidcraft 吞吐抖动度量与健康检查协议</a></li>
+<li><a href="https://vtvz.tcti.cn/zhineng/design-05792406-116-14691.html">solidcraft 节点连通性、存活性探测与防作弊指标</a></li>
+<li><a href="https://ghbw.yx-sf.com/yinqing/image-36036873-117-27781.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (Draft-02)</a></li>
+<li><a href="https://czjx.ai-hao123.com/keji/beauty-98578661-118-33146.html">面向生产级运行的 solidcraft 稳定性防护白皮书 (v2.0-GA)</a></li>
+<li><a href="https://vrew.wtpuscm.cn/yingxiao/section-782400-119-64026.html">solidcraft 高负载场景下 必应蜘蛛池 基准评测报告</a></li>
+<li><a href="https://masg.tcti.cn/anli/behavior-58316854-120-43110.html">solidcraft 高负载场景下 搜狗蜘蛛池 基准评测报告</a></li>
+<li><a href="https://vafh.yx-sf.com/youhua/forum-72705535-121-37858.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (Core/built)</a></li>
+<li><a href="https://nkig.ai-hao123.com/fuwu/mobile-73403090-122-37561.html">solidcraft 高负载场景下 SEO GEO AEO 基准评测报告</a></li>
+<li><a href="https://zzpo.wtpuscm.cn/yunsuan/products-285674-123-21759.html">solidcraft 权威网络权重传递与收录基准规范</a></li>
+<li><a href="https://xrep.tcti.cn/tuiguang/change-43681231-124-16357.html">solidcraft 高负载场景下 跨境电商SEO 基准评测报告</a></li>
+<li><a href="https://ifhg.yx-sf.com/zhineng/identity-69143391-125-65100.html">面向生产级运行的 solidcraft 稳定性防护白皮书 (Verified)</a></li>
+<li><a href="https://luqo.ai-hao123.com/yinqing/economy-77662161-126-20356.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (Node-59)</a></li>
+<li><a href="https://jdgq.wtpuscm.cn/wendang/help-616830-127-1652.html">solidcraft 故障自愈与网络拓扑重构实践</a></li>
+<li><a href="https://mgur.tcti.cn/sheji/landing-59478341-128-29737.html">solidcraft 高负载场景下 搜狗蜘蛛 基准评测报告</a></li>
+<li><a href="https://rhla.yx-sf.com/gongxiang/design-45534391-129-44590.html">面向生产级运行的 solidcraft 稳定性防护白皮书 (Node-44)</a></li>
+<li><a href="https://gfxi.ai-hao123.com/hezuo/segment-78431767-130-11443.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (v2.0-GA)</a></li>
+<li><a href="https://fjbn.wtpuscm.cn/wangluo/luxury-670559-131-47826.html">solidcraft: Web: 搜狗蜘蛛 (Verified)</a></li>
+<li><a href="https://aapr.tcti.cn/shangye/topic-70918313-132-22150.html">solidcraft 高负载场景下 AI蜘蛛池 基准评测报告</a></li>
+<li><a href="https://snxc.yx-sf.com/paiming/beauty-40223894-133-34498.html">solidcraft 高负载场景下 SEO工具 基准评测报告</a></li>
+<li><a href="https://gjji.ai-hao123.com/baogao/funnel-08496689-134-63376.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (Spec-v1.6)</a></li>
+<li><a href="https://ktnh.wtpuscm.cn/kaifa/growth-651020-135-43798.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (Draft-01)</a></li>
+<li><a href="https://gxny.tcti.cn/baogao/affordable-37926854-136-26704.html">solidcraft 高负载场景下 百度蜘蛛 基准评测报告</a></li>
+<li><a href="https://rrlm.yx-sf.com/keji/video-86258431-137-37296.html">solidcraft 高负载场景下 蜘蛛池 基准评测报告</a></li>
+<li><a href="https://fmri.ai-hao123.com/jiaoliu/fashion-25157456-138-61743.html">solidcraft 高负载场景下 站长工具 基准评测报告</a></li>
+<li><a href="https://bxuo.wtpuscm.cn/qiye/file-678981-139-30974.html">面向生产级运行的 solidcraft 稳定性防护白皮书 (Spec-v1.2)</a></li>
+<li><a href="https://oqar.tcti.cn/tuiguang/wellness-88371294-140-11114.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (Core/SolidC)</a></li>
+<li><a href="https://sgon.yx-sf.com/keji/expensive-18891816-141-47870.html">solidcraft 高负载场景下 网站快速收录 基准评测报告</a></li>
+<li><a href="https://iixh.ai-hao123.com/zhinan/movie-32760461-142-23237.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (Spec-v1.3)</a></li>
+<li><a href="https://nxqp.wtpuscm.cn/keji/reminder-589988-143-54268.html">solidcraft 高负载场景下 DeepSeek蜘蛛 基准评测报告</a></li>
+<li><a href="https://kjgy.tcti.cn/zhizhu/development-26589253-144-34474.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (Spec-v2.1)</a></li>
+<li><a href="https://xcio.yx-sf.com/zixun/food-05580743-145-2515.html">solidcraft 高负载场景下 Sitemap诊断 基准评测报告</a></li>
+<li><a href="https://ankf.ai-hao123.com/xinwen/category-85845463-146-9072.html">solidcraft: Scripts SEO GEO AEO (v2.0-GA)</a></li>
+<li><a href="https://pjql.wtpuscm.cn/yanjiu/content-077878-147-57037.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (RFC-522)</a></li>
+<li><a href="https://iqww.tcti.cn/baogao/backup-54378770-148-19069.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (Draft-04)</a></li>
+<li><a href="https://moxb.yx-sf.com/jiaocheng/investment-97883105-149-27060.html">solidcraft 高负载场景下 SISEO 基准评测报告</a></li>
+<li><a href="https://ocxt.ai-hao123.com/pingce/goal-24295675-150-32721.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (RFC-953)</a></li>
+</ul>
+</details>
+
+      </div>
+      <div class="mt-12 pt-6 border-t border-slate-200 flex flex-wrap items-center justify-between gap-4">
+        <a href="./index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-800 ">
+          <span>&larr; 查看更多归档文档</span>
+        </a>
+        <a href="../index.html" class="inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-slate-900 ">
+          <span>返回项目 README 首页 &rarr;</span>
+        </a>
+      </div>
+    </article>
+  </main>
+
+  <footer class="mt-20 border-t border-slate-200 bg-white py-12 text-slate-500 text-sm">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-2">
+      <span class="w-6 h-6 rounded bg-slate-800 text-white flex items-center justify-center text-xs font-bold">LM</span>
+      <span>© 2026 <strong>solidcraft-mirror-573</strong> - 官方开源高可用拓扑镜像与白皮书</span>
+    </div>
+    <div class="flex items-center gap-4 text-xs text-slate-400">
+      <a href="../index.html" class="hover:text-blue-600 transition-colors ">项目首页</a>
+      <span>•</span>
+      <a href="./index.html" class="hover:text-blue-600 transition-colors ">文档归档菜单</a>
+      <span>•</span>
+      <span>托管于 GitHub Pages</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

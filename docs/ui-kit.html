@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SolidCraft UI kit - solidcraft-mirror-573 文档归档</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+      :root {
+        --color-primary: #2563eb;
+        --color-primary-hover: #1d4ed8;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.68;
+        color: #1e293b;
+      }
+      .markdown-body {
+        color: #1e293b;
+      }
+      .markdown-body h1 {
+        font-size: 2.25rem;
+        font-weight: 800;
+        margin-top: 1.8rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.6rem;
+        border-bottom: 2px solid #e2e8f0;
+        color: #0f172a;
+        line-height: 1.25;
+      }
+      .markdown-body h2 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-top: 1.6rem;
+        margin-bottom: 0.8rem;
+        padding-bottom: 0.4rem;
+        border-bottom: 1px solid #f1f5f9;
+        color: #1e293b;
+      }
+      .markdown-body h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-top: 1.3rem;
+        margin-bottom: 0.6rem;
+        color: #334155;
+      }
+      .markdown-body p {
+        margin-top: 0.8rem;
+        margin-bottom: 0.8rem;
+        line-height: 1.7;
+      }
+      .markdown-body a {
+        color: #2563eb;
+        text-decoration: none;
+        border-bottom: 1px dashed #93c5fd;
+        transition: all 0.2s ease;
+      }
+      .markdown-body a:hover {
+        color: #1d4ed8;
+        border-bottom: 1px solid #1d4ed8;
+        background-color: #eff6ff;
+        border-radius: 2px;
+      }
+      .markdown-body ul, .markdown-body ol {
+        padding-left: 1.5rem;
+        margin-top: 0.6rem;
+        margin-bottom: 0.6rem;
+      }
+      .markdown-body ul {
+        list-style-type: disc;
+      }
+      .markdown-body ol {
+        list-style-type: decimal;
+      }
+      .markdown-body li {
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
+      }
+      .markdown-body pre {
+        background-color: #0f172a;
+        color: #e2e8f0;
+        padding: 1rem 1.2rem;
+        border-radius: 0.75rem;
+        overflow-x: auto;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875rem;
+        margin: 1rem 0;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+      .markdown-body code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875em;
+        padding: 0.15rem 0.35rem;
+        background-color: #f1f5f9;
+        color: #0f172a;
+        border-radius: 0.35rem;
+        border: 1px solid #e2e8f0;
+      }
+      .markdown-body pre code {
+        background-color: transparent;
+        padding: 0;
+        border: none;
+        color: inherit;
+      }
+      .markdown-body blockquote {
+        margin: 1rem 0;
+        padding: 0.75rem 1.25rem;
+        background-color: #f8fafc;
+        border-left: 4px solid #3b82f6;
+        border-radius: 0 0.5rem 0.5rem 0;
+        color: #475569;
+      }
+      .markdown-body table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.2rem 0;
+        display: block;
+        overflow-x: auto;
+      }
+      .markdown-body th, .markdown-body td {
+        border: 1px solid #cbd5e1;
+        padding: 0.6rem 1rem;
+        text-align: left;
+      }
+      .markdown-body th {
+        background-color: #f1f5f9;
+        font-weight: 600;
+      }
+      .markdown-body tr:nth-child(even) {
+        background-color: #f8fafc;
+      }
+      .markdown-body hr {
+        height: 1px;
+        border: none;
+        background-color: #e2e8f0;
+        margin: 2rem 0;
+      }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col antialiased">
+  <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <a href="../index.html" class="flex items-center gap-2 group">
+        <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white font-bold text-sm shadow-sm group-hover:scale-105 transition-transform ">LM</span>
+        <span class="font-bold text-slate-900 tracking-tight text-lg group-hover:text-blue-600 transition-colors ">solidcraft-mirror-573</span>
+      </a>
+      <span class="hidden md:inline-block text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-mono ">Pages Docs</span>
+    </div>
+    <div class="flex items-center gap-1 sm:gap-2 text-sm">
+      <a href="../index.html" class="px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 text-slate-600 hover:text-blue-600 hover:bg-slate-50 font-medium ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        <span>首页 (README)</span>
+      </a>
+      <a href="./index.html" class="px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 text-blue-600 bg-blue-50 font-semibold ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        <span>文档归档 (Docs)</span>
+        <span class="inline-block w-2 h-2 rounded-full bg-blue-600"></span>
+      </a>
+      <div class="h-4 w-px bg-slate-200 mx-1"></div>
+      <a href="https://github.com/shijiuwei/solidcraft-mirror-573" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 ">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        <span class="hidden sm:inline">GitHub</span>
+      </a>
+      <a href="https://github.com/shijiuwei/solidcraft-mirror-573/wiki" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span class="hidden sm:inline">Wiki</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+  <!-- 面包屑与顶部导航 -->
+  <header class="bg-white border-b border-slate-200 py-6 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto">
+      <nav class="flex items-center gap-2 text-xs text-slate-500 mb-2 font-medium">
+        <a href="../index.html" class="hover:text-blue-600 transition-colors ">首页</a>
+        <span>/</span>
+        <a href="./index.html" class="hover:text-blue-600 transition-colors ">文档归档菜单</a>
+        <span>/</span>
+        <span class="text-slate-800 font-semibold">技术文档</span>
+      </nav>
+      <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">SolidCraft UI kit</h1>
+        <a href="./index.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors ">
+          <span>&larr; 返回文档归档菜单</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主体正文区域 -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 flex-1 w-full">
+    <article class="bg-white p-6 sm:p-12 rounded-2xl shadow-sm border border-slate-200">
+      <div class="markdown-body">
+        <h1>SolidCraft UI kit</h1>
+<p><code>crates/ui-egui/src/ui_kit/</code> contains the tokenised controls used by feature dialogs,
+preferences, manager cards, prompts, context menus and the sketch palette. Import through
+<code>crate::ui_kit::{...}</code>. Most controls are crate-visible; the container API is public so platform apps use the same hosts.</p>
+<h2>Composition and rules</h2>
+<ul>
+<li>
+<p>Every outer host uses <code>ui_kit::Container</code> with a semantic <code>Surface</code>. The shell
+publishes the layout once per frame; <code>Container::floating()</code> and <code>frame()</code> own
+adaptive placement policy and chrome. <code>Panel</code>, <code>Window</code>, <code>Confirm</code> and <code>Menu</code>
+compose it. Raw egui hosts and outer shadows are rejected recursively, including
+platform apps. The mandatory <code>cargo xtask ui-containers</code> gate runs in fast CI and
+scans new crates/apps automatically, including macro bodies and alias chains. See the <a href="ui-container-audit.md">container audit and migration inventory</a>.</p>
+</li>
+<li>
+<p>Colours, typography, dimensions and spacing come from <code>theme::Tokens</code>.</p>
+</li>
+<li>
+<p>Sliders only via <code>ui_kit::slider</code>; <code>Slider</code> options change behaviour, never appearance.
+Raw sliders and duplicate track/thumb painters are forbidden in the UI and apps.</p>
+</li>
+<li>
+<p><code>scope(ui, add)</code> supplies form styling. <code>row(ui, label, add)</code> aligns labels and
+controls at <code>control_height</code> (28 pt). Wide manager rows use a 104 pt label basis
+with a 10 pt gutter, derived from the compact 70 pt basis and spacing tokens.
+Compact rows retain their 8 pt gutter. Labels widen from the appropriate basis
+to at most 1.6 times that width and never exceed half the row.</p>
+</li>
+<li>
+<p><code>expr_row</code>, <code>hint_row</code>, <code>text_row</code> and <code>choice_row</code> compose <code>row</code> with the existing
+expression, hinted expression, plain text and dropdown controls. They preserve row order,
+labels, focus IDs and completion; callers keep Enter/change ownership and explicit dropdown IDs.
+<code>count_row</code> composes <code>row</code> with <code>count_field</code> for pattern quantities.</p>
+</li>
+<li>
+<p><code>Panel</code> owns bounded windows, feature/palette composition, scrolling bodies,
+pinned actions, compute status and keyboard routing. <code>wide()</code> uses three card
+widths. <code>feature_frame</code> and <code>palette_frame</code> retain docked/floating surfaces.
+<code>FeatureOptions::apply_label</code> adds Apply; <code>Panel::actions</code> supplies custom labels.
+With <code>DialogButtons::Top</code> published (Preferences › Interface › Dialog buttons), <code>feature</code>
+puts the actions in the header row through <code>HeaderActions</code> instead of a footer: the same
+buttons, enabled states, keyboard and handles, each as wide as its bold label, with Cancel
+standing in for the close button and the compute status in the title's place.
+<code>body_rows</code> caps a manager's scrolling body independently of its position; short
+viewports still keep the header and actions visible.</p>
+</li>
+<li>
+<p><code>Window</code> composes the shared Panel frame with a 40 pt icon/title/close header,
+padded content and optional 48 pt footer. <code>show_with_left</code> pins a left action beside
+the right-aligned buttons. <code>show_pages</code> accepts declarative <code>WindowPage</code> entries
+(icon, i18n label key, optional group heading, stable handle, scroll policy and draw callback).
+Its 188 pt soft page list has 32 pt icon/label rows, selected tint/ink and a divider.
+Preferences has nine grouped pages; legacy control-channel page names remain aliases.
+<code>page_rows</code> opts into a taller body while preserving viewport bounds.
+<code>actions</code>, <code>anchor</code>/<code>placed</code>, <code>cards</code>, <code>fields</code> and <code>keep_open_on_escape</code> retain
+existing window behavior. Empty action labels omit the footer.</p>
+</li>
+<li>
+<p><code>Confirm</code> is an input-blocking modal using the same card frame and footer controls.
+It shows a 36 pt icon disc in warning, danger or info tone, a title, caller-supplied
+message and optional monospace <code>detail</code>, above a 52 pt footer. Glyphs use the construction
+ramp for warning, the shared shaded danger treatment for danger, and base blue for info;
+the disc keeps its tint. <code>actions(primary, cancel, left_ghost)</code>
+places the optional third action at the left. Danger uses <code>form_error</code> with a
+contrast-selected on-colour; other primaries use blue. Enter invokes the selected
+answer (primary by default) when valid; Esc cancels. It retains close, answer and
+message scenario handles. The old <code>Prompt</code> element is removed.</p>
+</li>
+<li>
+<p>Callers supply data and enabled state, then dispatch existing commands. Editors
+leave their established completion, Enter, Tab and commit ownership unchanged.</p>
+</li>
+<li>
+<p>Every text input uses the kit's shared <code>text_input</code> policy: symmetric horizontal
+<code>form_inset</code>, zero vertical margin and centred galley alignment. Font metrics
+therefore centre both mono and proportional text within the allocated field,
+including invalid and attached Library fields, without per-caller offsets.
+Canvas placement editors retain their native line-height plus <code>space_4</code> hit
+target so nearby sketch picks are not intercepted; alignment stays shared.</p>
+</li>
+<li>
+<p>Scenario handles and accessible labels are API. Consolidated options preserve
+the former geometry, wrapping, native metadata and publication keys.</p>
+</li>
+</ul>
+<p>Preference compositions use <code>settings_heading</code>, shared disclosure <code>settings_section</code> headings and
+<code>settings_pair</code> for responsive controls beside one specimen. <code>option_card</code> supplies the
+shared illustrated radio control. <code>settings_form</code> and <code>settings_block_hint</code> define aligned label grids; <code>theme_rail</code> keeps the import tile fixed beside a scrollbar-free scrolling row. <code>PreferenceFigure</code> owns theme swatches, orbit pivots,
+quality, anti-aliasing, contact shading and up-axis figures. <code>layout_preview</code> follows the
+four workspace choices without opening another viewport. Scale, palette, autosave, mouse
+and live-axis specimens share tokens and the gallery; live bars show actual calibrated
+input and introduce no repaint timer.</p>
+<h2>Elements</h2>
+<p>Module names below describe implementation locations, not caller import paths.
+Every inline element/variant has one entry in the light/dark <code>gallery::ELEMENTS</code>
+table. Panel/Window/Confirm compositions also have dedicated geometry and interaction tests.</p>
+<table><thead><tr><th>Module / element</th><th>Use and options</th><th>Main tokens</th></tr></thead><tbody>
+<tr><td>assistant: <code>assistant_header</code>, <code>assistant_controls</code>, <code>assistant_badge</code>, <code>assistant_bubble</code>, <code>assistant_prose</code>, <code>assistant_tool_frame/row/detail/status</code>, <code>AssistantToolState</code>, <code>assistant_approval/actions</code>, <code>assistant_composer/footer</code>, <code>assistant_input</code>, <code>assistant_send</code>, <code>assistant_empty</code>, <code>assistant_banner</code>, <code>AssistantTone</code></td><td>Shared Assistant presentation: 40 pt header, 22 pt state pill, right-aligned user messages limited to 86% width, unboxed assistant prose, bordered tool groups and command detail, tinted approval heading, rounded focused composer with one unframed growing editor and pinned footer, centred setup copy and semantic notices. Closures preserve existing permission choices, protocol routing, queue actions and scenario handles.</td><td><code>form_header_height/close_size</code>, <code>font_label/small/body</code>, <code>dialog_body/footer/rule</code>, <code>control_fill/border/radius</code>, <code>form_ink/dim/primary/success/error</code>, <code>accent_soft/selected_ink</code>, <code>warning</code>, radii and spacing</td></tr>
+<tr><td>history: <code>HistoryChip</code>, <code>HistoryStyle</code>, <code>history_drop_bar</code>, <code>history_marker</code>, <code>HistorySeam</code>, <code>history_seam</code></td><td>One painter family for bottom chips, 38 pt vertical icon chips and single-line 26 pt name rows (the browser's shared <code>TREE_ROW_HEIGHT</code>). Selected items use the active tab tint/ink/border; all variants retain multi-tone feature artwork using one shared kind-to-accent rule (Sketch green, Surface orange, Mesh yellow, Form purple, solids base blue); rolled-back items have 42% opacity; a reference row (a sketch listed under another feature, #6489) has its name in secondary text. Error/warning badges, suppression strikes, horizontal/vertical drop bars and rollback line/hollow circle are shared. No connector lines.</td><td><code>control_height</code>, <code>space_2/3/4/6/8/10/12/14/16/24</code>, radii, typography, <code>TabAccent</code>, <code>timeline_item</code>, <code>control_border</code>, <code>text/dim</code>, <code>form_error/fill</code></td></tr>
+<tr><td>search: <code>CommandSearch</code>, <code>MenuItem::search_row</code></td><td>Ribbon search composition: one persistent ribbon editor expands from 28 to 40 pt and to 520 pt wide with its right edge anchored, magnifier and S/Esc keycap, 38 pt two-line menu row with 26 pt icon tile, accent bold substring, path, shortcut/kind keycap, counts, JSON detail box and footer. The ordinary 30 pt menu row cannot fit a second line; this variant keeps its enabled/selected states and scenario IDs. Ranking and dispatch stay with the caller.</td><td><code>form_card_width × 2 − space_8</code> (520 pt), <code>control_height</code>, <code>space_2/3/4/6/8/10/12/14/16/24</code>, <code>radius_xl/control_radius</code>, <code>control_fill</code>, <code>dialog_body/footer/rule/border</code>, <code>form_ink/dim/primary/error/error_fill/success/success_fill</code>, <code>selected_ink</code>, <code>accent_soft</code>, typography</td></tr>
+<tr><td>menu: <code>Menu</code>, <code>MenuItem</code></td><td>Shared popup, 30 pt rows, 28 pt icon column, clipped labels, right-aligned mono shortcuts, submenu chevrons, checked/unchecked and document swatches, inert 40% disabled rows and danger ink; headings and separators; ribbon drag/pin targets retained</td><td><code>dialog_body/border/rule</code>, <code>radius_xl</code>, <code>control_height/radius</code>, <code>form_ink/dim/primary/error</code>, <code>accent_soft</code>, typography and spacing</td></tr>
+<tr><td>radial: <code>radial_menu</code></td><td>Eight rounded annular sectors, parallel 4 pt gaps, 9 pt circular corner joins, tab-accent artwork and hover, centre label/key; existing hold/flick/release dispatch</td><td><code>dialog_body/border</code>, <code>form_ink/dim</code>, <code>TabAccent</code>, icon palette, font/spacing tokens</td></tr>
+<tr><td>panel: <code>Window</code>, <code>WindowPage</code></td><td>Shared card frame, header, optional page list, bounded content and footer with a left action</td><td><code>form_header/footer_height</code>, <code>form_card_width</code>, <code>form_label_width</code>, <code>control_height</code>, <code>dialog_footer/rule</code>, <code>selected_bg/ink</code>, spacing</td></tr>
+<tr><td>confirm: <code>Confirm</code>, <code>Tone</code></td><td>Modal warning/danger/info, title/message, mono detail and ghost/cancel/primary actions</td><td><code>warning</code>, <code>form_error/fill</code>, <code>accent_soft</code>, <code>form_primary</code>, <code>on_accent</code>, <code>tab_on_fill_dark</code>, <code>font_subtitle</code>, spacing</td></tr>
+<tr><td>metrics: <code>row_height</code>, <code>table_row_height</code>, <code>header_height</code></td><td>Shared control/header heights</td><td><code>control_height</code>, <code>space_8</code>, <code>form_header_height</code></td></tr>
+<tr><td>layout: <code>scope</code>, <code>row</code></td><td>Form styling and aligned label/control columns</td><td><code>form_label_width</code>, <code>form_gap_y</code>, <code>control_*</code>, <code>font_label</code>, <code>dialog_label</code>, <code>space_4/8</code></td></tr>
+<tr><td><code>caption</code></td><td>Dim caption aligned beneath a control</td><td><code>font_small</code>, <code>text_dim</code>, label-column tokens</td></tr>
+<tr><td><code>figure_rows</code>, <code>FigureSlot</code></td><td>A caller-painted figure in the label column beside a stack of captioned expression fields (the Hole dialog's section); the caller gets each field's rect and hover/focus state to draw leaders and light the part it sizes. Fields keep their <code>dialog:&lt;label&gt;</code> handles; the block publishes <code>dialog:figure:&lt;id&gt;</code> and its picture <code>dialog:figure_picture:&lt;id&gt;</code></td><td><code>control_height</code>, <code>form_label_width</code>, <code>font_small</code>, <code>form_dim</code>, <code>space_2/4</code>, label gap</td></tr>
+<tr><td><code>section</code>, <code>section_count</code>, <code>divider</code></td><td>Persisted small-caps disclosure with chevron, optional count badge and trailing hairline; full-width rule</td><td><code>control_height</code>, <code>dialog_rule</code>, <code>font_caption</code>, tracking, spacing</td></tr>
+<tr><td><code>list_row</code></td><td>Picked item with a remove target</td><td><code>control_height</code>, <code>font_label</code>, icon/spacing tokens</td></tr>
+<tr><td><code>text</code>, <code>Text</code></td><td>Hint, note, report, inline or cell text; see variants below</td><td><code>font_small/label</code>, <code>text/dim/error</code>, <code>control_height</code>, <code>space_4</code></td></tr>
+<tr><td><code>text_lines</code></td><td>Virtualized read-only licence/report lines, horizontal overflow</td><td><code>font_small</code>, <code>text</code>, <code>control_height</code></td></tr>
+<tr><td>fields: <code>field</code>, <code>hint_field</code>, <code>focused_field</code></td><td>Expression editors, optional empty hint or retained focus; returns accepted Enter</td><td><code>control_height/fill</code>, <code>form_inset</code>, <code>font_label</code></td></tr>
+<tr><td><code>count_field</code>, <code>Count</code></td><td>Expression editor for a whole-number count (a pattern's quantity) with up/down step arrows at its right edge. <code>Count</code> gives the limits and the evaluator (the design's parameters); an arrow steps the evaluated count by one within them, replacing a plain number or adjusting an expression's trailing <code>+ n</code>, and is dimmed when it can't step. Handles <code>dialog:&lt;row&gt; up</code> / <code>down</code>; returns accepted Enter</td><td>field tokens, <code>control_border</code>, <code>control_radius</code>, <code>selected_bg</code>, <code>form_ink/dim</code>, <code>space_4</code></td></tr>
+<tr><td><code>text_field</code>, <code>focused_text_field</code></td><td>Plain name editor, optionally retaining focus</td><td>field tokens</td></tr>
+<tr><td><code>multiline_text_field</code></td><td>Three-line plain-text row with stable focus ID</td><td>field/row tokens</td></tr>
+<tr><td><code>password_field</code></td><td>Stable secret editor; excludes the secret from scenario/accessibility metadata</td><td>field tokens</td></tr>
+<tr><td><code>message_field</code></td><td>Growing message editor; owner retains scroll and Enter routing</td><td>field tokens</td></tr>
+<tr><td><code>cell_editor</code>, <code>bounded_cell_editor</code>, <code>search_field</code>, <code>library_cell</code></td><td>Stable-ID inline/search editors; bounded variant caps Unicode characters; <code>library_cell</code> attaches a Library dropdown inside the editor border</td><td>field tokens, <code>text/error</code></td></tr>
+<tr><td><code>text_area</code></td><td>Bounded multiline JSON/data editor</td><td>field tokens</td></tr>
+<tr><td><code>dropdown</code>, <code>dropdown_menu</code></td><td>Indexed choices or caller-supplied menu controls</td><td><code>control_height</code>, <code>text_dim</code>, form tokens</td></tr>
+<tr><td><code>searchable_dropdown</code>, <code>SearchOption</code></td><td>Filtered choices, custom-value action and pending message</td><td>dropdown tokens</td></tr>
+<tr><td><code>selection_field</code>, <code>Selection</code></td><td>Selection chip with explicit <code>active</code> and <code>filled</code> state, in three looks: the active input (where the next pick goes) has a <code>form_primary</code> border and <code>selected_bg</code> tint; a filled inactive one a quiet neutral tint, a stronger neutral border and its count in <code>form_ink</code>; an empty inactive one the plain control with a dim prompt</td><td><code>selected_bg/ink</code>, <code>form_primary/ink/dim</code>, <code>control_*</code>, <code>form_inset</code>, <code>space_2/8/24</code></td></tr>
+<tr><td><code>value_pair</code></td><td>Paired captions/expressions; optional independent field names</td><td>row/field tokens, <code>space_8</code></td></tr>
+<tr><td><code>fraction_field</code>, <code>scalar_field</code></td><td>Locale-aware bounded dimensionless values; scalar fields fill their control column</td><td>form control/font tokens</td></tr>
+<tr><td><code>number_field</code></td><td>Integer/decimal field with caller range, drag speed and suffix</td><td>form control/font tokens</td></tr>
+<tr><td><code>length_field</code>, <code>angle_field</code></td><td>Length in design units, angle in degrees</td><td>form control/font tokens</td></tr>
+<tr><td><code>slider</code> + <code>Slider</code> options</td><td>One token-painted track/thumb over native slider/value interaction; optional step, caller formatting, whole-step manipulation and hidden value editor</td><td><code>control_height</code>, <code>space_24/8/4/2</code>, form control/font tokens</td></tr>
+<tr><td><code>placement_field</code></td><td>Stable focus ID; drawing tool owns Enter/Tab validation and completion</td><td><code>control_fill</code>, <code>font_body</code>, <code>text</code>, <code>control_height</code>, spacing</td></tr>
+<tr><td><code>color_field</code>, <code>color_popover</code></td><td>Opaque document RGB swatch and kit popover; global U8/F segments, copy, gamma-byte or linear RGB fields, painter-drawn HSV square/hue and current strip; outside click dismisses</td><td><code>control_*</code>, <code>form_*</code>, <code>border</code>, <code>on_accent</code>, <code>space_*</code></td></tr>
+<tr><td>choice: <code>segmented</code>, <code>Segments</code></td><td>Equal text choices; <code>states</code> supplies mixed selection, <code>compact</code> clips instead of falling back to a dropdown, <code>primary</code> uses accent/on-accent for the selected segment</td><td><code>control_*</code>, <code>selected_bg/ink</code>, <code>font_label</code>, <code>space_4/8</code></td></tr>
+<tr><td><code>segmented_icons</code>, <code>IconSegment</code></td><td>Equal icon choices and mixed states</td><td>segment tokens, icon palette</td></tr>
+<tr><td><code>checkbox</code>, <code>checkbox_indeterminate</code>, <code>checkbox_row</code>, <code>checkbox_grid</code>, <code>options</code></td><td>One box/tick painter for inline, mixed, full-row, grid and menu choices</td><td><code>space_14/3/2</code>, <code>radius_sm</code>, <code>control_fill/border</code>, <code>form_primary/ink</code>, <code>hover</code>, <code>on_accent</code></td></tr>
+<tr><td><code>text_emphasis</code></td><td>Bold/italic with translated accessible names</td><td>form control/font tokens</td></tr>
+<tr><td><code>tool_choices</code>, <code>ToolChoice</code>, <code>toggle_icon</code></td><td>Wrapped command modes or independent icon toggles</td><td>sketch mode/icon tokens, <code>accent</code></td></tr>
+<tr><td><code>list_picker</code></td><td>Selectable row with caller identity and native checked state</td><td><code>control_height</code>, form selection tokens</td></tr>
+<tr><td><code>popup_list</code>, <code>PopupOption</code></td><td>Focus-neutral suggestions; owner retains keyboard routing</td><td><code>space_2</code>, <code>form_label_width</code>, <code>control_height</code>, form tokens</td></tr>
+<tr><td><code>color_swatch</code>, <code>swatch_grid</code>, <code>color_thumbnail</code></td><td>30 pt draggable samples, 6 pt grid step gap, selected outer ring and checker pattern under transparent colours; caller payloads retained; local-library thumbnails use 16 pt</td><td><code>control_height/radius</code>, <code>border</code>, <code>form_primary</code>, <code>control_fill</code>, <code>space_2/6/8</code></td></tr>
+<tr><td><code>assistant_entry</code>, <code>AssistantEntryState</code></td><td>Application-bar chat icon with quiet, ready, busy, auth, stopped and approval count marks; caller owns state and target</td><td><code>app_bar</code>, <code>agent_ok/busy</code>, <code>warning/error</code>, <code>font_badge</code></td></tr>
+<tr><td>actions: <code>button</code>, <code>Button</code></td><td>Secondary action: <code>Normal</code>, <code>Small</code>, or <code>Enabled(bool)</code></td><td>native sizing, form font/control tokens</td></tr>
+<tr><td><code>primary_button</code></td><td>Accent action outside a footer</td><td><code>accent</code>, <code>on_accent</code>, form tokens</td></tr>
+<tr><td><code>icon_button_at</code></td><td>Icon action inside a supplied rectangle</td><td><code>form_icon_inset</code>, <code>text/dim</code>, icon palette</td></tr>
+<tr><td><code>button_pair</code>, <code>PairButton</code></td><td>Equal secondary actions, optional icons and selected state</td><td><code>form_button_height</code>, control/selection/icon tokens</td></tr>
+<tr><td><code>footer</code>, <code>Footer</code>, <code>Action</code>, <code>HeaderActions</code></td><td>OK/Cancel with optional Apply, compute status or selected action; <code>HeaderActions</code> puts the same buttons in a header row</td><td><code>form_footer/button_height</code>, <code>dialog_footer/rule</code>, <code>control_*</code>, <code>accent</code>, spacing</td></tr>
+<tr><td><code>keyboard</code></td><td>Esc cancels, unowned Enter submits when valid</td><td>none</td></tr>
+<tr><td><code>action_menu</code>, <code>command_menu_button</code></td><td>Nested dense action menu or ribbon overflow action retaining its icon, shortcut and enabled state</td><td>form control/font tokens, <code>space_16</code>, icon palette</td></tr>
+<tr><td>table: <code>table</code>, <code>table_custom</code>, <code>Column</code>, <code>Table::headers</code>, <code>Table::row</code>, <code>TableRow::cell</code>, <code>Table::add_prompt</code></td><td>Left-aligned headers/cells, horizontal overflow, selected/hover rows and empty state. <code>table_custom</code> supplies header actions through <code>headers</code>. <code>Column::flex</code> shares remaining width by weight, freezing columns at their control minimums before redistributing the remaining space; <code>Column::icon_only</code> hides the heading while retaining its automation identity. <code>add_prompt</code> is the final slim dashed line and requests a regular draft row from its owner; <code>Column::new(label, width)</code> uses label-column multiples, <code>min_content_width(points)</code> reserves measured control content; <code>ContentWidth::name</code> measures strong configuration names</td><td>label-column tokens, <code>control_height</code>, <code>dialog_rule/footer</code>, <code>selected_bg</code>, spacing</td></tr>
+<tr><td><code>removable_header</code>, <code>plus_header</code>, <code>bin_button</code>, <code>active_pill</code></td><td>Hover-only column removal, anchored Add Column menu with insertion brackets, icon-only immediate deletion and active-row status. Bins preserve <code>dialog:button:Actions:Delete</code> and <code>:×</code>; header removal preserves <code>dialog:button:LABEL:×</code>.</td><td><code>control_*</code>, <code>form_*</code>, <code>selected_bg</code>, spacing</td></tr>
+<tr><td><code>compact_button</code>, <code>summary_row</code></td><td>Borderless stars and chevrons with enabled/selected states; named two-line rule summary beside an enable checkbox and compact actions.</td><td><code>form_close_size</code>, <code>control_*</code>, <code>form_*</code>, typography and spacing</td></tr>
+<tr><td><code>label_actions</code></td><td>Clipped row name beside compact actions</td><td><code>control_height</code>, form font/spacing tokens</td></tr>
+<tr><td>status: <code>status_header</code>, <code>StatusHeader</code></td><td>Supplied icon/name/status and constraint meter</td><td><code>font_label</code>, <code>text/dim</code>, <code>accent</code>, sketch/header tokens</td></tr>
+<tr><td><code>progress</code></td><td>Clamped determinate progress</td><td><code>space_3/6</code>, <code>dialog_rule</code>, <code>accent</code></td></tr>
+</tbody></table>
+<p>History contents are selected from measured panel width. A 56 pt thin strip shows icons
+and four vertical transport controls: beginning, back, forward and end. The minimum named
+width is 130 pt; it adds horizontal transport and the same six-dot window grip as Assistant.
+When the remaining header space fits its measured text, <strong>History</strong> appears between grip
+and transport. No names-mode flag
+or command selects these layouts. The seam snaps between 56 and 130 pt; widths from 130
+through 624 pt remain continuous and persist as <code>timeline_left_width</code>.</p>
+<p>Drag the grip or title to dock along the bottom, at the full-height left edge, or beneath
+the browser. Either card's right edge resizes their shared width. This position divides
+available column height equally. Folding either card leaves its header visible and gives the remainder to
+the other. If both are folded, their headers sit together at the top of the column.
+Expansion and collapse share a smooth cubic transition capped at 120 ms, respecting
+the interface’s instant-animation setting. Their collapse controls share the same active-tab blue hover tint. Browser resizing also resizes History.
+The <code>view.history_layout</code> command validates width, docking and collapse requests without
+altering the design or opening dialogs. Floating mode preserves viewport projection.</p>
+<p>The seam handle overlays the strip's right edge without taking layout space. Its grip is
+visible at rest; the arrow appears only on hover. Click, double-click the edge, or use
+Enter/Space on the focused handle to resize between thin and minimum named widths. Drag
+freely above the named minimum; resizing draws no dotted guide or name label. Header/title dragging
+and the edge width gesture are separate from feature/folder and rollback dragging.
+The rollback marker is 12 pt high.
+Its 2 pt line uses the active tab fill and ends in a 10 pt hollow circle with a 2 pt accent
+border and the card/panel surface inside. The circle overlaps the line end by 1 pt. The bottom
+strip uses the same painter, rotated. Folder selection, range selection, context menus,
+sketch-pattern children, drag reordering and command JSON retain their existing behavior and handles.
+<code>history_icons</code>, <code>history_names</code>, <code>history_marker</code> and the <code>history_seam_rest/hover/drag</code> states
+have light/dark gallery references. The CPU
+board test captures both strip widths with expanded and collapsed browsers
+(<code>SOLIDCRAFT_HISTORY_EVIDENCE</code>).</p>
+<p><code>text(ui, text, options)</code> supports the existing text behaviors and the new error band:</p>
+<table><thead><tr><th>Option</th><th>Layout and scenario publication</th></tr></thead><tbody>
+<tr><td><code>Text::Hint(key)</code></td><td>Wrapping 12 pt hint; rect and handle <code>dialog:hint:KEY</code></td></tr>
+<tr><td><code>Text::Note(key)</code>, <code>Text::MonoNote(key)</code></td><td>Wrapping small dim text (optional monospace) with vertical padding; rect <code>dialog:note:KEY</code></td></tr>
+<tr><td><code>Text::Error(key)</code></td><td>Wrapping full-width error band with tinted background and padding; retains <code>dialog:report:KEY</code></td></tr>
+<tr><td><code>Text::Report(key, error)</code></td><td>Native wrapping label, optional error colour; rect/handle <code>dialog:report:KEY</code></td></tr>
+<tr><td><code>Text::Heading(key)</code></td><td>Semibold body heading; retains <code>dialog:report:KEY</code></td></tr>
+<tr><td><code>Text::NameCell(strong)</code></td><td>Medium/semibold clipped clickable name; retains <code>dialog:cell:TEXT</code></td></tr>
+<tr><td><code>Text::MonoCell</code>, <code>Text::Value(key, error)</code></td><td>Monospace unit/value cells; clipped to one row with full tooltips. Value/error cells retain <code>dialog:report:KEY</code>.</td></tr>
+<tr><td><code>Text::Inline</code></td><td>Native truncated label; rect/handle <code>dialog:inline:TEXT</code></td></tr>
+<tr><td><code>Text::Cell</code></td><td>Fixed-height clipped clickable cell with tooltip; rect/handle <code>dialog:cell:TEXT</code></td></tr>
+</tbody></table>
+<p>Examples:</p>
+<pre><code class="language-rust">segmented(ui, &amp;mut mode, &amp;["One", "Two"], Segments::default());
+selection_field(ui, "Select", Selection { active: true, filled: false });
+value_pair(ui, "Position", [&amp;mut x, &amp;mut y], ["X", "Y"], Some(["Distance X", "Distance Y"]));
+button(ui, "Add", Button::Enabled(valid));
+footer(ui, "OK", "Cancel", valid, Footer { apply: Some("Apply"), ..Default::default() });
+text(ui, report, Text::Report("validation", invalid));
+</code></pre>
+<p>Icon surfaces that explicitly choose a palette ramp use <code>icons::paint_accented</code>.
+<code>None</code> selects base blue, while unknown names retain the icon's semantic accent.
+Only active roles change: ink/line outlines, passive faces, guides and knockouts keep
+normal artwork colours. Existing icon painters retain their semantic-accent behaviour.
+Danger menu items and danger confirmation glyphs both use <code>icons::paint_danger</code>.
+It additionally maps passive-1/2/3 faces to constraint active-1/2/3, retaining the
+shading steps, ink outlines, handle and transparent slat details. The cache distinguishes
+this whole-glyph treatment from ordinary accent selection and monochrome ink masks.
+Radial icons follow the active tab (Sketch, Surface, Mesh, Form; other tabs use base blue)
+in both normal and hovered sectors; the hovered background retains its tab tint.</p>
+<h2>Extending and checking the kit</h2>
+<p>Add one implementation, document its tokens/options here, re-export it through
+<code>mod.rs</code>, and add one table entry in <code>gallery::ELEMENTS</code>. Keep implementation-only
+helpers private. Add interaction tests when the element introduces an action.</p>
+<p>The gallery checks geometry, label alignment, handles and effective paint bounds in
+both themes. Field/footer/panel tests retain focus, completion and action coverage.
+<code>ui_kit_guard_tests</code> scans every UI feature module recursively, rejects raw control constructors
+and methods (including aliases), and rejects removed legacy helpers. The raw-control
+allowance table is empty and guarded against additions. Standard colour/font guards,
+Clippy, wasm, i18n, assets, icons and layers still apply.</p>
+<p>See <a href="manage-ui-kit-audit.md">remaining coverage boundaries</a> for specialised surfaces
+that remain outside the kit and why.</p>
+<h2>Popup presentation and draft rows</h2>
+<p>Panel and Window use 28 pt controls, a 40 pt title band (14 pt semibold title,
+19 pt command icon and 26 pt close/fold targets), and a 48 pt footer with
+28 pt actions. Table rows are <code>control_height + space_8</code> (36 pt), independent
+of control height. Bodies use 12 pt insets. Width limits and scroll boundaries
+remain owned by Panel/Window/Confirm. Titles retain the supplied case.</p>
+<p>The <code>form_ink</code>, <code>form_dim</code>, <code>form_primary</code>, <code>form_error</code> and <code>form_error_fill</code>
+colour keys match the approved light cards. Dark values follow existing text,
+accent and error palette roles; every role is exported by theme files and measured
+by the colour-vision checks. Invalid fields include both error text and a tinted
+surface. Long variable-height lists can use <code>Window::placed</code> with a top-left pivot to
+keep their painted controls and scenario targets aligned as they grow.
+Completion lists use the approved 230 pt minimum width (derived from card and
+spacing tokens), show kind labels on the right, selected details beneath
+the list, and the existing keyboard hint.</p>
+<p>Parameters and Configuration Table use this one table grid, including Favorites
+and each model group. The grid has <code>space_8</code> horizontal insets within the row
+highlight, shared by headers and cells, plus <code>space_8</code> column gaps. Flexible widths
+are measured inside the scroll viewport and rounded by cumulative column edges;
+fitting content does not acquire a horizontal scrollbar from independent rounding
+or inherited scroll margins. Explicit minimum widths still allow genuine overflow.
+The viewport and measured content width publish <code>dialog:table:TABLE:viewport</code> and
+<code>dialog:table:TABLE:content_width</code> for geometry checks. Hover uses the clipped row
+rectangle, including interactive children, while preserving child click ownership.
+Their add prompts publish <code>dialog:table:TABLE:add</code>, use <code>control_height - space_4</code>
+height, a dashed <code>control_radius</code> outline and a pointing-hand cursor.
+Clicking creates a regular unsaved row, focuses its name and exposes the existing
+field controls and bin. Enter or valid focus loss commits through the existing
+commands; abandoning a nameless row drops it. Configuration Enter with an empty
+name retains ConfigurationN naming and copies the active row. Parameter validity
+is published as <code>param:new:valid</code>; invalid expressions cannot commit on focus loss.
+The natural scrolling body height is published as <code>dialog:body:content_height</code>,
+so geometry tests distinguish content size from the viewport cap.
+After a successful parameter add, a fresh empty draft retains Name focus for
+continuous keyboard entry; leaving that empty row drops it.
+Parameter draft fields retain <code>param:new:name/unit/expression/comment</code>.
+Configuration drafts publish <code>config:new:name</code>; existing <code>config:cell:ROW:COLUMN</code>,
+activation, rule and preview handles remain. The header plus retains
+<code>dialog:menu:Add Column</code>, including the existing menu nesting. The old separate
+Add forms and column-removal band have been removed.</p>
+<p>Crash Reports uses <code>report_list</code> (bordered bounded scroll), <code>report_header</code> (kind,
+count pill and mono UTC time), <code>path_chip</code> (clipped mono path and adjacent action),
+<code>empty_box</code> (dashed empty state), and <code>icon_label_button</code> (secondary icon/text,
+optional danger ink). These use <code>dialog_rule/footer</code>, <code>control_*</code>, <code>form_*</code>,
+<code>font_label/small</code> and spacing tokens. The report header retains the combined-title
+cell alias; bins retain the previous Delete handle. Report actions remain immediate.
+<code>list_frame</code> supplies the same border to virtualised library rows.
+The list frame owns its border and horizontal padding; the report viewport adds
+no inherited scroll margin. Report list measurements publish
+<code>dialog:list:KEY:viewport</code> and <code>dialog:list:KEY:content_width</code>. Reports use vertical
+scrolling; the horizontal rule beneath each report remains a divider.
+Appearance uses a 340 pt card derived from card/label/spacing tokens, with the
+104 pt label basis where space permits, 10 pt body gaps, and a count on In This Design.</p>
+<p>Colour popovers retain <code>dialog:color:ROW</code> and add <code>color:format:U8/F</code>,
+<code>color:copy</code>, <code>color:channel:R/G/B</code>, <code>color:sv</code>, <code>color:hue</code>, <code>color:current</code>
+and the <code>color:popover</code> rectangle. Format changes update egui's global numeric
+colour presentation without changing RGB. Linear fields edit linear RGB, not
+normalised gamma bytes. HSV state preserves hue at zero saturation/value and
+sub-byte precision during drags. Gradient colours are document colour data;
+all interface chrome uses existing paired light/dark tokens.</p>
+<p>Sliders only via <code>ui_kit::slider</code>, everywhere in <code>crates/ui-egui/src</code> and <code>apps</code>.
+The element owns its form styling even when called from a viewport menu.
+<code>Slider</code> options select behaviour, never appearance: range and values remain in caller
+units, <code>step</code> preserves stepping, <code>format</code> preserves suffixes/display mapping,
+<code>integer</code> rounds manipulation and <code>show_value: false</code> hides the editor. Disabled
+sliders use <code>ui.add_enabled_ui</code>; tooltips attach to the returned response. Preferences
+UI scale still applies only after the pointer is released. There are no alternative
+slider helpers, raw <code>egui::Slider</code> callers, or custom track/thumb painters outside
+the kit. The source guard scans both trees without an allowance table; the gallery
+covers continuous, percent/stepped, integer/no-editor and disabled states in both themes.
+Numeric fields use the existing kit <code>scalar_field</code>, <code>length_field</code>, <code>angle_field</code>
+or <code>number_field</code> rather than constructing a raw <code>egui::DragValue</code> at a caller.</p>
+<p>Parameters retains its bounded header drag offset while the manager is open,
+including frames without a regular feature dialog. The shared Panel bound reserves
+header and footer space at the bottom edge. Import and both export actions use
+<code>icon_label_button</code> with the existing <code>import</code>/<code>export</code> arrow icons and unchanged
+command routing and scenario identities. The gallery includes all three actions.
+The Add Column target is <code>form_close_size - space_4</code> (22 pt) square: idle paint is
+only <code>form_dim</code> ink; hover adds the selected accent fill and insertion guides.
+HSV gradients use a rounded mesh silhouette sampled along <code>control_radius</code> arcs;
+the current-colour strip uses the same rounded radius. Render tests sample all
+four corner pixels and opaque interiors of all three surfaces at 1× and 2× in
+both themes.</p>
+<p>Checkboxes only via <code>ui_kit::checkbox</code>, everywhere in <code>crates/ui-egui/src</code> and
+<code>apps</code>. <code>checkbox_row</code>, <code>checkbox_grid</code> and menu checkbox rows share its single
+box painter and <code>paint_check_glyph</code> path. The box is <code>space_14</code> square with
+<code>radius_sm</code> corners, a <code>control_border</code> outline and <code>control_fill</code> background.
+Checked/mixed boxes use <code>form_primary</code> and <code>on_accent</code>; hover uses <code>hover</code> and
+an accent border, focus adds a <code>space_2</code> outset ring, and disabled controls inherit
+egui's disabled opacity. Geometry never depends on caller font or native icon size.
+<code>checkbox_indeterminate</code> represents a mixed selection with a bar and activates to
+checked. Space/Enter, accessible checked state, tooltips and scenario handles are
+retained. Exclusive choices use existing kit segments/dropdowns/list pickers;
+there are no radio controls. The recursive guard rejects native checkbox/radio
+constructors (including aliases), raw toggle methods and duplicate check glyph
+painters across both trees without allowances. Offscreen checks compare actual
+box and tick geometry/pixels across form, grid, palette and menu call sites at
+1×/2× in both themes.</p>
+<p>Disclosure chevrons point <strong>down when open</strong> (content visible) and <strong>right when
+closed</strong> (content hidden). Only <code>ui_kit::disclosure</code> draws them, using the original
+<code>chevron</code> / <code>chevron_right</code> SVGs at <code>form_section_icon_size</code>, without animation
+(as in kit section headers). Sections, nested groups, Browser trees, card headers,
+window folds and the Assistant strip all follow this rule. Keep existing scenario
+handles, including <code>dialog:collapse</code>, and translated Collapse/Expand tooltips.
+Dropdown arrows always point down; submenu arrows point right. Playback, reorder,
+window management and overflow controls are not disclosures. The source guard scans
+UI, apps and compiled asset glyphs without caller allowances; render tests inspect
+the actual icon textures used by sections, card folds and window folds.</p>
+<h2>Per-tab accent tokens</h2>
+<p><code>TabAccent::for_tab</code> supplies three independent theme colours: <code>color</code> (fill) for
+pills, active-tool borders and the history marker; <code>ink</code> for small text and selected
+rows; <code>soft</code> for tinted selection/tool backgrounds. These are palette entries, not
+blends. Browser rows and selected ribbon labels use <code>ink</code> directly.</p>
+<table><thead><tr><th>Tab id</th><th>Fill token</th><th>Ink token</th><th>Soft token</th></tr></thead><tbody>
+<tr><td><code>MODEL</code> / default</td><td><code>accent</code></td><td><code>selected_ink</code></td><td><code>accent_soft</code></td></tr>
+<tr><td><code>SKETCH</code></td><td><code>sketch_accent</code></td><td><code>sketch_ink</code></td><td><code>sketch_soft</code></td></tr>
+<tr><td><code>SURFACE</code></td><td><code>surface_fill</code></td><td><code>surface_ink</code></td><td><code>surface_soft</code></td></tr>
+<tr><td><code>MESH</code></td><td><code>mesh_fill</code></td><td><code>mesh_ink</code></td><td><code>mesh_soft</code></td></tr>
+<tr><td><code>FORM</code></td><td><code>form_fill</code></td><td><code>form_tab_ink</code></td><td><code>form_soft</code></td></tr>
+<tr><td><code>SHEET METAL</code></td><td><code>sheet_fill</code></td><td><code>sheet_ink</code></td><td><code>sheet_soft</code></td></tr>
+<tr><td><code>RENDER</code></td><td><code>render_fill</code></td><td><code>render_ink</code></td><td><code>render_soft</code></td></tr>
+</tbody></table>
+<p><code>form_tab_ink</code> is separate from the existing <code>form_ink</code> used for form controls.
+Sketch reuses its existing fill in both themes. Surface and Form fills match their
+existing accents in light mode but need independent dark values; Mesh and Render
+fills also differ from their existing <code>mesh_accent</code> and <code>render_accent</code> values.
+All existing tokens, including Model's fill, ink and tint, retain their values.
+The Model/default mapping preserves its existing appearance rather than adopting
+the proposed Model colours from the board.</p>
+<p>The new palette entries (fill / ink / soft) are:</p>
+<table><thead><tr><th>Tab</th><th>Light</th><th>Dark</th></tr></thead><tbody>
+<tr><td>Sketch</td><td><code>#057F45</code> / <code>#057F45</code> / <code>#EDF7F1</code></td><td><code>#128D45</code> / <code>#46BE78</code> / <code>#1F3B2B</code></td></tr>
+<tr><td>Surface</td><td><code>#A45000</code> / <code>#A45000</code> / <code>#FBEBD8</code></td><td><code>#B26A14</code> / <code>#E0914A</code> / <code>#45331E</code></td></tr>
+<tr><td>Mesh</td><td><code>#E0B200</code> / <code>#8A6D00</code> / <code>#FFF8DC</code></td><td><code>#C6A800</code> / <code>#D4B726</code> / <code>#41391A</code></td></tr>
+<tr><td>Form</td><td><code>#7349CD</code> / <code>#7349CD</code> / <code>#EEE8FA</code></td><td><code>#8A6FCC</code> / <code>#B39BEE</code> / <code>#372F4F</code></td></tr>
+<tr><td>Sheet Metal</td><td><code>#1E6F96</code> / <code>#1E6F96</code> / <code>#E1F0F7</code></td><td><code>#2A7FA8</code> / <code>#4FB3D9</code> / <code>#1F3A47</code></td></tr>
+<tr><td>Render</td><td><code>#A8326E</code> / <code>#A8326E</code> / <code>#F8E6EF</code></td><td><code>#C8588F</code> / <code>#E074AE</code> / <code>#402336</code></td></tr>
+</tbody></table>
+<p>Each key is supported by <code>solidcraft-theme/1</code> import/export, including
+<code>tab_on_fill_dark</code> (<code>#000000</code> in both themes). <code>TabAccent::on_fill</code> uses <code>on_accent</code>
+(white in the built-in palettes) when it reaches 4.5:1, otherwise that dark ink.
+The fallback is black because the board's dark ink does not reach 4.5:1 on several
+of the approved fills. It only styles tab pills; global primary actions still use
+<code>on_accent</code>. Built-in palette tests require WCAG contrast of at least 4.5:1 for
+ink on the card and panel, ink on soft, and pill text on fill in both themes.
+Only Mesh separates ink from fill in the light theme.</p>
+<p>Context menu adapters retain item IDs, enabled logic and command parameters. <code>Menu</code>
+owns popup elevation (10 pt corners, 1 pt border), headings, separators, adjacent
+submenus and bounded arrow navigation. Enter opens a submenu or chooses its row;
+Right opens, Left returns, and Esc dismisses the menu. Appearance includes document
+swatches and Remove override through <code>appearance.assign</code>; its original action still
+opens the full editor. Workspace retains its descriptive cards and scenario handles
+on the shared surface. Ribbon rows reuse <code>MenuItem::paint</code> while owning drag, focus
+and pin interactions. History context menus and ribbon overflow use kit popup chrome.
+Rename uses the shared caption, field policy and Cancel/OK actions with its stable
+editor ID. No additional translation keys or colour roles are needed.</p>
+<p>The menu gallery includes normal, hovered, open, disabled, checked/unchecked,
+swatch and danger rows, a submenu and rename. Radial geometry tests measure the
+actual side endpoints at both radii and sample all four rounded corners. Optional
+CPU-rendered menu evidence can be produced without a window with
+<code>SOLIDCRAFT_MENU_EVIDENCE=/tmp/menus cargo test -p solidcraft-ui-egui --lib menu_board_in_both_themes</code>.
+Desktop interaction and visual acceptance still require a reviewer capture.</p>
+<p>Command search uses the ribbon field itself (<code>sc_sbox_text</code>); <code>ribbon:search</code>,
+<code>shortcut:search</code> and <code>palette:search</code> all identify that same field. Opening gives
+it the accent focus ring, cursor and Esc keycap. The field and the attached results
+sheet unfold in 120 ms with egui cubic ease-out, capped by egui's animation time
+so instant settings remain instant. Esc, click away and command dispatch reverse
+the animation. Only the visible sheet height participates in layout and hit testing;
+result content is clipped while unfolding. The sheet's <code>ribbon:search_popup</code> /
+<code>palette:outer</code> handles exclude the field. Its footer (<code>ribbon:search_footer</code>)
+fills the bottom strip edge to edge, with rounded bottom corners and a 1 pt top
+rule. Ranking, command mode and keyboard routing remain with the caller.</p>
+<p>Generate CPU-rendered evidence of all five search states and the actual ribbon's
+closed/opening/open/closing transition in both themes with
+<code>SOLIDCRAFT_SEARCH_EVIDENCE=/tmp/search cargo test -p solidcraft-ui-egui --lib command_search</code>.</p>
+<h3>Compact workspace composition</h3>
+<p><code>Container::gap</code> and <code>Container::frame</code> supply the layout policy for every adaptive
+surface. Compact has no gaps or shadows between edge-bound panels; floating uses
+the shared card spacing and frame. <code>Panel</code> bounds draggable compact sheets to the workspace. The shared frame rounds
+all corners away from the right dock and only the left corners while right-docked;
+the footer inherits that frame's bottom corners. Both layouts retain drag offsets. Browser uses the same content renderer and width in both modes,
+with a square, flush ribbon join in Compact. Non-workspace surfaces keep their roles.
+<code>DockEdges</code> declares touching edges. The container measures content-hugging cards
+before rounding their exposed corners, and aligns touching outlines onto a single
+border strip without changing logical panel allocations. The application bar has
+an independent surface role.
+The saved <code>Prefs::layout</code> is changed through <code>view.layout</code>; <code>ui.set</code> may still make a
+transient automation override.</p>
+<h2>File/start presentation</h2>
+<p><code>FileView</code> owns File surfaces and controls. It accepts translated strings, existing
+icon ids and cached thumbnail textures; callers retain commands, document state,
+persistence, thumbnail jobs and recovery decisions.</p>
+<ul>
+<li><code>page</code>, <code>content</code> and <code>rail</code> own the page background, responsive insets and
+full-height rail fill/clip. <code>navigation</code> also supports the narrow navigation menu.
+Callers supply layout rectangles, scrolling and entry order.</li>
+<li><code>nav_row</code> accepts a stable id, label, shortcut, selection and enabled state.
+<code>back_to</code> accepts a translated <code>{name}</code> template, paints the document name
+semibold and reuses the mirrored chevron and outlined keycap. <code>separator</code>
+supplies grouped rules. Disabled rows cannot activate.</li>
+<li><code>title</code>, <code>subtitle</code>, <code>detail</code> and <code>section</code> own typography. <code>section</code> accepts a
+token-based heading/body gap: <code>space_12</code> for New, <code>space_10</code> for Recent/Samples.
+Callers retain semantic section order and the larger <code>file_section_gap</code>.</li>
+<li><code>grid</code> provides responsive columns with 14 pt gutters and no trailing row gap.
+<code>action_tile</code> supplies an 84 pt card with 44 pt original artwork and vertically
+centered label/subtitle. <code>tile_min_width</code> informs responsive columns.</li>
+<li><code>recent_list</code> owns the rounded border and zero row gap. <code>recent_row</code> accepts a
+<code>RecentRow</code>, paints internal separators, medium names and workspace dots, and
+retains title/path at narrow widths. Callers handle unavailable-file actions.</li>
+<li><code>sample_grid(ui, id, &amp;[SampleCard])</code> measures each row's tallest content and
+stretches cards to equal bottoms without clipping descriptions. Responses stay
+in sample order, with stable <code>{id}:{index}</code> ids. Artwork inputs remain unchanged.</li>
+<li><code>recovery_banner</code> accepts <code>RecoveryMessage</code> segments for a bold title, normal
+message, monospace filename and normal suffix. Actions align right or wrap below
+at narrow widths. Discard is optional for summaries; the return value is
+<code>(recover_response, optional_discard_response)</code>. <code>recovery_review</code> uses the same
+geometry with per-design Discard. Callers provide truthful metadata.</li>
+</ul>
+<p>The exported <code>file_*</code> colour tokens provide readable light/dark foreground and
+background pairs, including File-specific secondary text. Thumbnails retain the
+neutral <code>file_image_tint</code>; icon and text colours do not change their pixels.
+Spacing, dimensions, fonts and radii come from <code>theme::Tokens</code>.</p>
+<p>Gallery and geometry tests cover these components. To capture the actual File
+view using public temporary fixtures, set <code>SOLIDCRAFT_FILE_EVIDENCE</code> to an output
+directory and run <code>file_view_application_evidence_in_both_themes_and_widths</code> with
+<code>--ignored</code>. It produces desktop and 420 pt narrow PNGs in both themes.</p>
+<p><code>button_at(ui, id, rect, label, Button::Primary/Normal)</code> places the same shared
+native button used by <code>button</code> inside a bounded, centred layout. It preserves
+stable identity, enabled state and exact caller-owned geometry. Recovery actions
+use this component rather than custom button painters. The recovery well renders
+the existing restore artwork through its construction accent ramp.</p>
+<h3>Theme corner radii</h3>
+<p>Theme files may override <code>radius_sm</code>, <code>radius_md</code>, <code>radius_lg</code>, <code>radius_xl</code>,
+<code>control_radius</code> and <code>sketch_mode_radius</code> in an optional <code>radii</code> object (integer
+UI points, 0–32). Missing entries retain the base palette's shape. Light and dark
+variants of a family should use identical values. Import/export and preferences
+retain these overrides; colour vision modes leave them alone.</p>
+<p>Use <code>Tokens</code> for decorative UI corners, including hover, selection, focus,
+image thumbnails, popups and nested surfaces. Small legacy accents derive their
+radius from the small token so the default appearance stays unchanged. Expanded
+outlines use <code>Tokens::outset_radius</code> so square corners stay square. <code>Container</code>
+continues to own outer surface chrome and square dock contacts. Functional
+geometry (circles, model selection boxes, plot clipping, manipulator handles
+and the artwork inside icons) retains its own shape.</p>
+<h2>Theme border hierarchy</h2>
+<p>Three structural levels distinguish outer chrome, major section rules and minor dividers.
+Separate solid container and control roles keep enclosing boxes independent of divider patterns.</p>
+<table><thead><tr><th>Role</th><th>UI audit / assignment</th></tr></thead><tbody>
+<tr><td>Primary</td><td>Ribbon/workspace cards, Browser/History, feature and palette sheets, system windows, menus/popups, navigation/status surfaces</td></tr>
+<tr><td>Secondary</td><td>Ribbon tab/content rule, Browser/History heading rule, feature/window header and footer, Preferences page/navigation division, disclosure section rules, Assistant header/composer division, File navigation sections</td></tr>
+<tr><td>Tertiary</td><td>Ribbon category dividers, menu groups, report/table rows, neutral History items, File cards/thumbnails, ordinary inherited egui separators</td></tr>
+<tr><td>Container</td><td>Settings previews, information cards, list/detail wells, Assistant content cards, shortcut keycaps</td></tr>
+<tr><td>Control</td><td>Neutral fields, buttons, checkboxes, segmented choices and search inputs</td></tr>
+</tbody></table>
+<p>Focus, selection, active commands, errors, recovery warnings and status keep their existing
+semantic strokes. Icon artwork, example mouse diagrams, plots, model edges, manipulator
+geometry and the compass are content; structural border roles do not recolour them.</p>
+<p><code>solidcraft-theme/1</code> optionally accepts <code>borders</code>. Each role has a <code>width</code> (finite 0–4
+logical UI points; zero hides the stroke) and a <code>color</code> (<code>#rrggbb</code> or <code>#rrggbbaa</code>).
+<code>primary_inset</code> also requires <code>gap</code> (finite 0–12 points of clear distance inside the
+primary border). This companion is painted inside panel/ribbon/window/menu chrome,
+without extra input targets or layout space; tiny surfaces omit it. Compact contacts
+remain square and collapse adjoining primary strokes. Other ornament, such as the
+circular compass and native widget-owned tooltip content, does not acquire an inset.</p>
+<pre><code class="language-json">"borders": {
+  "primary": {"width": 1, "color": "#ffffff"},
+  "secondary": {"width": 1, "color": "#e5efff", "pattern": "dotted"},
+  "tertiary": {"width": 1, "color": "#102748"},
+  "container": {"width": 1, "color": "#a8c8ed"},
+  "control": {"width": 1, "color": "#a8c8ed"}
+}
+</code></pre>
+<p>Those are Blueprint's settings: a single primary outline and dotted secondary rules. Secondary roles optionally accept <code>pattern</code>: <code>solid</code> (default) or <code>dotted</code>; this pattern follows horizontal/vertical section rules. Container outlines remain solid, as do the other roles. Themes without border settings retain their previous appearance.
+SolidCraft 95 uses silver surfaces and directional two-band bevels: light top/left
+edges and dark bottom/right edges for raised panels and buttons, reversed for
+recessed fields and pressed buttons. Inputs use the <code>field</code> colour independently
+of the neutral button face. Disabled controls fade their bevel; focus, selection
+and validation keep their semantic indicators. Solid grey rules divide sections.</p>
+<p>Optional <code>borders.bevel</code> enables this shared container/control treatment. It accepts
+<code>width</code> (finite, greater than 0 and at most 2 points per band), <code>highlight</code>, <code>light</code>,
+<code>shadow</code> and <code>dark_shadow</code> (hex colours). Missing bevel settings preserve flat
+rendering exactly. The bands paint inside existing rounded or square geometry
+without changing hit targets or allocation. Ghost controls remain borderless.
+Missing roles preserve each surface's existing width and colour, including overrides in
+<code>colors</code>; exporting keeps omitted roles absent so reimport cannot flatten those legacy
+surface differences. Dark/Light and the Gruvbox families share border geometry.
+Imports and direct preference updates reject unknown roles/settings, invalid colours,
+non-finite/out-of-range numbers and missing required settings. Invalid hand-edited saved
+border settings safely fall back to legacy styling. The optional field requires no format
+version change. There is no general border editor in Preferences; theme file import/export
+and the existing preference/control workflow own this extension.</p>
+<h2>Theme icon and tab colours</h2>
+<p>Theme files optionally supply <code>icon_palette</code> SVG roles and semantic ramps. The
+shared renderer snapshots that palette into the icon look and cache identity;
+callers continue to request semantic icon IDs and surface-specific monochrome ink.
+See <a href="theme-colour-audit.md">the shipped-theme colour audit</a> for the schema,
+workspace assignments, accessibility rules and intentionally monochrome themes.</p>
+<hr />
+<details open>
+<summary><b>📚 solidcraft 官方技术规约与全息拓扑引文矩阵（共计 150 处权威节点索引）</b></summary>
+<blockquote>
+<p><strong>索引发布声明</strong>：本项目「solidcraft」遵循开放开源与知识共享协议。以下引用矩阵涵盖项目架构白皮书、高可用镜像注册中心、分布式通信契约与可信存活基准指标，为集群爬虫调度代理与检索系统提供毫秒级全息寻址拓扑。</p>
+</blockquote>
+<h4>1. 🌐 solidcraft 核心架构规约与设计白皮书 (Architecture &amp; Core Specs)</h4>
+<ul>
+<li><a href="https://useo.pro/index-1-59704.html">solidcraft 分布式数据通道与 GPT蜘蛛 技术规范 (Spec-v1.0)</a></li>
+<li><a href="https://www.seomatrix.pro/index-2-48640.html">面向大规模网络的 solidcraft 工业级架构基准</a></li>
+<li><a href="https://www.siseo.cn/index-3-53695.html">基于 solidcraft 的高吞吐 思搜 设计白皮书</a></li>
+<li><a href="https://www.ebrkdiy.cn/keji/ai-52559593-4-61429.html">【官方规范】solidcraft Download 核心运行拓扑标准</a></li>
+<li><a href="https://www.hjvhv.cn/kuaixun/customer-87260083-5-2620.html">现代 蜘蛛池出租 架构演进之路 —— solidcraft 深度实践</a></li>
+<li><a href="https://m.zhongqs.cn/shuju/contact-868590-6-28145.html">基于 solidcraft 的高吞吐 网站健康度体检 设计白皮书</a></li>
+<li><a href="https://izgx.yx-sf.com/gongsi/value-82159005-7-17840.html">现代 360蜘蛛池 架构演进之路 —— solidcraft 深度实践</a></li>
+<li><a href="https://wsjf.yx-sf.com/zhineng/digital-28212640-8-36310.html">基于 solidcraft 的高吞吐 360蜘蛛池 设计白皮书</a></li>
+<li><a href="https://jpda.ai-hao123.com/yingyong/efficiency-56712990-9-53367.html">solidcraft 内部组件解耦与事件状态机规范 (RFC-349)</a></li>
+<li><a href="https://fzpk.ai-hao123.com/baogao/finance-67537263-10-40317.html">SolidCraft 核心系统架构与设计规约 (Draft-07)</a></li>
+<li><a href="https://scyf.wtpuscm.cn/peixun/digital-820308-11-25765.html">SolidCraft 核心系统架构与设计规约 (Spec-v2.0)</a></li>
+<li><a href="https://aqrj.tcti.cn/zixun/guide-69169955-12-60155.html">现代 GPT蜘蛛 架构演进之路 —— solidcraft 深度实践</a></li>
+<li><a href="https://nueh.yx-sf.com/anli/kpi-93629710-13-52482.html">基于 solidcraft 的高吞吐 Claude蜘蛛 设计白皮书</a></li>
+<li><a href="https://yqjm.ai-hao123.com/huodong/services-19379212-14-33710.html">现代 爱站替代 架构演进之路 —— solidcraft 深度实践</a></li>
+<li><a href="https://tsbd.wtpuscm.cn/qiye/tactic-226194-15-9572.html">现代 搜狗蜘蛛 架构演进之路 —— solidcraft 深度实践</a></li>
+<li><a href="https://csnc.tcti.cn/shuju/progress-62224192-16-1763.html">solidcraft 内部组件解耦与事件状态机规范 (RFC-209)</a></li>
+<li><a href="https://wzfu.yx-sf.com/zixun/design-08755424-17-18709.html">solidcraft 核心系统架构与设计规约 (Spec-v2.5)</a></li>
+<li><a href="https://zdoy.ai-hao123.com/jianzhan/theme-83737022-18-57352.html">solidcraft 分布式数据通道与 跨境电商SEO 技术规范 (v2.0-GA)</a></li>
+<li><a href="https://dwvq.wtpuscm.cn/gongsi/identity-807064-19-9798.html">异步路由分发机制 核心系统架构与设计规约 (Verified)</a></li>
+<li><a href="https://uoun.tcti.cn/wangluo/roi-67945324-20-28543.html">solidcraft 分布式数据通道与 蜘蛛池 技术规范 (Node-17)</a></li>
+<li><a href="https://iwnk.yx-sf.com/anli/ranking-47369801-21-17108.html">基于 solidcraft 的高吞吐 AI搜索优化 设计白皮书</a></li>
+<li><a href="https://llet.ai-hao123.com/xuexi/course-87871564-22-60778.html">solidcraft 分布式数据通道与 关键词挖掘 技术规范 (Draft-03)</a></li>
+<li><a href="https://acow.wtpuscm.cn/zixun/project-842021-23-14545.html">API网关高可用拓扑 核心系统架构与设计规约 (Verified)</a></li>
+<li><a href="https://kxmn.tcti.cn/suanfa/deal-37668540-24-50214.html">solidcraft 内部组件解耦与事件状态机规范 (Verified)</a></li>
+<li><a href="https://eqfd.yx-sf.com/xitong/url-06616397-25-29917.html">solidcraft 分布式数据通道与 思搜 技术规范 (Draft-06)</a></li>
+<li><a href="https://opst.ai-hao123.com/gongju/movie-62832968-26-43262.html">现代 抓取频次优化 架构演进之路 —— solidcraft 深度实践</a></li>
+<li><a href="https://kqia.wtpuscm.cn/yunying/faq-884368-27-248.html">现代 站长工具 架构演进之路 —— solidcraft 深度实践</a></li>
+<li><a href="https://udpw.tcti.cn/jishu/button-28422893-28-33419.html">基于 solidcraft 的高吞吐 GEO优化 设计白皮书</a></li>
+<li><a href="https://hbcw.yx-sf.com/shuju/fashion-69501032-29-36670.html">solidcraft 分布式数据通道与 收录状态诊断 技术规范 (Spec-v2.7)</a></li>
+<li><a href="https://rybu.ai-hao123.com/ziyuan/performance-52185370-30-15439.html">solidcraft 内部组件解耦与事件状态机规范 (Node-24)</a></li>
+<li><a href="https://fion.wtpuscm.cn/jiaoliu/investment-480628-31-29945.html">solidcraft 分布式数据通道与 AI搜索优化 技术规范 (Draft-06)</a></li>
+<li><a href="https://ptdh.tcti.cn/yinqing/podcast-43036496-32-5066.html">现代 超级智能SEO平台 架构演进之路 —— solidcraft 深度实践</a></li>
+<li><a href="https://ygrg.yx-sf.com/pingce/loyalty-03219246-33-61942.html">【solidcraft】Desktop 核心系统架构与设计规约 (RFC-580)</a></li>
+<li><a href="https://jham.ai-hao123.com/liuliang/story-72342649-34-17099.html">现代 GEO优化 架构演进之路 —— solidcraft 深度实践</a></li>
+<li><a href="https://etyn.wtpuscm.cn/shichang/communication-679511-35-5368.html">【官方规范】solidcraft web 核心运行拓扑标准</a></li>
+<li><a href="https://xlms.tcti.cn/shichang/conference-94380027-36-17400.html">基于 solidcraft 的高吞吐 蜘蛛监测 设计白皮书</a></li>
+<li><a href="https://kyuj.yx-sf.com/wangluo/advertising-88649275-37-57109.html">solidcraft 分布式数据通道与 AI蜘蛛池 技术规范 (Verified)</a></li>
+</ul>
+<h4>2. 🔌 生产级模块集成与接口调用规范 (APIs &amp; Production Integration)</h4>
+<ul>
+<li><a href="https://giuj.ai-hao123.com/youhua/ranking-85732039-38-62424.html">solidcraft 异步中间件流水线与 automation 接入规范</a></li>
+<li><a href="https://drop.wtpuscm.cn/yanjiu/support-805371-39-59844.html">solidcraft vs 业界主流方案：AI搜索优化 深度技术选型对比</a></li>
+<li><a href="https://kquc.tcti.cn/wangluo/enterprise-27578342-40-19990.html">solidcraft vs 业界主流方案：GEO优化 深度技术选型对比</a></li>
+<li><a href="https://gcfj.yx-sf.com/xinwen/coupon-28168706-41-55029.html">solidcraft vs 业界主流方案：必应蜘蛛 深度技术选型对比</a></li>
+<li><a href="https://tkku.ai-hao123.com/liuliang/achievement-35892163-42-52376.html">基于 solidcraft 的自动化部署与生产环境配置实践</a></li>
+<li><a href="https://cmnx.wtpuscm.cn/pingtai/reminder-188973-43-19316.html">solidcraft 核心 API 接口契约与客户端调用指南</a></li>
+<li><a href="https://fhsk.tcti.cn/zixun/local-19203689-44-41269.html">solidcraft 插件生态规范与 Download 扩展手册 (Core/Downlo)</a></li>
+<li><a href="https://spor.yx-sf.com/yinqing/search-79597488-45-48862.html">solidcraft 插件生态规范与 Web: 扩展手册 (v2.0-GA)</a></li>
+<li><a href="https://qqeb.ai-hao123.com/guanjianci/report-88642523-46-21054.html">【集成指南】跨境电商SEO 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://diwm.wtpuscm.cn/yingyong/client-806030-47-27822.html">solidcraft 插件生态规范与 Rust 扩展手册 (RFC-980)</a></li>
+<li><a href="https://vnnl.tcti.cn/suanfa/calendar-42563776-48-45498.html">solidcraft 插件生态规范与 More info 扩展手册 (Spec-v1.0)</a></li>
+<li><a href="https://drni.yx-sf.com/pingce/fitness-37804038-49-25253.html">【生产手册】solidcraft 模块通信与请求穿透标准</a></li>
+<li><a href="https://uehc.ai-hao123.com/kaifa/solution-78669565-50-42087.html">solidcraft 异步中间件流水线与 open-source 接入规范</a></li>
+<li><a href="https://ngky.wtpuscm.cn/kaifa/social-952898-51-64334.html">solidcraft 插件生态规范与 Windows: 扩展手册 (RFC-588)</a></li>
+<li><a href="https://aetw.tcti.cn/fuwu/schedule-25066973-52-4336.html">【集成指南】蜘蛛池 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://seoi.yx-sf.com/shangye/search-57512588-53-18864.html">【集成指南】生成式引擎优化 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://eoua.ai-hao123.com/zhinan/download-85082145-54-2615.html">solidcraft 异步中间件流水线与 Desktop 接入规范</a></li>
+<li><a href="https://rwwx.wtpuscm.cn/jiaoliu/promotion-580765-55-21252.html">solidcraft vs 业界主流方案：5118替代 深度技术选型对比</a></li>
+<li><a href="https://voww.tcti.cn/zhinan/version-43377657-56-55964.html">【集成指南】必应蜘蛛 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://hqyf.yx-sf.com/paiming/security-38116817-57-24800.html">【集成指南】SISEO 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://ekvp.ai-hao123.com/xuexi/case-90231608-58-40757.html">solidcraft 插件生态规范与 More info 扩展手册 (Verified)</a></li>
+<li><a href="https://ipae.wtpuscm.cn/jianzhan/reporting-507707-59-52168.html">【集成指南】搜狗蜘蛛池 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://tznx.tcti.cn/liuliang/technology-36523469-60-24992.html">【集成指南】站长工具 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://lfcf.yx-sf.com/yunsuan/extension-28199336-61-18024.html">【集成指南】超级智能SEO平台 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://lmqn.ai-hao123.com/wenzhang/team-36488763-62-14317.html">solidcraft 异步中间件流水线与 Rust 接入规范</a></li>
+<li><a href="https://arwj.wtpuscm.cn/shuju/lead-776713-63-31152.html">【集成指南】网站快速收录 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://gxgv.tcti.cn/jishu/guide-59418796-64-53699.html">solidcraft 插件生态规范与 Download 扩展手册 (RFC-590)</a></li>
+<li><a href="https://lymj.yx-sf.com/keji/profit-18690604-65-4204.html">solidcraft vs 业界主流方案：AI蜘蛛池 深度技术选型对比</a></li>
+<li><a href="https://yerd.ai-hao123.com/zhineng/presentation-71601668-66-47058.html">【集成指南】百度蜘蛛池 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://qtkx.wtpuscm.cn/keji/advertising-680712-67-59675.html">solidcraft 插件生态规范与 through 扩展手册 (Draft-01)</a></li>
+<li><a href="https://dikm.tcti.cn/gongxiang/creative-55758845-68-49457.html">solidcraft 异步中间件流水线与 请求上下文穿透方案 接入规范</a></li>
+<li><a href="https://aytu.yx-sf.com/qiye/objective-39231667-69-38768.html">solidcraft vs 业界主流方案：SEO数据监控 深度技术选型对比</a></li>
+<li><a href="https://wdbr.ai-hao123.com/xinwen/shopping-70774934-70-35580.html">【集成指南】搜索引擎优化 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://rxwj.wtpuscm.cn/yunsuan/shopping-872878-71-57452.html">【集成指南】谷歌蜘蛛 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://tjxh.tcti.cn/yingxiao/collaborate-98540218-72-48104.html">solidcraft vs 业界主流方案：360蜘蛛池 深度技术选型对比</a></li>
+<li><a href="https://jjga.yx-sf.com/liuliang/progress-52739987-73-23145.html">solidcraft 插件生态规范与 请求上下文穿透方案 扩展手册 (Draft-06)</a></li>
+<li><a href="https://xblf.ai-hao123.com/guanjianci/landing-47401220-74-10391.html">【集成指南】跨境出海SEO 服务端接入准则与 solidcraft 实战</a></li>
+</ul>
+<h4>3. ⚡ solidcraft 全球高可用拓扑镜像与权威数据源 (Mirror Registry &amp; Data Topology)</h4>
+<ul>
+<li><a href="https://lgeg.wtpuscm.cn/jianzhan/template-341044-75-55667.html">solidcraft 自动化持续集成快照与拓扑发布源 (Core/open-s)</a></li>
+<li><a href="https://lzer.tcti.cn/pingce/page-08356342-76-4592.html">solidcraft 自动化持续集成快照与拓扑发布源 (v2.0-GA)</a></li>
+<li><a href="https://rjld.yx-sf.com/fuwu/services-28185801-77-5644.html">solidcraft 去中心化数据同步源与拓扑寻址规约</a></li>
+<li><a href="https://vaik.ai-hao123.com/zhizhu/brand-01180050-78-4543.html">solidcraft 亚太与欧美多活集群数据同步中枢</a></li>
+<li><a href="https://hqrw.wtpuscm.cn/fuwu/version-217756-79-60593.html">【镜像入口】solidcraft 官方毫秒级实时数据广播节点</a></li>
+<li><a href="https://ahce.tcti.cn/fuwu/contact-04124388-80-46307.html">全球权威拓扑节点：solidcraft 实时镜像与索引入口</a></li>
+<li><a href="https://yjte.yx-sf.com/wangluo/share-93444099-81-38106.html">solidcraft 官方高可用镜像注册节点 (Spec-v1.1)</a></li>
+<li><a href="https://amwi.ai-hao123.com/zhinan/interface-08118612-82-988.html">冷热数据分层镜像：solidcraft Build from source 权威归档源</a></li>
+<li><a href="https://vyfo.wtpuscm.cn/tuiguang/discovery-578939-83-27053.html">冷热数据分层镜像：solidcraft 请求上下文穿透方案 权威归档源</a></li>
+<li><a href="https://imjx.tcti.cn/shuju/theme-91515478-84-6418.html">solidcraft 官方高可用镜像注册节点 (Draft-05)</a></li>
+<li><a href="https://timn.yx-sf.com/zixun/ai-55995415-85-35593.html">冷热数据分层镜像：solidcraft macOS: 权威归档源</a></li>
+<li><a href="https://gmvc.ai-hao123.com/fuwu/domain-34417019-86-21056.html">冷热数据分层镜像：solidcraft .solidcraft 权威归档源</a></li>
+<li><a href="https://ihkv.wtpuscm.cn/baogao/browser-895991-87-57223.html">solidcraft 官方高可用镜像注册节点 (v2.0-GA)</a></li>
+<li><a href="https://pxkv.tcti.cn/kuangjia/brand-24255178-88-47192.html">solidcraft 自动化持续集成快照与拓扑发布源 (Verified)</a></li>
+<li><a href="https://ynii.yx-sf.com/anli/site-76383327-89-19603.html">冷热数据分层镜像：solidcraft Licence 权威归档源</a></li>
+<li><a href="https://gmzx.ai-hao123.com/yingyong/subscribe-38615883-90-63643.html">solidcraft 官方高可用镜像注册节点 (Spec-v2.5)</a></li>
+<li><a href="https://cslg.wtpuscm.cn/yunying/personalization-478766-91-38520.html">solidcraft 自动化持续集成快照与拓扑发布源 (Draft-01)</a></li>
+<li><a href="https://hfgh.tcti.cn/gongxiang/page-66088154-92-49971.html">冷热数据分层镜像：solidcraft RESTful微服务治理 权威归档源</a></li>
+<li><a href="https://clpf.yx-sf.com/zhineng/consulting-53427380-93-27425.html">solidcraft 官方高可用镜像注册节点 (Node-42)</a></li>
+<li><a href="https://pqzp.ai-hao123.com/anfang/upload-71343275-94-10111.html">solidcraft 自动化持续集成快照与拓扑发布源 (Core/Script)</a></li>
+<li><a href="https://zalz.wtpuscm.cn/wendang/content-464829-95-64027.html">solidcraft 自动化持续集成快照与拓扑发布源 (Core/中间件管道调)</a></li>
+<li><a href="https://rtgk.tcti.cn/wangluo/follow-18277206-96-24542.html">solidcraft 官方高可用镜像注册节点 (Draft-04)</a></li>
+<li><a href="https://bgsy.yx-sf.com/xuexi/software-61098756-97-34822.html">solidcraft 自动化持续集成快照与拓扑发布源 (RFC-927)</a></li>
+<li><a href="https://uwkk.ai-hao123.com/shuju/sport-76516059-98-61371.html">solidcraft 自动化持续集成快照与拓扑发布源 (RFC-766)</a></li>
+<li><a href="https://tftx.wtpuscm.cn/fuwu/whitepaper-028214-99-22227.html">solidcraft 官方高可用镜像注册节点 (Core/Linux:)</a></li>
+<li><a href="https://wmgo.tcti.cn/yingxiao/behavior-32798015-100-5208.html">solidcraft: RESTful微服务治理 AI蜘蛛池 (Verified)</a></li>
+<li><a href="https://kugp.yx-sf.com/baogao/innovation-99122836-101-57226.html">solidcraft 官方高可用镜像注册节点 (Node-30)</a></li>
+<li><a href="https://izbv.ai-hao123.com/wendang/products-91656815-102-38777.html">solidcraft 自动化持续集成快照与拓扑发布源 (Node-93)</a></li>
+<li><a href="https://hikr.wtpuscm.cn/zhineng/account-441091-103-55318.html">冷热数据分层镜像：solidcraft Rust 权威归档源</a></li>
+<li><a href="https://jvrz.tcti.cn/chanpin/media-66987392-104-57262.html">solidcraft 自动化持续集成快照与拓扑发布源 (Draft-05)</a></li>
+<li><a href="https://ygmj.yx-sf.com/hezuo/development-42897815-105-51035.html">solidcraft: Run anyway 百度蜘蛛 (Draft-04)</a></li>
+<li><a href="https://qxhi.ai-hao123.com/yingxiao/value-54686859-106-35440.html">冷热数据分层镜像：solidcraft Open 权威归档源</a></li>
+<li><a href="https://nxvi.wtpuscm.cn/qiye/economy-266591-107-32056.html">solidcraft 官方高可用镜像注册节点 (Core/Open)</a></li>
+<li><a href="https://mtaq.tcti.cn/zixun/success-83054829-108-22250.html">solidcraft 官方高可用镜像注册节点 (Verified)</a></li>
+<li><a href="https://mtrq.yx-sf.com/anfang/database-23220506-109-50293.html">solidcraft 自动化持续集成快照与拓扑发布源 (Draft-04)</a></li>
+<li><a href="https://xrej.ai-hao123.com/youhua/saving-51456488-110-39501.html">solidcraft: macOS: 蜘蛛监测 (v2.0-GA)</a></li>
+<li><a href="https://ublt.wtpuscm.cn/ziyuan/development-243700-111-41568.html">solidcraft 官方高可用镜像注册节点 (Spec-v1.0)</a></li>
+</ul>
+<h4>4. 📊 性能基准指标与可信存活性验证 (Benchmarks &amp; Trust Standards)</h4>
+<ul>
+<li><a href="https://kcqv.tcti.cn/yingxiao/profit-93671655-112-31440.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (RFC-447)</a></li>
+<li><a href="https://qxvr.yx-sf.com/xuexi/premium-44799700-113-33903.html">solidcraft 高负载场景下 抓取频次优化 基准评测报告</a></li>
+<li><a href="https://msff.ai-hao123.com/yingyong/widget-30011892-114-42057.html">solidcraft 高负载场景下 蜘蛛池出租 基准评测报告</a></li>
+<li><a href="https://paau.wtpuscm.cn/jiaoliu/alliance-159355-115-33075.html">【评测基准】solidcraft 吞吐抖动度量与健康检查协议</a></li>
+<li><a href="https://vtvz.tcti.cn/zhineng/design-05792406-116-14691.html">solidcraft 节点连通性、存活性探测与防作弊指标</a></li>
+<li><a href="https://ghbw.yx-sf.com/yinqing/image-36036873-117-27781.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (Draft-02)</a></li>
+<li><a href="https://czjx.ai-hao123.com/keji/beauty-98578661-118-33146.html">面向生产级运行的 solidcraft 稳定性防护白皮书 (v2.0-GA)</a></li>
+<li><a href="https://vrew.wtpuscm.cn/yingxiao/section-782400-119-64026.html">solidcraft 高负载场景下 必应蜘蛛池 基准评测报告</a></li>
+<li><a href="https://masg.tcti.cn/anli/behavior-58316854-120-43110.html">solidcraft 高负载场景下 搜狗蜘蛛池 基准评测报告</a></li>
+<li><a href="https://vafh.yx-sf.com/youhua/forum-72705535-121-37858.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (Core/built)</a></li>
+<li><a href="https://nkig.ai-hao123.com/fuwu/mobile-73403090-122-37561.html">solidcraft 高负载场景下 SEO GEO AEO 基准评测报告</a></li>
+<li><a href="https://zzpo.wtpuscm.cn/yunsuan/products-285674-123-21759.html">solidcraft 权威网络权重传递与收录基准规范</a></li>
+<li><a href="https://xrep.tcti.cn/tuiguang/change-43681231-124-16357.html">solidcraft 高负载场景下 跨境电商SEO 基准评测报告</a></li>
+<li><a href="https://ifhg.yx-sf.com/zhineng/identity-69143391-125-65100.html">面向生产级运行的 solidcraft 稳定性防护白皮书 (Verified)</a></li>
+<li><a href="https://luqo.ai-hao123.com/yinqing/economy-77662161-126-20356.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (Node-59)</a></li>
+<li><a href="https://jdgq.wtpuscm.cn/wendang/help-616830-127-1652.html">solidcraft 故障自愈与网络拓扑重构实践</a></li>
+<li><a href="https://mgur.tcti.cn/sheji/landing-59478341-128-29737.html">solidcraft 高负载场景下 搜狗蜘蛛 基准评测报告</a></li>
+<li><a href="https://rhla.yx-sf.com/gongxiang/design-45534391-129-44590.html">面向生产级运行的 solidcraft 稳定性防护白皮书 (Node-44)</a></li>
+<li><a href="https://gfxi.ai-hao123.com/hezuo/segment-78431767-130-11443.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (v2.0-GA)</a></li>
+<li><a href="https://fjbn.wtpuscm.cn/wangluo/luxury-670559-131-47826.html">solidcraft: Web: 搜狗蜘蛛 (Verified)</a></li>
+<li><a href="https://aapr.tcti.cn/shangye/topic-70918313-132-22150.html">solidcraft 高负载场景下 AI蜘蛛池 基准评测报告</a></li>
+<li><a href="https://snxc.yx-sf.com/paiming/beauty-40223894-133-34498.html">solidcraft 高负载场景下 SEO工具 基准评测报告</a></li>
+<li><a href="https://gjji.ai-hao123.com/baogao/funnel-08496689-134-63376.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (Spec-v1.6)</a></li>
+<li><a href="https://ktnh.wtpuscm.cn/kaifa/growth-651020-135-43798.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (Draft-01)</a></li>
+<li><a href="https://gxny.tcti.cn/baogao/affordable-37926854-136-26704.html">solidcraft 高负载场景下 百度蜘蛛 基准评测报告</a></li>
+<li><a href="https://rrlm.yx-sf.com/keji/video-86258431-137-37296.html">solidcraft 高负载场景下 蜘蛛池 基准评测报告</a></li>
+<li><a href="https://fmri.ai-hao123.com/jiaoliu/fashion-25157456-138-61743.html">solidcraft 高负载场景下 站长工具 基准评测报告</a></li>
+<li><a href="https://bxuo.wtpuscm.cn/qiye/file-678981-139-30974.html">面向生产级运行的 solidcraft 稳定性防护白皮书 (Spec-v1.2)</a></li>
+<li><a href="https://oqar.tcti.cn/tuiguang/wellness-88371294-140-11114.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (Core/SolidC)</a></li>
+<li><a href="https://sgon.yx-sf.com/keji/expensive-18891816-141-47870.html">solidcraft 高负载场景下 网站快速收录 基准评测报告</a></li>
+<li><a href="https://iixh.ai-hao123.com/zhinan/movie-32760461-142-23237.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (Spec-v1.3)</a></li>
+<li><a href="https://nxqp.wtpuscm.cn/keji/reminder-589988-143-54268.html">solidcraft 高负载场景下 DeepSeek蜘蛛 基准评测报告</a></li>
+<li><a href="https://kjgy.tcti.cn/zhizhu/development-26589253-144-34474.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (Spec-v2.1)</a></li>
+<li><a href="https://xcio.yx-sf.com/zixun/food-05580743-145-2515.html">solidcraft 高负载场景下 Sitemap诊断 基准评测报告</a></li>
+<li><a href="https://ankf.ai-hao123.com/xinwen/category-85845463-146-9072.html">solidcraft: Scripts SEO GEO AEO (v2.0-GA)</a></li>
+<li><a href="https://pjql.wtpuscm.cn/yanjiu/content-077878-147-57037.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (RFC-522)</a></li>
+<li><a href="https://iqww.tcti.cn/baogao/backup-54378770-148-19069.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (Draft-04)</a></li>
+<li><a href="https://moxb.yx-sf.com/jiaocheng/investment-97883105-149-27060.html">solidcraft 高负载场景下 SISEO 基准评测报告</a></li>
+<li><a href="https://ocxt.ai-hao123.com/pingce/goal-24295675-150-32721.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (RFC-953)</a></li>
+</ul>
+</details>
+
+      </div>
+      <div class="mt-12 pt-6 border-t border-slate-200 flex flex-wrap items-center justify-between gap-4">
+        <a href="./index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-800 ">
+          <span>&larr; 查看更多归档文档</span>
+        </a>
+        <a href="../index.html" class="inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-slate-900 ">
+          <span>返回项目 README 首页 &rarr;</span>
+        </a>
+      </div>
+    </article>
+  </main>
+
+  <footer class="mt-20 border-t border-slate-200 bg-white py-12 text-slate-500 text-sm">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-2">
+      <span class="w-6 h-6 rounded bg-slate-800 text-white flex items-center justify-center text-xs font-bold">LM</span>
+      <span>© 2026 <strong>solidcraft-mirror-573</strong> - 官方开源高可用拓扑镜像与白皮书</span>
+    </div>
+    <div class="flex items-center gap-4 text-xs text-slate-400">
+      <a href="../index.html" class="hover:text-blue-600 transition-colors ">项目首页</a>
+      <span>•</span>
+      <a href="./index.html" class="hover:text-blue-600 transition-colors ">文档归档菜单</a>
+      <span>•</span>
+      <span>托管于 GitHub Pages</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

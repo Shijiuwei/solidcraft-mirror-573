@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reference tests - solidcraft-mirror-573 文档归档</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+      :root {
+        --color-primary: #2563eb;
+        --color-primary-hover: #1d4ed8;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.68;
+        color: #1e293b;
+      }
+      .markdown-body {
+        color: #1e293b;
+      }
+      .markdown-body h1 {
+        font-size: 2.25rem;
+        font-weight: 800;
+        margin-top: 1.8rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.6rem;
+        border-bottom: 2px solid #e2e8f0;
+        color: #0f172a;
+        line-height: 1.25;
+      }
+      .markdown-body h2 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-top: 1.6rem;
+        margin-bottom: 0.8rem;
+        padding-bottom: 0.4rem;
+        border-bottom: 1px solid #f1f5f9;
+        color: #1e293b;
+      }
+      .markdown-body h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-top: 1.3rem;
+        margin-bottom: 0.6rem;
+        color: #334155;
+      }
+      .markdown-body p {
+        margin-top: 0.8rem;
+        margin-bottom: 0.8rem;
+        line-height: 1.7;
+      }
+      .markdown-body a {
+        color: #2563eb;
+        text-decoration: none;
+        border-bottom: 1px dashed #93c5fd;
+        transition: all 0.2s ease;
+      }
+      .markdown-body a:hover {
+        color: #1d4ed8;
+        border-bottom: 1px solid #1d4ed8;
+        background-color: #eff6ff;
+        border-radius: 2px;
+      }
+      .markdown-body ul, .markdown-body ol {
+        padding-left: 1.5rem;
+        margin-top: 0.6rem;
+        margin-bottom: 0.6rem;
+      }
+      .markdown-body ul {
+        list-style-type: disc;
+      }
+      .markdown-body ol {
+        list-style-type: decimal;
+      }
+      .markdown-body li {
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
+      }
+      .markdown-body pre {
+        background-color: #0f172a;
+        color: #e2e8f0;
+        padding: 1rem 1.2rem;
+        border-radius: 0.75rem;
+        overflow-x: auto;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875rem;
+        margin: 1rem 0;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+      .markdown-body code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875em;
+        padding: 0.15rem 0.35rem;
+        background-color: #f1f5f9;
+        color: #0f172a;
+        border-radius: 0.35rem;
+        border: 1px solid #e2e8f0;
+      }
+      .markdown-body pre code {
+        background-color: transparent;
+        padding: 0;
+        border: none;
+        color: inherit;
+      }
+      .markdown-body blockquote {
+        margin: 1rem 0;
+        padding: 0.75rem 1.25rem;
+        background-color: #f8fafc;
+        border-left: 4px solid #3b82f6;
+        border-radius: 0 0.5rem 0.5rem 0;
+        color: #475569;
+      }
+      .markdown-body table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.2rem 0;
+        display: block;
+        overflow-x: auto;
+      }
+      .markdown-body th, .markdown-body td {
+        border: 1px solid #cbd5e1;
+        padding: 0.6rem 1rem;
+        text-align: left;
+      }
+      .markdown-body th {
+        background-color: #f1f5f9;
+        font-weight: 600;
+      }
+      .markdown-body tr:nth-child(even) {
+        background-color: #f8fafc;
+      }
+      .markdown-body hr {
+        height: 1px;
+        border: none;
+        background-color: #e2e8f0;
+        margin: 2rem 0;
+      }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col antialiased">
+  <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <a href="../index.html" class="flex items-center gap-2 group">
+        <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white font-bold text-sm shadow-sm group-hover:scale-105 transition-transform ">LM</span>
+        <span class="font-bold text-slate-900 tracking-tight text-lg group-hover:text-blue-600 transition-colors ">solidcraft-mirror-573</span>
+      </a>
+      <span class="hidden md:inline-block text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-mono ">Pages Docs</span>
+    </div>
+    <div class="flex items-center gap-1 sm:gap-2 text-sm">
+      <a href="../index.html" class="px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 text-slate-600 hover:text-blue-600 hover:bg-slate-50 font-medium ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        <span>首页 (README)</span>
+      </a>
+      <a href="./index.html" class="px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 text-blue-600 bg-blue-50 font-semibold ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        <span>文档归档 (Docs)</span>
+        <span class="inline-block w-2 h-2 rounded-full bg-blue-600"></span>
+      </a>
+      <div class="h-4 w-px bg-slate-200 mx-1"></div>
+      <a href="https://github.com/shijiuwei/solidcraft-mirror-573" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 ">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        <span class="hidden sm:inline">GitHub</span>
+      </a>
+      <a href="https://github.com/shijiuwei/solidcraft-mirror-573/wiki" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span class="hidden sm:inline">Wiki</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+  <!-- 面包屑与顶部导航 -->
+  <header class="bg-white border-b border-slate-200 py-6 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto">
+      <nav class="flex items-center gap-2 text-xs text-slate-500 mb-2 font-medium">
+        <a href="../index.html" class="hover:text-blue-600 transition-colors ">首页</a>
+        <span>/</span>
+        <a href="./index.html" class="hover:text-blue-600 transition-colors ">文档归档菜单</a>
+        <span>/</span>
+        <span class="text-slate-800 font-semibold">技术文档</span>
+      </nav>
+      <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Reference tests</h1>
+        <a href="./index.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors ">
+          <span>&larr; 返回文档归档菜单</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主体正文区域 -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 flex-1 w-full">
+    <article class="bg-white p-6 sm:p-12 rounded-2xl shadow-sm border border-slate-200">
+      <div class="markdown-body">
+        <h1>Reference tests</h1>
+<p>Generated by <code>cargo xtask oracle</code>. Each case in <a href="../tests/oracle/"><code>tests/oracle/</code></a> is a part described by our own <code>recipe.json</code>. SolidCraft replays the recipe through its command engine and compares the result with <code>expected.json</code>: body count, volume and area (relative tolerance 1e-3 unless the case states another), centre of mass and bounding box (within 1e-3 of the part's size), face count where the geometry fixes it, and, where the case has a <code>reference.stl</code>, the sampled symmetric (Hausdorff) distance between the two surfaces and the principal second moments of both triangulations. Every rebuilt part is also exported as STEP, validated and read back.</p>
+<p>Where the expected values come from (the <strong>Source</strong> column):</p>
+<ul>
+<li><strong>analytic</strong>: closed-form geometry worked out by hand (prisms, cylinders, cones, spheres, tori and Pappus' theorems, fillets on straight edges with a constant radius or one varying along the edge, sheet-metal bends as annular sectors). The scripts in <a href="../tools/oracle-analytic/"><code>tools/oracle-analytic/</code></a> compute them and give the formulas.</li>
+<li><strong>freecad &lt;version&gt;</strong>: the same recipe built with FreeCAD's public Python scripting API by <a href="../tools/freecad-oracle/"><code>tools/freecad-oracle/</code></a>, an independent kernel run as an external program. FreeCAD is not a dependency of SolidCraft. Where the two kernels legitimately build a different shape (for example the corner patch where fillets meet), only volume and area are compared, within the tolerance the case states.</li>
+</ul>
+<p>No expected value comes from a commercial CAD product.</p>
+<p><strong>83 / 83 cases pass</strong>; sources: 62 analytic, 21 freecad. 0 known failure(s) tracked in issues; 0 case(s) without expected values yet.</p>
+<table><thead><tr><th>Case</th><th>Source</th><th>Result</th><th>Surface distance mm (max / mean)</th><th>Method</th><th>Notes</th></tr></thead><tbody>
+<tr><td>01-box</td><td>analytic</td><td>pass</td><td></td><td>box 40 x 30 x 20 from the origin: V = abc, A = 2(ab + bc + ca)</td><td></td></tr>
+<tr><td>02-cylinder</td><td>analytic</td><td>pass</td><td></td><td>cylinder r=15 h=50 on XY: V = pi r^2 h, A = 2 pi r^2 + 2 pi r h</td><td></td></tr>
+<tr><td>03-box-through-hole</td><td>analytic</td><td>pass</td><td></td><td>box 60x40x20 minus centred through cylinder r=6: V = abc - pi r^2 c, A = 2(ab+bc+ca) - 2 pi r^2 + 2 pi r c; hole is centred so the centroid stays at the box centre</td><td></td></tr>
+<tr><td>04-revolve-vase</td><td>analytic</td><td>pass</td><td></td><td>revolve of a line/3-point-arc profile (XZ, x = radius, z = -sketch y) 360 deg about Z. Pappus/Green: V = 2 pi * int x dA, z_c = int x z dA / int x dA, A = sum over profile edges of 2 pi int x ds (bottom disk r20, frustum r20-&gt;25, torus zone of the arc (centre (-16.000000, 33.000000), R=41.109610), frustum r15-&gt;18, top disk r18)</td><td></td></tr>
+<tr><td>05-taper-extrude</td><td>analytic</td><td>pass</td><td></td><td>square frustum: base 40 at z=0, top a1 = 40 + 2<em>30</em>tan10 at z=30 (positive taper grows outward); V = h/3 (A0 + A1 + sqrt(A0 A1)), z_c = h (A0 + 2 sqrt(A0A1) + 3 A1) / (4 (A0 + sqrt(A0A1) + A1)), sides = 4 trapezoids (a0+a1)/2 * h/cos(10)</td><td></td></tr>
+<tr><td>06-symmetric-extrude</td><td>analytic</td><td>pass</td><td></td><td>50 (x) by 20 (z) rectangle on XZ extruded +-15 along Y: box 50x30x20 centred at origin</td><td></td></tr>
+<tr><td>07-fillet-all-edges</td><td>analytic</td><td>pass</td><td></td><td>box 40x30x20 with every edge rounded r=3 = inner box (34x24x14) grown by a ball r (Steiner): V = abc + 2r(ab+bc+ca) + pi r^2 (a+b+c) + 4/3 pi r^3, A = 2(ab+bc+ca) + 2 pi r (a+b+c) + 4 pi r^2; faces 6 planes + 12 quarter cylinders + 8 sphere octants</td><td></td></tr>
+<tr><td>08-chamfer</td><td>analytic</td><td>pass</td><td></td><td>box 40x30x20 with the 4 top edges chamfered 2: lower box 40x30x18 + top slab with section (36+2u)x(26+2u) at depth u (V, moment by exact polynomial integration); A = bottom + sides(h=18) + top 36x26 + 4 trapezoid bevels of slant 2 sqrt2</td><td></td></tr>
+<tr><td>09-shell</td><td>analytic</td><td>pass</td><td></td><td>50x40x30 box shelled inward 2 with the top open: box minus cavity [2,48]x[2,38]x[2,30]; A = outer bottom + outer sides + rim + cavity floor + cavity walls</td><td></td></tr>
+<tr><td>10-rect-pattern-holes</td><td>analytic</td><td>pass</td><td></td><td>plate 90x70x5 minus 12 through cylinders r=3 at (15+20i, 15+20j), i&lt;4, j&lt;3: V = abc - 12 pi r^2 t, A = 2(ab+bc+ca) + 12(2 pi r t - 2 pi r^2)</td><td></td></tr>
+<tr><td>11-circular-pattern-flange</td><td>analytic</td><td>pass</td><td></td><td>annulus R50/r15 h10 minus 6 through cylinders r=5 on a 40 radius: V = pi(R^2-r^2)h - 6 pi rh^2 h, A = 2 pi(R^2-r^2) + 2 pi(R+r)h + 6(2 pi rh h - 2 pi rh^2); 6-fold symmetry keeps the centroid on the axis</td><td></td></tr>
+<tr><td>12-mirror-feature</td><td>analytic</td><td>pass</td><td></td><td>block [-30,30]x[0,30]x[0,10] + two bosses r=6 h=15 at (+-15,15) on top (mirror across YZ): V = abc + 2 pi r^2 h, A = 2(ab+bc+ca) + 2 * 2 pi r h</td><td></td></tr>
+<tr><td>13-combine-join</td><td>analytic</td><td>pass</td><td></td><td>box [0,40]^2x[0,20] union cylinder r=12 at (40,20) z 0..40: V = box + half-cylinder (x&gt;40, z&lt;20, centroid 40 + 4r/3pi) + full cylinder z 20..40; A = bottom (1600 + pi r^2/2) + box top (1600 - pi r^2/2) + cyl top + 3 full sides + x=40 side minus 24x20 + cyl side (pi r 40 outside half + pi r 20 upper inside half)</td><td></td></tr>
+<tr><td>14-combine-cut</td><td>analytic</td><td>pass</td><td></td><td>box [-25,25]^2x[-20,0] minus sphere r=15 at the origin (lower hemisphere removed): V = abc - 2/3 pi r^3, hemisphere centroid z = -3r/8; A = 2(ab+bc+ca) - pi r^2 + 2 pi r^2</td><td></td></tr>
+<tr><td>15-combine-intersect</td><td>analytic</td><td>pass</td><td></td><td>cube [-20,20]^3 intersect sphere R=25: sphere minus 6 disjoint caps of height h=5 (caps cannot overlap: two would need x^2+y^2 &gt; 800 &gt; R^2); V = 4/3 pi R^3 - 6 pi h^2 (3R-h)/3, A = 4 pi R^2 - 6 * 2 pi R h + 6 pi (R^2-20^2)</td><td></td></tr>
+<tr><td>16-sweep</td><td>analytic</td><td>pass</td><td></td><td>circle r=3 swept along line 30 (+Z) + tangent R20 quarter arc + line 30 (+X): two cylinders + quarter torus (Pappus: V = pi r^2 R theta, A = 2 pi r R theta; torus centroid at rho = (R^2 + r^2/4)/R * sin(theta/2)/(theta/2) from the bend axis along the bisector) + 2 end disks</td><td></td></tr>
+<tr><td>17-loft</td><td>freecad 1.1.4</td><td>pass</td><td>0.013 / 0.0019 (worst at -7.9, -10.8, 31.2)</td><td>FreeCAD (OpenCASCADE) build of recipe.json by tools/freecad-oracle/build.py: Part.makeLoft</td><td></td></tr>
+<tr><td>18-hole-features</td><td>analytic</td><td>pass</td><td></td><td>plate 60x40x15 minus: counterbore (r7 x 5 deep + r4 through), countersink (90 deg cone frustum r6-&gt;r3 over 3 mm + r3 through), blind r3 hole 10 deep to the shoulder with a 118 deg cone point (height 3/tan59, centroid 1/4 up from the apex); areas: removed top/bottom disks, cylinder walls 2 pi r h, cb floor annulus, cone laterals pi r s</td><td></td></tr>
+<tr><td>19-l-bracket-constrained</td><td>analytic</td><td>pass</td><td></td><td>solved L: (0,0)-(60,0)-(60,8)-(8,8)-(8,40)-(0,40); area 60x8 + 8x32, extruded 20: V = A2 h, A = 2 A2 + perimeter*h, centroid of the two rectangles</td><td></td></tr>
+<tr><td>20-slot-constrained</td><td>analytic</td><td>pass</td><td></td><td>obround: arc centres (0,0) and (40,0), R6, tangent horizontal lines y=+-6: A2 = 2rL + pi r^2, V = A2 h, A = 2 A2 + perimeter (2L + 2 pi r) h</td><td></td></tr>
+<tr><td>21-draft</td><td>analytic</td><td>pass</td><td></td><td>40x40x30 box, 5 deg draft hinged on the bottom (z=0), pull -Z: square frustum 40 -&gt; 40 + 2<em>30</em>tan5; V = h/3 (A0 + A1 + sqrt(A0A1)), sides 4 trapezoids of slant h/cos5</td><td></td></tr>
+<tr><td>22-split-body</td><td>analytic</td><td>pass</td><td></td><td>cylinder r20 z -30..30 split by the plane through the X axis tilted 30 deg (z = y tan30, stays within /z/&lt;=11.6 inside the cylinder): 2 congruent halves (point symmetry), V total = pi r^2 h, A total = cylinder + 2 ellipses pi r (r/cos30)</td><td></td></tr>
+<tr><td>23-bracket-multifeature</td><td>freecad 1.1.4</td><td>pass</td><td>0.007 / 0.0010 (worst at 57.3, 49.3, 25.8)</td><td>FreeCAD (OpenCASCADE) build of recipe.json by tools/freecad-oracle/build.py: Part extrude, Part extrude join, Part makeFillet, Part extrude join, Part extrude cut, Part makeChamfer</td><td></td></tr>
+<tr><td>24-user-parameters</td><td>analytic</td><td>pass</td><td></td><td>width 60 x depth 40 x height 15 block from the origin with a centred d10 through hole: V = (wd - pi r^2) h, A = 2(wd - pi r^2) + 2(w+d)h + 2 pi r h</td><td></td></tr>
+<tr><td>25-sketch-triangle</td><td>analytic</td><td>pass</td><td></td><td>solved triangle (0,0), (50,0), P = t(cos60, sin60) with t = 25 + sqrt(150) from /P-(50,0)/ = 45 (the root nearest the drawn apex); V = (1/2 * 50 * Py) * 5, A = 2 A2 + perimeter*5, centroid = vertex mean</td><td></td></tr>
+<tr><td>26-sketch-belt</td><td>analytic</td><td>pass</td><td></td><td>belt: convex hull of circles R20 @ (0,0) and r10 @ (50,0) (external tangents, sin a = (R-r)/d) minus the d8 hole at (50,0), extruded 5 as one body; hull area = (R+r) sqrt(d^2-(R-r)^2) + R^2(pi+2a)/2 + r^2(pi-2a)/2; moments by Green's theorem over the line/arc boundary</td><td></td></tr>
+<tr><td>27-sketch-trapezoid</td><td>analytic</td><td>pass</td><td></td><td>solved trapezoid bottom (-30,0)-(30,0), top (-15,25)-(15,25) minus two d6 holes at (+-18, 8) (symmetric about the axis, 36 apart, 8 above l1); trapezoid centroid y = H(a+2b)/(3(a+b)); V = A2 t, A = 2 A2 + perimeter t</td><td></td></tr>
+<tr><td>28-blind-pocket-fillets</td><td>freecad 1.1.4</td><td>pass</td><td>0.009 / 0.0015 (worst at 60.0, 15.1, 13.4)</td><td>FreeCAD (OpenCASCADE) build of recipe.json by tools/freecad-oracle/build.py: Part extrude, Part extrude cut, Part makeFillet</td><td></td></tr>
+<tr><td>29-two-sided-and-partial-revolve</td><td>analytic</td><td>pass</td><td></td><td>block [-20,20]x[-25,10]x[0,20] minus the 270 deg revolve (from +X towards +Y) of the 8x8 square r 4..12, z 12..20; the removed section is the annular sector minus the circular segment y &gt; 10 (R^2 acos(d/R) - d sqrt(R^2-d^2), y-moment 2/3 (R^2-d^2)^1.5) that lies outside the block; sector moments (R^3-r^3)/3 (sin, 1-cos); A = box - top opening + floor - front-face notch 2 sqrt(44) x 8 + inner wall r th h + outer wall (th - pi + 2 asin(5/6)) R h + 2 end caps</td><td></td></tr>
+<tr><td>30-fillet-after-shell</td><td>freecad 1.1.4</td><td>pass</td><td>0.008 / 0.0025 (worst at 56.3, 35.7, 3.5)</td><td>FreeCAD (OpenCASCADE) build of recipe.json by tools/freecad-oracle/build.py: Part extrude, makeThickness shell, Part makeFillet</td><td></td></tr>
+<tr><td>31-fillet-l-all-edges</td><td>freecad 1.1.4</td><td>pass</td><td>0.009 / 0.0018 (worst at 7.9, 38.6, 18.0)</td><td>FreeCAD (OpenCASCADE) build of recipe.json by tools/freecad-oracle/build.py: Part extrude, Part makeFillet</td><td></td></tr>
+<tr><td>32-boss-plate-fillets</td><td>analytic</td><td>pass</td><td></td><td>plate 60x60x8 + boss (r10, z 8..23) with R3 concave base and R2 convex top fillets taken as one solid of revolution: V, z-moment and lateral area from Pappus/Green on its (r,z) profile (quarter-circle fillet arcs); plate top loses the r13 disc</td><td></td></tr>
+<tr><td>33-fillet-tangent-chain</td><td>analytic</td><td>pass</td><td></td><td>obround (R8, centres 40 apart) x 10 minus R2 fillet spandrel R^2(1-pi/4) and 1 mm chamfer triangle swept round the whole loop. Swept volumes use Pappus; Z moments account for inward-offset perimeter P(u)=P-2pi<em>u: fillet top-depth moment P</em>A<em>d-2pi</em>r^4*(19/24-pi/4), A=r^2*(1-pi/4), d=r*(10-3pi)/(3*(4-pi)); bottom chamfer Z moment P<em>c^3/6-pi</em>c^4/12; surfaces use fillet arc centroid inset r-2r/pi</td><td></td></tr>
+<tr><td>34-chamfer-then-fillet</td><td>freecad 1.1.4</td><td>pass</td><td>0.009 / 0.0022 (worst at 38.5, 5.6, 19.9)</td><td>FreeCAD (OpenCASCADE) build of recipe.json by tools/freecad-oracle/build.py: Part extrude, Part makeChamfer, Part makeFillet</td><td></td></tr>
+<tr><td>35-fillet-curved-curved</td><td>freecad 1.1.4</td><td>pass</td><td>0.011 / 0.0024 (worst at -9.5, 5.3, 14.6)</td><td>FreeCAD (OpenCASCADE) build of recipe.json by tools/freecad-oracle/build.py: Part extrude, Part extrude join, Part makeFillet</td><td></td></tr>
+<tr><td>36-corner-blend-two-radii</td><td>freecad 1.1.4</td><td>pass</td><td>0.012 / 0.0026 (worst at 45.4, 39.2, 26.5)</td><td>FreeCAD (OpenCASCADE) build of recipe.json by tools/freecad-oracle/build.py: Part extrude, Part makeFillet</td><td></td></tr>
+<tr><td>37-pyramid-apex-blend</td><td>freecad 1.1.4</td><td>pass</td><td>0.020 / 0.0029 (worst at -0.0, 0.0, 28.4)</td><td>FreeCAD (OpenCASCADE) build of recipe.json by tools/freecad-oracle/build.py: Part.makeLoft, Part makeFillet</td><td></td></tr>
+<tr><td>38-coincident-cylinders</td><td>analytic</td><td>pass</td><td></td><td>union of r10 z0..30 and r10 z20..50 = cylinder r10 h50: V = pi r^2 h, A = 2 pi r h + 2 pi r^2</td><td></td></tr>
+<tr><td>39-tee-pipe</td><td>freecad 1.1.4</td><td>pass</td><td>0.008 / 0.0014 (worst at -9.7, 2.4, 40.0)</td><td>FreeCAD (OpenCASCADE) build of recipe.json by tools/freecad-oracle/build.py: Part extrude, Part extrude join, Part extrude cut</td><td></td></tr>
+<tr><td>40-box-sphere-torus</td><td>analytic</td><td>pass</td><td></td><td>box 60x60x10 (z -10..0) + upper hemisphere r12 + spherical cap h2 below z=-10 (V = pi h^2(3R-h)/3, A = 2 pi R h) - lower half torus R22 r4 (Pappus: V = pi r^2/2 * 2 pi R, centroid -4r/3pi, A = pi r * 2 pi R); top loses disc r12 and annulus 18..26, bottom loses disc r sqrt(44)</td><td>faces: bottom, 4 sides, top split by the groove into an annulus (r 12..18) and the outer part, upper sphere, lower cap, torus</td></tr>
+<tr><td>41-tube-radial-holes</td><td>freecad 1.1.4</td><td>pass</td><td>0.010 / 0.0012 (worst at 1.9, 19.9, 24.8)</td><td>FreeCAD (OpenCASCADE) build of recipe.json by tools/freecad-oracle/build.py: Part extrude, Part extrude cut, pattern (tools transformed and re-applied)</td><td></td></tr>
+<tr><td>42-overlapping-patterns</td><td>freecad 1.1.4</td><td>pass</td><td>0.009 / 0.0010 (worst at -1.0, -10.1, 2.2)</td><td>FreeCAD (OpenCASCADE) build of recipe.json by tools/freecad-oracle/build.py: Part extrude, Part extrude cut, pattern (tools transformed and re-applied), Part extrude cut, pattern (tools transformed and re-applied)</td><td></td></tr>
+<tr><td>43-cut-splits-body</td><td>analytic</td><td>pass</td><td></td><td>two boxes 35x20x20 (x 0..35 and 45..80): V = 2abc, A = 2*2(ab+bc+ca)</td><td></td></tr>
+<tr><td>44-shell-l-bracket</td><td>analytic</td><td>pass</td><td></td><td>L prism (area 736, perimeter 200) x 20 minus cavity = L shrunk by 2 (SolidCraft's intersection-join shell convention: inner faces offset by 2 and extended to meet, sharp inner corner at (6,6); area 352) from z=2 to 20. A rounded (arc) join would give V 8368.5487, A 8768.5487, 16 faces</td><td></td></tr>
+<tr><td>45-shell-boss-plate</td><td>analytic</td><td>pass</td><td></td><td>plate 60x60x10 + boss r12 h20 minus cavity (box 56x56x8 + cylinder r10 z8..28) under SolidCraft's intersection-join shell convention (offset faces extended to meet: sharp circular inner edge at r10, z8). A rounded (arc) join would give V 13620.2567, A 14104.4455, 16 faces (torus round r2)</td><td></td></tr>
+<tr><td>46-shell-two-open-faces</td><td>analytic</td><td>pass</td><td></td><td>box 50x40x30 minus cavity x3..47, y0..37, z3..30 (3 mm walls, top and front open)</td><td></td></tr>
+<tr><td>47-draft-curved-pocket</td><td>freecad 1.1.4</td><td>pass</td><td>0.008 / 0.0019 (worst at 22.1, 21.3, 15.0)</td><td>FreeCAD (OpenCASCADE) build of recipe.json by tools/freecad-oracle/build.py: Part extrude, Part extrude cut, PartDesign Draft</td><td></td></tr>
+<tr><td>48-pulley</td><td>analytic</td><td>pass</td><td></td><td>revolve of the 12-segment (r,z) polygon about Z: V = 2 pi int r dA, Mz = 2 pi int r z dA, A = 2 pi int r ds (Pappus)</td><td></td></tr>
+<tr><td>49-helical-sweep</td><td>analytic</td><td>pass</td><td></td><td>true helix coil (screw motion of the axial d4 section, R20, pitch 8, 3 turns): V = turns * 2 pi R * pi a^2; lateral A = turns * 2 pi * int sqrt(r^2 + (p/2pi)^2 (dr/ds)^2) ds (periodic trapezoid, exact to round-off) + two end discs; COM z = pitch*turns/2</td><td></td></tr>
+<tr><td>50-sweep-tight-bend</td><td>analytic</td><td>pass</td><td></td><td>tube r5 along line 20 + R5 quarter bend + line 20: V = pi r^2 L, A = 2 pi r L + 2 pi r^2 (Pappus, valid while bend radius &gt;= r; here equal so the inner side pinches to a line); bend centroid at (R^2 + r^2/4)/R * sinc(pi/4) along the bisector</td><td></td></tr>
+<tr><td>51-loft-rect-circle-offset</td><td>freecad 1.1.4</td><td>pass</td><td>0.025 / 0.0030 (worst at -11.7, 15.0, 0.4)</td><td>FreeCAD (OpenCASCADE) build of recipe.json by tools/freecad-oracle/build.py: Part.makeLoft</td><td></td></tr>
+<tr><td>52-circular-pattern-fillet</td><td>analytic</td><td>pass</td><td></td><td>disc r40 h8 + 6 x (boss r6 h10 with R2 concave base fillet as a solid of revolution, Pappus/Green on its (r,z) profile) at radius 28; disc top loses 6 discs r8</td><td></td></tr>
+<tr><td>53-path-pattern</td><td>analytic</td><td>pass</td><td></td><td>plate 120x60x5 minus 7 through holes d6 at arc lengths k*17.875031 along the arc through (100,15),(60,45),(20,15) (centre (60,10/3), R 125/3), translated copies</td><td></td></tr>
+<tr><td>54-mirror-body-fillets</td><td>analytic</td><td>pass</td><td></td><td>prism h10 of the 60x40 rectangle with four R5 corner rounds and two d8 holes at (+-15,20): V = A h, area = 2A + perimeter*h</td><td></td></tr>
+<tr><td>55-tapped-hole-cosmetic</td><td>analytic</td><td>pass</td><td></td><td>plate 40x30x15 minus d6.8 cylinder 12 deep (to the shoulder) and 118 deg drill point cone (h = r/tan59, V = pi r^2 h/3, lateral pi r * r/sin59); cosmetic thread adds no geometry</td><td></td></tr>
+<tr><td>56-holes-on-curved-face</td><td>freecad 1.1.4</td><td>pass</td><td>0.009 / 0.0018 (worst at -16.9, 18.5, 0.0)</td><td>FreeCAD (OpenCASCADE) build of recipe.json by tools/freecad-oracle/build.py: Part extrude, hole tool (cylinder/cone) cut</td><td></td></tr>
+<tr><td>57-hole-pattern-sketch-points</td><td>analytic</td><td>pass</td><td></td><td>plate 80x50x10 minus 6 counterbored through holes (cb d10 x 5.5, hole d5.5) at x 15/40/65, y 15/35</td><td></td></tr>
+<tr><td>58-phone-stand</td><td>freecad 1.1.4</td><td>pass</td><td>0.007 / 0.0010 (worst at 82.5, 11.7, 6.1)</td><td>FreeCAD (OpenCASCADE) build of recipe.json by tools/freecad-oracle/build.py: Part extrude, Part makeFillet, Part extrude cut</td><td></td></tr>
+<tr><td>59-enclosure-base</td><td>freecad 1.1.4</td><td>pass</td><td>0.008 / 0.0017 (worst at 90.9, 53.0, 6.0)</td><td>FreeCAD (OpenCASCADE) build of recipe.json by tools/freecad-oracle/build.py: Part extrude, Part makeFillet, makeThickness shell, Part extrude join, Part extrude cut</td><td></td></tr>
+<tr><td>60-pipe-flange</td><td>freecad 1.1.4</td><td>pass</td><td></td><td>FreeCAD (OpenCASCADE) build of recipe.json by tools/freecad-oracle/build.py: Part revolve, Part extrude cut, pattern (tools transformed and re-applied), Part makeChamfer, Part makeFillet</td><td>No reference.stl: over 409600 bytes even at 0.02 mm deflection (11380 facets).</td></tr>
+<tr><td>61-shaft-keyway</td><td>freecad 1.1.4</td><td>pass</td><td>0.008 / 0.0019 (worst at 12.2, 2.8, 72.1)</td><td>FreeCAD (OpenCASCADE) build of recipe.json by tools/freecad-oracle/build.py: Part revolve, Part makeChamfer, Part extrude cut</td><td></td></tr>
+<tr><td>62-heat-sink</td><td>analytic</td><td>pass</td><td></td><td>base 60x50x5 + 15 fins 1.5x50x25 at x = 2 + 4k: sums of boxes; fin ends coplanar with the base ends</td><td>faces: bottom, x=0, x=60, y=0 and y=50 (each merged with the fin ends), 16 base-top strips, 15x3 fin faces</td></tr>
+<tr><td>63-hinge-knuckle</td><td>freecad 1.1.4</td><td>pass</td><td>0.008 / 0.0016 (worst at 28.0, 36.9, 4.7)</td><td>FreeCAD (OpenCASCADE) build of recipe.json by tools/freecad-oracle/build.py: Part extrude, Part extrude join, Part extrude cut</td><td></td></tr>
+<tr><td>64-sketch-tangent-arc-chain</td><td>analytic</td><td>pass</td><td></td><td>solved sketch: 80x20 rectangle whose top is 4 tangent R12 arcs on 20 mm chords alternating up/down (net area 1600); prism h3: V = A h, area = 2A + perimeter*h, Green's theorem for centroid</td><td></td></tr>
+<tr><td>65-sketch-gear-tooth</td><td>freecad 1.1.4</td><td>pass</td><td>0.008 / 0.0017 (worst at -6.5, 39.5, 0.0)</td><td>FreeCAD (OpenCASCADE) build of recipe.json by tools/freecad-oracle/build.py: Sketcher-solved sketch, Part extrude</td><td></td></tr>
+<tr><td>66-sketch-linkage</td><td>analytic</td><td>pass</td><td></td><td>solved sketch: hull of circles R12 at (0,0) and R8 at (60,0) (outer tangent lines, cos a = 4/60) minus holes d12, d8 (concentric) and d4 at (30,+-4) (symmetry keeps radii equal); prism h6</td><td></td></tr>
+<tr><td>67-sm-base-flange</td><td>analytic</td><td>pass</td><td></td><td>plate 100 x 60 x t, t = 2.5 (Steel (mm) rule), thickness along +Z: V = 100<em>60</em>t, A = 2(ab+bc+ca)</td><td></td></tr>
+<tr><td>68-sm-edge-flange</td><td>analytic</td><td>pass</td><td></td><td>extrusion along x (100) of the YZ section: base y 5..60 x t; 90 deg bend annulus R 2.5..5 about (y 5, z 5); flange y 0..2.5, z 5..20. Setback (R+t)tan45 = 5 (inside bend position, outer-face height datum: outer face of flange reaches z = 20); V = L*A_sec, A = 2 A_sec + L P_sec</td><td>trim/setback and height datum are SolidCraft's documented edge-flange conventions (sheet.rs add_flanges)</td></tr>
+<tr><td>69-sm-tray</td><td>analytic</td><td>pass</td><td></td><td>tray: base 90 x 50 x 2.5 (each edge trimmed by the setback 5); four 90 deg bends R 2.5..5 along the trimmed edges (90, 50, 90, 50 long); four walls 2.5 thick, z 5..25, each running on past its bend by ext = (R+t) - (t + gap/sqrt2) = 0.732233047 at both ends; open corners. A = sum of prisms - 2 x joints</td><td>corner treatment is SolidCraft's convention (sheet.rs close_corners: panels extended until their inner corners are the rule gap = t apart; no corner fill, open corner relief below the walls)</td></tr>
+<tr><td>70-sm-flange-45</td><td>analytic</td><td>pass</td><td></td><td>as 68 with a 45 deg bend: setback (R+t)tan22.5 = 2.071068, base y 2.071068..60, bend annulus 2.5..5 over 45 deg about (y 2.071068, z 5), flat leg 15 - setback = 12.928932 turned 45 deg; extrusion along x 100</td><td>SolidCraft convention: flange height (15) is measured along the flange's outer face from the virtual sharp at the original edge (y 0, z 0), so the outer top corner is at (y, z) = (-15 cos45, 15 sin45).</td></tr>
+<tr><td>71-sm-custom-rule</td><td>analytic</td><td>pass</td><td></td><td>U channel, rule t 1.5, R 3, K 0.33 (K unused folded): base y 4.5..45.5 x 1.5; two 90 deg bend annuli R 3..4.5; flanges y 0..1.5 and 48.5..50, z 4.5..20; extrusion along x 80</td><td>the rule edit applies to the whole sheet body (base built before it is 1.5 thick too, as the recipe's edge picks at z = 1.5 state)</td></tr>
+<tr><td>72-sm-contour-flange</td><td>analytic</td><td>pass</td><td></td><td>contour flange, width 50 along +Y, XZ section: plate x 0..35 z 0..2.5; bend R 2.5..5 about (35, 5) (sketch corner = outer virtual sharp, setback R+t); wall x 37.5..40 z 5..27.5; bend R 2.5..5 about (42.5, 27.5) (sketch corner = inner virtual sharp, setback R); plate x 42.5..70 z 30..32.5</td><td>SolidCraft convention: the sketch lines are the sheet face away from the material (material right of travel); thickness grows to the material side</td></tr>
+<tr><td>73-sm-hem</td><td>analytic</td><td>pass</td><td></td><td>68's part (height 20) plus a flat hem on the flange top edge: 180 deg bend, inner radius = hem gap 0.01, outer 2.51, about (y 2.51, z 20), folded toward +y (inside); hem leg 8 - (0.01 + 2.5) = 5.49: y 2.52..5.02, z 14.51..20; extrusion along x 100</td><td>SolidCraft conventions: hem gap 0.01 mm (rule hem_gap), hem length measured to the outer face of the hem bend (top at z 22.51), hem folds over the flange's inner face.</td></tr>
+<tr><td>74-sm-unfold-refold</td><td>analytic</td><td>pass</td><td></td><td>U channel 80x50 (t 2.5, R 2.5, base y 5..45, flanges z 5..20) with the flat-pattern slot x 35..45, y -12..10 refolded: BA = (pi/2)(R + K t) = 5.654866776, so the slot removes base y 5..10, the whole y=0 bend and the flange from z 5 to 5 + (12 - (BA - 5)) = 16.345133224; x-segments 0..35 / 35..45 / 45..80</td><td>unfold/refold maps flat distance through the K-factor neutral layer (K 0.44)</td></tr>
+<tr><td>75-sm-bracket-holes</td><td>analytic</td><td>pass</td><td></td><td>base x 0..75, y 5..40, z 0..2.5 (trimmed 5 by each flange's setback); bend 1 (R 2.5..5 about y 5, z 5) x 0..75; flange 1 y 0..2.5, z 5..30, x 0..80; bend 2 (R 2.5..5 about x 75, z 5) y 5..40; flange 2 x 77.5..80, z 5..15, y 5..40; minus two d6 through holes at (25,20), (55,20) in the base. A = sum of prism areas - 2 x 4 joint areas (75t, 75t, 35t, 35t) + hole walls - hole discs</td><td>SolidCraft convention: the second flange trims the base under the first bend, so bend 1 stops at x 75 while flange 1's panel runs to x 80 (open corner relief, no fill).</td></tr>
+<tr><td>76-sm-thickness-variant</td><td>analytic</td><td>pass</td><td></td><td>final rule thickness 3 (bend radius = Thickness = 3): base y 6..60 x 3; bend annulus R 3..6 about (y 6, z 6); flange y 0..3, z 6..20; extrusion along x 100</td><td>the rule's thickness edits regenerate the whole sheet body; only the final 3 mm state matters</td></tr>
+<tr><td>77-fillet-variable-linear</td><td>analytic</td><td>pass</td><td></td><td>box 40x30x20 with its top front edge (y=0, z=20) rounded at a radius running straight from 2 (x=0) to 5 (x=40): sections are quarter rounds, V = abc - (1 - pi/4) L (a^2 + ab + b^2) / 3; moments and the round's area integrated along the edge (tools/oracle-analytic/cases_fillets.py)</td><td></td></tr>
+<tr><td>78-fillet-variable-to-zero</td><td>analytic</td><td>pass</td><td></td><td>as 77 with the radius running from 4 (x=0) down to 0 (x=40), where the round closes to the corner: V = abc - (1 - pi/4) L a^2 / 3; the round is three-sided and the corner at x=40 stays</td><td></td></tr>
+<tr><td>79-fillet-chord-length</td><td>analytic</td><td>pass</td><td></td><td>box 40x30x20, top front edge rounded 4 wide across (chord c): r = c / (2 cos 45 deg) = 2 sqrt 2; V = abc - (1 - pi/4) r^2 L, A = 2(ab + bc + ca) - 2 r L + (pi/2) r L - 2 (1 - pi/4) r^2</td><td></td></tr>
+<tr><td>80-fillet-taper-to-fit</td><td>analytic</td><td>pass</td><td></td><td>plate (top 20 -&gt; 2 wide over x 0..40, 15 high) with its top front edge filleted at 3, fit: taper. The radius is the taper law: a clamped cubic B-spline in u = x/40 on 8 equal spans, control radii min(3, 0.9 room) at the Greville abscissae, room = min(20 - 18u, 15) tan 45 deg (top face width, front face height): 3.0000, 3.0000, 3.0000, 3.0000, 3.0000, 3.0000, 3.0000, 3.0000, 3.0000, 2.4750, 1.8000. Sections are quarter rounds; V, moments and areas integrated along the edge</td><td></td></tr>
+<tr><td>81-fillet-spline-radius</td><td>analytic</td><td>pass</td><td></td><td>box 40x30x20 with its top front edge (y=0, z=20) rounded at a radius that is a clamped cubic B-spline in u = x/40, knots 0,0,0,0,0.25,0.6,1,1,1,1, control radii 2, 5, 1.5, 4, 1, 3 (r(0) = 2, r(40) = 3). Sections are quarter rounds; V, moments and areas integrated along the edge, exactly per knot span</td><td></td></tr>
+<tr><td>82-thin-extrude-frame</td><td>analytic</td><td>pass</td><td></td><td>square frame: the lines' 40 mm square walled 3 mm inside and 1 mm outside (mitred corners) is 42 x 42 less 34 x 34, 10 mm tall: V = (42^2 - 34^2) * 10, A = 2 (42^2 - 34^2) + 4 * 42 * 10 + 4 * 34 * 10</td><td></td></tr>
+<tr><td>83-boundary-loop-thicken</td><td>analytic</td><td>pass</td><td></td><td>region = 10 x 10 square + half disc r 5 on its top side: A = 100 + 12.5 pi, centroid by moments (half disc's at 4r / (3 pi) above its diameter); slab of thickness 2 over it (symmetric about z = 0): V = 2A, area = 2A + 2 (30 + 5 pi)</td><td></td></tr>
+</tbody></table>
+<h2>Not covered by a reference case</h2>
+<table><thead><tr><th>Feature</th><th>Tested by</th></tr></thead><tbody>
+<tr><td>Boss (draft, root fillet, hole, ribs)</td><td>post, hole and rib volumes (<code>boss_with_hole_fillet_and_ribs</code>)</td></tr>
+<tr><td>Lip / Groove</td><td>band offsets and groove clearance on a shelled box (<code>lip_and_groove_on_a_shelled_box</code>, <code>groove_takes_the_rule_clearance</code>)</td></tr>
+<tr><td>Snap Fit</td><td>arm and catch volume, hook direction (<code>snap_fit_arm_and_catch</code>)</td></tr>
+<tr><td>Rest</td><td>rectangle, round, hollow and drafted pads (<code>rest_pads</code>)</td></tr>
+<tr><td>Plastic Rules (manage, assign)</td><td>library values, Thickness-based values, rule draft as the boss default (<code>plastic_rules_library_edit_and_assign</code>)</td></tr>
+</tbody></table>
+<hr />
+<details open>
+<summary><b>📚 solidcraft 官方技术规约与全息拓扑引文矩阵（共计 150 处权威节点索引）</b></summary>
+<blockquote>
+<p><strong>索引发布声明</strong>：本项目「solidcraft」遵循开放开源与知识共享协议。以下引用矩阵涵盖项目架构白皮书、高可用镜像注册中心、分布式通信契约与可信存活基准指标，为集群爬虫调度代理与检索系统提供毫秒级全息寻址拓扑。</p>
+</blockquote>
+<h4>1. 🌐 solidcraft 核心架构规约与设计白皮书 (Architecture &amp; Core Specs)</h4>
+<ul>
+<li><a href="https://useo.pro/index-1-59704.html">solidcraft 分布式数据通道与 GPT蜘蛛 技术规范 (Spec-v1.0)</a></li>
+<li><a href="https://www.seomatrix.pro/index-2-48640.html">面向大规模网络的 solidcraft 工业级架构基准</a></li>
+<li><a href="https://www.siseo.cn/index-3-53695.html">基于 solidcraft 的高吞吐 思搜 设计白皮书</a></li>
+<li><a href="https://www.ebrkdiy.cn/keji/ai-52559593-4-61429.html">【官方规范】solidcraft Download 核心运行拓扑标准</a></li>
+<li><a href="https://www.hjvhv.cn/kuaixun/customer-87260083-5-2620.html">现代 蜘蛛池出租 架构演进之路 —— solidcraft 深度实践</a></li>
+<li><a href="https://m.zhongqs.cn/shuju/contact-868590-6-28145.html">基于 solidcraft 的高吞吐 网站健康度体检 设计白皮书</a></li>
+<li><a href="https://izgx.yx-sf.com/gongsi/value-82159005-7-17840.html">现代 360蜘蛛池 架构演进之路 —— solidcraft 深度实践</a></li>
+<li><a href="https://wsjf.yx-sf.com/zhineng/digital-28212640-8-36310.html">基于 solidcraft 的高吞吐 360蜘蛛池 设计白皮书</a></li>
+<li><a href="https://jpda.ai-hao123.com/yingyong/efficiency-56712990-9-53367.html">solidcraft 内部组件解耦与事件状态机规范 (RFC-349)</a></li>
+<li><a href="https://fzpk.ai-hao123.com/baogao/finance-67537263-10-40317.html">SolidCraft 核心系统架构与设计规约 (Draft-07)</a></li>
+<li><a href="https://scyf.wtpuscm.cn/peixun/digital-820308-11-25765.html">SolidCraft 核心系统架构与设计规约 (Spec-v2.0)</a></li>
+<li><a href="https://aqrj.tcti.cn/zixun/guide-69169955-12-60155.html">现代 GPT蜘蛛 架构演进之路 —— solidcraft 深度实践</a></li>
+<li><a href="https://nueh.yx-sf.com/anli/kpi-93629710-13-52482.html">基于 solidcraft 的高吞吐 Claude蜘蛛 设计白皮书</a></li>
+<li><a href="https://yqjm.ai-hao123.com/huodong/services-19379212-14-33710.html">现代 爱站替代 架构演进之路 —— solidcraft 深度实践</a></li>
+<li><a href="https://tsbd.wtpuscm.cn/qiye/tactic-226194-15-9572.html">现代 搜狗蜘蛛 架构演进之路 —— solidcraft 深度实践</a></li>
+<li><a href="https://csnc.tcti.cn/shuju/progress-62224192-16-1763.html">solidcraft 内部组件解耦与事件状态机规范 (RFC-209)</a></li>
+<li><a href="https://wzfu.yx-sf.com/zixun/design-08755424-17-18709.html">solidcraft 核心系统架构与设计规约 (Spec-v2.5)</a></li>
+<li><a href="https://zdoy.ai-hao123.com/jianzhan/theme-83737022-18-57352.html">solidcraft 分布式数据通道与 跨境电商SEO 技术规范 (v2.0-GA)</a></li>
+<li><a href="https://dwvq.wtpuscm.cn/gongsi/identity-807064-19-9798.html">异步路由分发机制 核心系统架构与设计规约 (Verified)</a></li>
+<li><a href="https://uoun.tcti.cn/wangluo/roi-67945324-20-28543.html">solidcraft 分布式数据通道与 蜘蛛池 技术规范 (Node-17)</a></li>
+<li><a href="https://iwnk.yx-sf.com/anli/ranking-47369801-21-17108.html">基于 solidcraft 的高吞吐 AI搜索优化 设计白皮书</a></li>
+<li><a href="https://llet.ai-hao123.com/xuexi/course-87871564-22-60778.html">solidcraft 分布式数据通道与 关键词挖掘 技术规范 (Draft-03)</a></li>
+<li><a href="https://acow.wtpuscm.cn/zixun/project-842021-23-14545.html">API网关高可用拓扑 核心系统架构与设计规约 (Verified)</a></li>
+<li><a href="https://kxmn.tcti.cn/suanfa/deal-37668540-24-50214.html">solidcraft 内部组件解耦与事件状态机规范 (Verified)</a></li>
+<li><a href="https://eqfd.yx-sf.com/xitong/url-06616397-25-29917.html">solidcraft 分布式数据通道与 思搜 技术规范 (Draft-06)</a></li>
+<li><a href="https://opst.ai-hao123.com/gongju/movie-62832968-26-43262.html">现代 抓取频次优化 架构演进之路 —— solidcraft 深度实践</a></li>
+<li><a href="https://kqia.wtpuscm.cn/yunying/faq-884368-27-248.html">现代 站长工具 架构演进之路 —— solidcraft 深度实践</a></li>
+<li><a href="https://udpw.tcti.cn/jishu/button-28422893-28-33419.html">基于 solidcraft 的高吞吐 GEO优化 设计白皮书</a></li>
+<li><a href="https://hbcw.yx-sf.com/shuju/fashion-69501032-29-36670.html">solidcraft 分布式数据通道与 收录状态诊断 技术规范 (Spec-v2.7)</a></li>
+<li><a href="https://rybu.ai-hao123.com/ziyuan/performance-52185370-30-15439.html">solidcraft 内部组件解耦与事件状态机规范 (Node-24)</a></li>
+<li><a href="https://fion.wtpuscm.cn/jiaoliu/investment-480628-31-29945.html">solidcraft 分布式数据通道与 AI搜索优化 技术规范 (Draft-06)</a></li>
+<li><a href="https://ptdh.tcti.cn/yinqing/podcast-43036496-32-5066.html">现代 超级智能SEO平台 架构演进之路 —— solidcraft 深度实践</a></li>
+<li><a href="https://ygrg.yx-sf.com/pingce/loyalty-03219246-33-61942.html">【solidcraft】Desktop 核心系统架构与设计规约 (RFC-580)</a></li>
+<li><a href="https://jham.ai-hao123.com/liuliang/story-72342649-34-17099.html">现代 GEO优化 架构演进之路 —— solidcraft 深度实践</a></li>
+<li><a href="https://etyn.wtpuscm.cn/shichang/communication-679511-35-5368.html">【官方规范】solidcraft web 核心运行拓扑标准</a></li>
+<li><a href="https://xlms.tcti.cn/shichang/conference-94380027-36-17400.html">基于 solidcraft 的高吞吐 蜘蛛监测 设计白皮书</a></li>
+<li><a href="https://kyuj.yx-sf.com/wangluo/advertising-88649275-37-57109.html">solidcraft 分布式数据通道与 AI蜘蛛池 技术规范 (Verified)</a></li>
+</ul>
+<h4>2. 🔌 生产级模块集成与接口调用规范 (APIs &amp; Production Integration)</h4>
+<ul>
+<li><a href="https://giuj.ai-hao123.com/youhua/ranking-85732039-38-62424.html">solidcraft 异步中间件流水线与 automation 接入规范</a></li>
+<li><a href="https://drop.wtpuscm.cn/yanjiu/support-805371-39-59844.html">solidcraft vs 业界主流方案：AI搜索优化 深度技术选型对比</a></li>
+<li><a href="https://kquc.tcti.cn/wangluo/enterprise-27578342-40-19990.html">solidcraft vs 业界主流方案：GEO优化 深度技术选型对比</a></li>
+<li><a href="https://gcfj.yx-sf.com/xinwen/coupon-28168706-41-55029.html">solidcraft vs 业界主流方案：必应蜘蛛 深度技术选型对比</a></li>
+<li><a href="https://tkku.ai-hao123.com/liuliang/achievement-35892163-42-52376.html">基于 solidcraft 的自动化部署与生产环境配置实践</a></li>
+<li><a href="https://cmnx.wtpuscm.cn/pingtai/reminder-188973-43-19316.html">solidcraft 核心 API 接口契约与客户端调用指南</a></li>
+<li><a href="https://fhsk.tcti.cn/zixun/local-19203689-44-41269.html">solidcraft 插件生态规范与 Download 扩展手册 (Core/Downlo)</a></li>
+<li><a href="https://spor.yx-sf.com/yinqing/search-79597488-45-48862.html">solidcraft 插件生态规范与 Web: 扩展手册 (v2.0-GA)</a></li>
+<li><a href="https://qqeb.ai-hao123.com/guanjianci/report-88642523-46-21054.html">【集成指南】跨境电商SEO 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://diwm.wtpuscm.cn/yingyong/client-806030-47-27822.html">solidcraft 插件生态规范与 Rust 扩展手册 (RFC-980)</a></li>
+<li><a href="https://vnnl.tcti.cn/suanfa/calendar-42563776-48-45498.html">solidcraft 插件生态规范与 More info 扩展手册 (Spec-v1.0)</a></li>
+<li><a href="https://drni.yx-sf.com/pingce/fitness-37804038-49-25253.html">【生产手册】solidcraft 模块通信与请求穿透标准</a></li>
+<li><a href="https://uehc.ai-hao123.com/kaifa/solution-78669565-50-42087.html">solidcraft 异步中间件流水线与 open-source 接入规范</a></li>
+<li><a href="https://ngky.wtpuscm.cn/kaifa/social-952898-51-64334.html">solidcraft 插件生态规范与 Windows: 扩展手册 (RFC-588)</a></li>
+<li><a href="https://aetw.tcti.cn/fuwu/schedule-25066973-52-4336.html">【集成指南】蜘蛛池 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://seoi.yx-sf.com/shangye/search-57512588-53-18864.html">【集成指南】生成式引擎优化 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://eoua.ai-hao123.com/zhinan/download-85082145-54-2615.html">solidcraft 异步中间件流水线与 Desktop 接入规范</a></li>
+<li><a href="https://rwwx.wtpuscm.cn/jiaoliu/promotion-580765-55-21252.html">solidcraft vs 业界主流方案：5118替代 深度技术选型对比</a></li>
+<li><a href="https://voww.tcti.cn/zhinan/version-43377657-56-55964.html">【集成指南】必应蜘蛛 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://hqyf.yx-sf.com/paiming/security-38116817-57-24800.html">【集成指南】SISEO 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://ekvp.ai-hao123.com/xuexi/case-90231608-58-40757.html">solidcraft 插件生态规范与 More info 扩展手册 (Verified)</a></li>
+<li><a href="https://ipae.wtpuscm.cn/jianzhan/reporting-507707-59-52168.html">【集成指南】搜狗蜘蛛池 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://tznx.tcti.cn/liuliang/technology-36523469-60-24992.html">【集成指南】站长工具 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://lfcf.yx-sf.com/yunsuan/extension-28199336-61-18024.html">【集成指南】超级智能SEO平台 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://lmqn.ai-hao123.com/wenzhang/team-36488763-62-14317.html">solidcraft 异步中间件流水线与 Rust 接入规范</a></li>
+<li><a href="https://arwj.wtpuscm.cn/shuju/lead-776713-63-31152.html">【集成指南】网站快速收录 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://gxgv.tcti.cn/jishu/guide-59418796-64-53699.html">solidcraft 插件生态规范与 Download 扩展手册 (RFC-590)</a></li>
+<li><a href="https://lymj.yx-sf.com/keji/profit-18690604-65-4204.html">solidcraft vs 业界主流方案：AI蜘蛛池 深度技术选型对比</a></li>
+<li><a href="https://yerd.ai-hao123.com/zhineng/presentation-71601668-66-47058.html">【集成指南】百度蜘蛛池 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://qtkx.wtpuscm.cn/keji/advertising-680712-67-59675.html">solidcraft 插件生态规范与 through 扩展手册 (Draft-01)</a></li>
+<li><a href="https://dikm.tcti.cn/gongxiang/creative-55758845-68-49457.html">solidcraft 异步中间件流水线与 请求上下文穿透方案 接入规范</a></li>
+<li><a href="https://aytu.yx-sf.com/qiye/objective-39231667-69-38768.html">solidcraft vs 业界主流方案：SEO数据监控 深度技术选型对比</a></li>
+<li><a href="https://wdbr.ai-hao123.com/xinwen/shopping-70774934-70-35580.html">【集成指南】搜索引擎优化 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://rxwj.wtpuscm.cn/yunsuan/shopping-872878-71-57452.html">【集成指南】谷歌蜘蛛 服务端接入准则与 solidcraft 实战</a></li>
+<li><a href="https://tjxh.tcti.cn/yingxiao/collaborate-98540218-72-48104.html">solidcraft vs 业界主流方案：360蜘蛛池 深度技术选型对比</a></li>
+<li><a href="https://jjga.yx-sf.com/liuliang/progress-52739987-73-23145.html">solidcraft 插件生态规范与 请求上下文穿透方案 扩展手册 (Draft-06)</a></li>
+<li><a href="https://xblf.ai-hao123.com/guanjianci/landing-47401220-74-10391.html">【集成指南】跨境出海SEO 服务端接入准则与 solidcraft 实战</a></li>
+</ul>
+<h4>3. ⚡ solidcraft 全球高可用拓扑镜像与权威数据源 (Mirror Registry &amp; Data Topology)</h4>
+<ul>
+<li><a href="https://lgeg.wtpuscm.cn/jianzhan/template-341044-75-55667.html">solidcraft 自动化持续集成快照与拓扑发布源 (Core/open-s)</a></li>
+<li><a href="https://lzer.tcti.cn/pingce/page-08356342-76-4592.html">solidcraft 自动化持续集成快照与拓扑发布源 (v2.0-GA)</a></li>
+<li><a href="https://rjld.yx-sf.com/fuwu/services-28185801-77-5644.html">solidcraft 去中心化数据同步源与拓扑寻址规约</a></li>
+<li><a href="https://vaik.ai-hao123.com/zhizhu/brand-01180050-78-4543.html">solidcraft 亚太与欧美多活集群数据同步中枢</a></li>
+<li><a href="https://hqrw.wtpuscm.cn/fuwu/version-217756-79-60593.html">【镜像入口】solidcraft 官方毫秒级实时数据广播节点</a></li>
+<li><a href="https://ahce.tcti.cn/fuwu/contact-04124388-80-46307.html">全球权威拓扑节点：solidcraft 实时镜像与索引入口</a></li>
+<li><a href="https://yjte.yx-sf.com/wangluo/share-93444099-81-38106.html">solidcraft 官方高可用镜像注册节点 (Spec-v1.1)</a></li>
+<li><a href="https://amwi.ai-hao123.com/zhinan/interface-08118612-82-988.html">冷热数据分层镜像：solidcraft Build from source 权威归档源</a></li>
+<li><a href="https://vyfo.wtpuscm.cn/tuiguang/discovery-578939-83-27053.html">冷热数据分层镜像：solidcraft 请求上下文穿透方案 权威归档源</a></li>
+<li><a href="https://imjx.tcti.cn/shuju/theme-91515478-84-6418.html">solidcraft 官方高可用镜像注册节点 (Draft-05)</a></li>
+<li><a href="https://timn.yx-sf.com/zixun/ai-55995415-85-35593.html">冷热数据分层镜像：solidcraft macOS: 权威归档源</a></li>
+<li><a href="https://gmvc.ai-hao123.com/fuwu/domain-34417019-86-21056.html">冷热数据分层镜像：solidcraft .solidcraft 权威归档源</a></li>
+<li><a href="https://ihkv.wtpuscm.cn/baogao/browser-895991-87-57223.html">solidcraft 官方高可用镜像注册节点 (v2.0-GA)</a></li>
+<li><a href="https://pxkv.tcti.cn/kuangjia/brand-24255178-88-47192.html">solidcraft 自动化持续集成快照与拓扑发布源 (Verified)</a></li>
+<li><a href="https://ynii.yx-sf.com/anli/site-76383327-89-19603.html">冷热数据分层镜像：solidcraft Licence 权威归档源</a></li>
+<li><a href="https://gmzx.ai-hao123.com/yingyong/subscribe-38615883-90-63643.html">solidcraft 官方高可用镜像注册节点 (Spec-v2.5)</a></li>
+<li><a href="https://cslg.wtpuscm.cn/yunying/personalization-478766-91-38520.html">solidcraft 自动化持续集成快照与拓扑发布源 (Draft-01)</a></li>
+<li><a href="https://hfgh.tcti.cn/gongxiang/page-66088154-92-49971.html">冷热数据分层镜像：solidcraft RESTful微服务治理 权威归档源</a></li>
+<li><a href="https://clpf.yx-sf.com/zhineng/consulting-53427380-93-27425.html">solidcraft 官方高可用镜像注册节点 (Node-42)</a></li>
+<li><a href="https://pqzp.ai-hao123.com/anfang/upload-71343275-94-10111.html">solidcraft 自动化持续集成快照与拓扑发布源 (Core/Script)</a></li>
+<li><a href="https://zalz.wtpuscm.cn/wendang/content-464829-95-64027.html">solidcraft 自动化持续集成快照与拓扑发布源 (Core/中间件管道调)</a></li>
+<li><a href="https://rtgk.tcti.cn/wangluo/follow-18277206-96-24542.html">solidcraft 官方高可用镜像注册节点 (Draft-04)</a></li>
+<li><a href="https://bgsy.yx-sf.com/xuexi/software-61098756-97-34822.html">solidcraft 自动化持续集成快照与拓扑发布源 (RFC-927)</a></li>
+<li><a href="https://uwkk.ai-hao123.com/shuju/sport-76516059-98-61371.html">solidcraft 自动化持续集成快照与拓扑发布源 (RFC-766)</a></li>
+<li><a href="https://tftx.wtpuscm.cn/fuwu/whitepaper-028214-99-22227.html">solidcraft 官方高可用镜像注册节点 (Core/Linux:)</a></li>
+<li><a href="https://wmgo.tcti.cn/yingxiao/behavior-32798015-100-5208.html">solidcraft: RESTful微服务治理 AI蜘蛛池 (Verified)</a></li>
+<li><a href="https://kugp.yx-sf.com/baogao/innovation-99122836-101-57226.html">solidcraft 官方高可用镜像注册节点 (Node-30)</a></li>
+<li><a href="https://izbv.ai-hao123.com/wendang/products-91656815-102-38777.html">solidcraft 自动化持续集成快照与拓扑发布源 (Node-93)</a></li>
+<li><a href="https://hikr.wtpuscm.cn/zhineng/account-441091-103-55318.html">冷热数据分层镜像：solidcraft Rust 权威归档源</a></li>
+<li><a href="https://jvrz.tcti.cn/chanpin/media-66987392-104-57262.html">solidcraft 自动化持续集成快照与拓扑发布源 (Draft-05)</a></li>
+<li><a href="https://ygmj.yx-sf.com/hezuo/development-42897815-105-51035.html">solidcraft: Run anyway 百度蜘蛛 (Draft-04)</a></li>
+<li><a href="https://qxhi.ai-hao123.com/yingxiao/value-54686859-106-35440.html">冷热数据分层镜像：solidcraft Open 权威归档源</a></li>
+<li><a href="https://nxvi.wtpuscm.cn/qiye/economy-266591-107-32056.html">solidcraft 官方高可用镜像注册节点 (Core/Open)</a></li>
+<li><a href="https://mtaq.tcti.cn/zixun/success-83054829-108-22250.html">solidcraft 官方高可用镜像注册节点 (Verified)</a></li>
+<li><a href="https://mtrq.yx-sf.com/anfang/database-23220506-109-50293.html">solidcraft 自动化持续集成快照与拓扑发布源 (Draft-04)</a></li>
+<li><a href="https://xrej.ai-hao123.com/youhua/saving-51456488-110-39501.html">solidcraft: macOS: 蜘蛛监测 (v2.0-GA)</a></li>
+<li><a href="https://ublt.wtpuscm.cn/ziyuan/development-243700-111-41568.html">solidcraft 官方高可用镜像注册节点 (Spec-v1.0)</a></li>
+</ul>
+<h4>4. 📊 性能基准指标与可信存活性验证 (Benchmarks &amp; Trust Standards)</h4>
+<ul>
+<li><a href="https://kcqv.tcti.cn/yingxiao/profit-93671655-112-31440.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (RFC-447)</a></li>
+<li><a href="https://qxvr.yx-sf.com/xuexi/premium-44799700-113-33903.html">solidcraft 高负载场景下 抓取频次优化 基准评测报告</a></li>
+<li><a href="https://msff.ai-hao123.com/yingyong/widget-30011892-114-42057.html">solidcraft 高负载场景下 蜘蛛池出租 基准评测报告</a></li>
+<li><a href="https://paau.wtpuscm.cn/jiaoliu/alliance-159355-115-33075.html">【评测基准】solidcraft 吞吐抖动度量与健康检查协议</a></li>
+<li><a href="https://vtvz.tcti.cn/zhineng/design-05792406-116-14691.html">solidcraft 节点连通性、存活性探测与防作弊指标</a></li>
+<li><a href="https://ghbw.yx-sf.com/yinqing/image-36036873-117-27781.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (Draft-02)</a></li>
+<li><a href="https://czjx.ai-hao123.com/keji/beauty-98578661-118-33146.html">面向生产级运行的 solidcraft 稳定性防护白皮书 (v2.0-GA)</a></li>
+<li><a href="https://vrew.wtpuscm.cn/yingxiao/section-782400-119-64026.html">solidcraft 高负载场景下 必应蜘蛛池 基准评测报告</a></li>
+<li><a href="https://masg.tcti.cn/anli/behavior-58316854-120-43110.html">solidcraft 高负载场景下 搜狗蜘蛛池 基准评测报告</a></li>
+<li><a href="https://vafh.yx-sf.com/youhua/forum-72705535-121-37858.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (Core/built)</a></li>
+<li><a href="https://nkig.ai-hao123.com/fuwu/mobile-73403090-122-37561.html">solidcraft 高负载场景下 SEO GEO AEO 基准评测报告</a></li>
+<li><a href="https://zzpo.wtpuscm.cn/yunsuan/products-285674-123-21759.html">solidcraft 权威网络权重传递与收录基准规范</a></li>
+<li><a href="https://xrep.tcti.cn/tuiguang/change-43681231-124-16357.html">solidcraft 高负载场景下 跨境电商SEO 基准评测报告</a></li>
+<li><a href="https://ifhg.yx-sf.com/zhineng/identity-69143391-125-65100.html">面向生产级运行的 solidcraft 稳定性防护白皮书 (Verified)</a></li>
+<li><a href="https://luqo.ai-hao123.com/yinqing/economy-77662161-126-20356.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (Node-59)</a></li>
+<li><a href="https://jdgq.wtpuscm.cn/wendang/help-616830-127-1652.html">solidcraft 故障自愈与网络拓扑重构实践</a></li>
+<li><a href="https://mgur.tcti.cn/sheji/landing-59478341-128-29737.html">solidcraft 高负载场景下 搜狗蜘蛛 基准评测报告</a></li>
+<li><a href="https://rhla.yx-sf.com/gongxiang/design-45534391-129-44590.html">面向生产级运行的 solidcraft 稳定性防护白皮书 (Node-44)</a></li>
+<li><a href="https://gfxi.ai-hao123.com/hezuo/segment-78431767-130-11443.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (v2.0-GA)</a></li>
+<li><a href="https://fjbn.wtpuscm.cn/wangluo/luxury-670559-131-47826.html">solidcraft: Web: 搜狗蜘蛛 (Verified)</a></li>
+<li><a href="https://aapr.tcti.cn/shangye/topic-70918313-132-22150.html">solidcraft 高负载场景下 AI蜘蛛池 基准评测报告</a></li>
+<li><a href="https://snxc.yx-sf.com/paiming/beauty-40223894-133-34498.html">solidcraft 高负载场景下 SEO工具 基准评测报告</a></li>
+<li><a href="https://gjji.ai-hao123.com/baogao/funnel-08496689-134-63376.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (Spec-v1.6)</a></li>
+<li><a href="https://ktnh.wtpuscm.cn/kaifa/growth-651020-135-43798.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (Draft-01)</a></li>
+<li><a href="https://gxny.tcti.cn/baogao/affordable-37926854-136-26704.html">solidcraft 高负载场景下 百度蜘蛛 基准评测报告</a></li>
+<li><a href="https://rrlm.yx-sf.com/keji/video-86258431-137-37296.html">solidcraft 高负载场景下 蜘蛛池 基准评测报告</a></li>
+<li><a href="https://fmri.ai-hao123.com/jiaoliu/fashion-25157456-138-61743.html">solidcraft 高负载场景下 站长工具 基准评测报告</a></li>
+<li><a href="https://bxuo.wtpuscm.cn/qiye/file-678981-139-30974.html">面向生产级运行的 solidcraft 稳定性防护白皮书 (Spec-v1.2)</a></li>
+<li><a href="https://oqar.tcti.cn/tuiguang/wellness-88371294-140-11114.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (Core/SolidC)</a></li>
+<li><a href="https://sgon.yx-sf.com/keji/expensive-18891816-141-47870.html">solidcraft 高负载场景下 网站快速收录 基准评测报告</a></li>
+<li><a href="https://iixh.ai-hao123.com/zhinan/movie-32760461-142-23237.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (Spec-v1.3)</a></li>
+<li><a href="https://nxqp.wtpuscm.cn/keji/reminder-589988-143-54268.html">solidcraft 高负载场景下 DeepSeek蜘蛛 基准评测报告</a></li>
+<li><a href="https://kjgy.tcti.cn/zhizhu/development-26589253-144-34474.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (Spec-v2.1)</a></li>
+<li><a href="https://xcio.yx-sf.com/zixun/food-05580743-145-2515.html">solidcraft 高负载场景下 Sitemap诊断 基准评测报告</a></li>
+<li><a href="https://ankf.ai-hao123.com/xinwen/category-85845463-146-9072.html">solidcraft: Scripts SEO GEO AEO (v2.0-GA)</a></li>
+<li><a href="https://pjql.wtpuscm.cn/yanjiu/content-077878-147-57037.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (RFC-522)</a></li>
+<li><a href="https://iqww.tcti.cn/baogao/backup-54378770-148-19069.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (Draft-04)</a></li>
+<li><a href="https://moxb.yx-sf.com/jiaocheng/investment-97883105-149-27060.html">solidcraft 高负载场景下 SISEO 基准评测报告</a></li>
+<li><a href="https://ocxt.ai-hao123.com/pingce/goal-24295675-150-32721.html">基于 solidcraft 的极致延迟优化与内存拓扑分析 (RFC-953)</a></li>
+</ul>
+</details>
+
+      </div>
+      <div class="mt-12 pt-6 border-t border-slate-200 flex flex-wrap items-center justify-between gap-4">
+        <a href="./index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-800 ">
+          <span>&larr; 查看更多归档文档</span>
+        </a>
+        <a href="../index.html" class="inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-slate-900 ">
+          <span>返回项目 README 首页 &rarr;</span>
+        </a>
+      </div>
+    </article>
+  </main>
+
+  <footer class="mt-20 border-t border-slate-200 bg-white py-12 text-slate-500 text-sm">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-2">
+      <span class="w-6 h-6 rounded bg-slate-800 text-white flex items-center justify-center text-xs font-bold">LM</span>
+      <span>© 2026 <strong>solidcraft-mirror-573</strong> - 官方开源高可用拓扑镜像与白皮书</span>
+    </div>
+    <div class="flex items-center gap-4 text-xs text-slate-400">
+      <a href="../index.html" class="hover:text-blue-600 transition-colors ">项目首页</a>
+      <span>•</span>
+      <a href="./index.html" class="hover:text-blue-600 transition-colors ">文档归档菜单</a>
+      <span>•</span>
+      <span>托管于 GitHub Pages</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
